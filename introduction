@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -29,32 +31,32 @@
                                             </li>
                 </ul>
             </div>
-        <h1>Introduction</h1> 
+        <h1>Giriş</h1> 
 <a name="about-this-tutorial"></a>
-<h2>About this tutorial</h2>
+<h2>Tutorial Hakkında</h2>
 <p>
-Welcome to <em>Learn You a Haskell for Great Good</em>! 
-If you're reading this, chances are you want to learn Haskell. Well, you've come to the right place, but let's talk about this tutorial a bit first.  
+<em>Kendinize Haskell Öğretin</em>'e hoşgeldiniz! 
+Eğer bunu okuyorsanız Haskell öğrenmek istiyor olma ihtimaliniz yüksek. Tam yerine geldiniz, fakat ilk önce tutorial hakkında biraz konuşalım.
 </p>
 <p>
-I decided to write this because I wanted to solidify my own knowledge of Haskell and because I thought I could help people new to Haskell learn it from my perspective. There are quite a few tutorials on Haskell floating around on the internet. When I was starting out in Haskell, I didn't learn from just one resource. The way I learned it was by reading several different tutorials and articles because each explained something in a different way than the other did. By going through several resources, I was able put together the pieces and it all just came falling into place. So this is an attempt at adding another useful resource for learning Haskell so you have a bigger chance of finding one you like.
+Bunu yazmaya karar verdim çünkü Haskell hakkındaki bilgilerimi pekiştirmek istedim ve düşündüm ki bu bilgilerle Haskell'a yeni başlayan sizlere kendi persfektifimden yardım edebilirim.İnternette dolaşan Haskell ile ilgili bir kaç tutorial mevcut. Ben Haskell'a başlarken tek bir kaynaktan öğrenmedim. Haskell'ı birden fazla kaynak ve makale okuyarak öğrendim çünkü makalelerin herbiri bilgileri diğerinden farklı bir yolla açıklıyordu.Bu sayede tüm parçalar tek bir yerde birleşti.Yani burda yapmaya çalıştığım şey Haskell öğrenmeniz için yeni bir kaynak oluşturmak bu sayede hangi kaynağı daha çok sevdiğinizi belirleme şansınız epeyce yükselecek.
 </p>
 <img src="http://s3.amazonaws.com/lyah/bird.png" alt="bird" class="left" width="230" height="192">
 <p>
-This tutorial is aimed at people who have experience in imperative programming languages (C, C++, Java, Python &hellip;) but haven't programmed in a functional language before (Haskell, ML, OCaml &hellip;). Although I bet that even if you don't have any significant programming experience, a smart person such as yourself will be able to follow along and learn Haskell.
+Bu tutorialde zorunlu dillerde tecrübesi olan (C, C++, Java, Python &hellip;) fakat fonksiyonel programlamada (Haskell, ML, OCaml &hellip;) tecrübesi olmayan kişiler hedef alınmıştır. Ancak bahse girerim programlama tecrübeniz olmasa bile sizin gibi zeki bir insan Haskell'ı rahatça öğrenebilir.
 </p>
 <p>
-The channel #haskell on the freenode network is a great place to ask questions if you're feeling stuck. People there are extremely nice, patient and understanding to newbies.
+Freenode ağındaki #haskell birşeyler sormak istediğinizde size yardım edebilecek harika bir yerdir.Ordaki insanlar Haskell'a yeni başlayanların halinden çok iyi anlar ve onlara yardım edebilecek kadar güvenilir ve sabırlıdır.
 </p>
 <p>
-I failed to learn Haskell approximately 2 times before finally grasping it because it all just seemed too weird to me and I didn't get it. But then once it just "clicked" and after getting over that initial hurdle, it was pretty much smooth sailing. I guess what I'm trying to say is: Haskell is great and if you're interested in programming you should really learn it even if it seems weird at first. Learning Haskell is much like learning to program for the first time &mdash; it's fun! It forces you to think differently, which brings us to the next section &hellip;
+Haskell'ı tamamen kavramadan önce yaklaşık olarak 2 kez başarısız oldum çünkü Haskell bana çok tuhaf gelmişti. Fakat zor olan ilk kısmı geçtiğimde rahatça deryaya yelken açtım. Anlatmaya çalıştığım şey şu: Haskell en başta tuhaf gelse de gerçekten öğrenilmesi gereken çok yararlı bir dildir. Haskell'ı öğrenmek yeni bir programlama diline başlamak gibidir &mdash; yani eğlencelidir! sizi farklı düşünmeye zorlar, neyse şimdi diğer bölüme geçelim &hellip;
 </p>
 
-<a name="so-whats-haskell"></a><h2>So what's Haskell?</h2>
+<a name="so-whats-haskell"></a><h2>Haskell Nedir?</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/fx.png" alt="fx" class="right" width="150" height="146">
-Haskell is a <em>purely functional programming language</em>.
-In imperative languages you get things done by giving the computer a sequence of tasks and then it executes them. While executing them, it can change state. For instance, you set variable <span class="fixed">a</span> to 5 and then do some stuff and then set it to something else. You have control flow structures for doing some action several times. In purely functional programming you don't tell the computer what to do as such but rather you tell it what stuff <i>is</i>. The factorial of a number is the product of all the numbers from 1 to that number, the sum of a list of numbers is the first number plus the sum of all the other numbers, and so on. You express that in the form of functions. You also can't set a variable to something and then set it to something else later. If you say that <span class="fixed">a</span> is 5, you can't say it's something else later because you just said it was 5. What are you, some kind of liar? So in purely functional languages, a function has no side-effects. The only thing a function can do is calculate something and return it as a result. At first, this seems kind of limiting but it actually has some very nice consequences: if a function is called twice with the same parameters, it's guaranteed to return the same result. That's called referential transparency and not only does it allow the compiler to reason about the program's behavior, but it also allows you to easily deduce (and even prove) that a function is correct and then build more complex functions by gluing simple functions together.
+Haskell <em>tamamen fonksiyonel bir programlama dili</em>dir.
+Zorunlu dillerde bilgisayara bir dizi girdi verirsiniz bu bilgisayar onları çalıştırır. Bunları çalıştırırken durum değiştirebilir. Mesela <span class="fixed">a</span> diye bir değişken yarattınız ve onu 5'e eşitlediniz sonra birkaç iş yaptıktan sonra tekrar değiştirdiniz. Yapıların kontrol akışını bir işlemi birkaç kez yapmak için elinizde tutuyorsunuz.In purely functional programming you don't tell the computer what to do as such but rather you tell it what stuff <i>is</i>. The factorial of a number is the product of all the numbers from 1 to that number, the sum of a list of numbers is the first number plus the sum of all the other numbers, and so on. You express that in the form of functions. You also can't set a variable to something and then set it to something else later. If you say that <span class="fixed">a</span> is 5, you can't say it's something else later because you just said it was 5. What are you, some kind of liar? So in purely functional languages, a function has no side-effects. The only thing a function can do is calculate something and return it as a result. At first, this seems kind of limiting but it actually has some very nice consequences: if a function is called twice with the same parameters, it's guaranteed to return the same result. That's called referential transparency and not only does it allow the compiler to reason about the program's behavior, but it also allows you to easily deduce (and even prove) that a function is correct and then build more complex functions by gluing simple functions together.
 </p>
 <p>
 <img src="http://s3.amazonaws.com/lyah/lazy.png" class="right" alt="lazy" width="240" height="209">
