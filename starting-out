@@ -21,31 +21,31 @@
                 <div class="footdiv" style="margin-bottom:25px;">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="introduction" class="prevlink">Introduction</a>
+                                                        <a href="introduction" class="prevlink">Tanıtım</a>
                                             </li>
                     <li style="text-align:center">
-                        <a href="chapters">Table of contents</a>
+                        <a href="chapters">İçindekiler</a>
                     </li>
                     <li style="text-align:right">
-                                                        <a href="types-and-typeclasses" class="nxtlink">Types and Typeclasses</a>
+                                                        <a href="types-and-typeclasses" class="nxtlink">Tipler ve Tip Sınıfları</a>
                                             </li>
                 </ul>
             </div>
-        <h1 style="margin-left:-3px">Starting Out</h1>
-<a name="ready-set-go"></a><h2>Ready, set, go!</h2>
+        <h1 style="margin-left:-3px">İlk Adım</h1>
+<a name="ready-set-go"></a><h2>Hazır, başla!</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/startingout.png" class="right" alt="egg" width="214" height="187">
-Alright, let's get started! If you're the sort of horrible person who doesn't read introductions to things and you skipped it, you might want to read the last section in the introduction anyway because it explains what you need to follow this tutorial and how we're going to load functions. The first thing we're going to do is run ghc's interactive mode and call some function to get a very basic feel for haskell. Open your terminal and type in <span class="fixed">ghci</span>. You will be greeted with something like this.
+Tamam, haydi başlayalım! Eğer tanıtımı okumadan geçen sabırsız kişilerdensen, tanıtımın son kısmını okumak isteyebilirsin çünkü bu eğitimi takip etmek için neye ihtiyacın olduğunu ve nasıl fonksiyon yükleyeceğimizi açıklıyor. Haskell hakkında temel bir fikir edinmeniz için yapacağımız ilk şey ghc'yi interaktif modda çalıştırmak ve bazı fonksiyonlar çağırmak olacak. Terminalinizi açın ve <span class="fixed">ghci</span> yazın. Böyle bir şeyle karşılacaksınız.
 </p>
 <pre name="code" class="haskell: ghci">
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude&gt;</pre>
 <p>
-Congratulations, you're in GHCI! The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. If you want to have the same prompt, just type in <span class="fixed">:set prompt "ghci&gt; "</span>. 
+Tebrikler, GHCI'desiniz! The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. If you want to have the same prompt, just type in <span class="fixed">:set prompt "ghci&gt; "</span>. 
 </p>
 <p>
-Here's some simple arithmetic.
+İşte bazı basit aritmetikler.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 2 + 15
@@ -58,7 +58,7 @@ ghci&gt; 5 / 2
 2.5
 ghci&gt;</pre>
 <p>
-This is pretty self-explanatory. We can also use several operators on one line and all the usual precedence rules are obeyed. We can use parentheses to make the precedence explicit or to change it.
+Burası oldukça anlaşılır. Bir satırda birkaç işleç de kullanabiliriz. İşlem önceliği alışıldığı gibidir. Önceliği değiştirmek ve ya açıklık getirmek için parantezlerden yararlanabiliriz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; (50 * 100) - 4999
@@ -68,10 +68,10 @@ ghci&gt; 50 * 100 - 4999
 ghci&gt; 50 * (100 - 4999)
 -244950</pre>
 <p>
-Pretty cool, huh? Yeah, I know it's not but bear with me. A little pitfall to watch out for here is negating numbers. If we want to have a negative number, it's always best to surround it with parentheses. Doing <span class="fixed">5 * -3</span> will make GHCI yell at you but doing <span class="fixed">5 * (-3)</span> will work just fine.
+Oldukça harika, değil mi? Tamam, biliyorum değil ama sabredin. Sayıları negatif hale getirirken biraz dikkat etmek gerekiyor. Eğer bir negatif sayı istiyorsak, her zaman en iyisi onu parantezlerle çevrelemek. Böyle yazarsan <span class="fixed">5 * -3</span> GHCI seni uyaracaktır ama böyle yazarsan <span class="fixed">5 * (-3)</span> sorunsuz çalışacaktır.
 </p>
 <p>
-Boolean algebra is also pretty straightforward. As you probably know, <span class="fixed">&amp;&amp;</span> means a boolean <i>and</i>, <span class="fixed">||</span> means a boolean <i>or</i>. <span class="fixed">not</span> negates a <span class="fixed">True</span> or a <span class="fixed">False</span>.
+Boolean cebri de oldukça basit. Muhtemelen bilirsin, <span class="fixed">&amp;&amp;</span> boolen <i>ve</i>, <span class="fixed">||</span> boolen <i>ve ya</i> anlamına geliyor. <span class="fixed">not</span>, <span class="fixed">True</span> ve ya <span class="fixed">False</span>'u negatif hale çevirir.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; True &amp;&amp; False
@@ -85,7 +85,7 @@ True
 ghci&gt; not (True &amp;&amp; True)
 False</pre>
 <p>
-Testing for equality is done like so.
+Eşitliği test etmek şöyle yapılabilir.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 5 == 5
@@ -99,7 +99,7 @@ True
 ghci&gt; "hello" == "hello"
 True </pre>
 <p>
-What about doing <span class="fixed">5 + "llama"</span> or <span class="fixed">5 == True</span>? Well, if we try the first snippet, we get a big scary error message!
+Acaba <span class="fixed">5 + "llama"</span> ya da <span class="fixed">5 == True</span> yaparsak ne olur? Eğer ilk kodu denersek, büyük korkunç bir hata mesajı alırız!
 </p>
 <pre name="code" class="haskell: ghci">
 No instance for (Num [Char])
@@ -108,20 +108,20 @@ Possible fix: add an instance declaration for (Num [Char])
 In the expression: 5 + "llama"
 In the definition of `it': it = 5 + "llama" </pre>
 <p>
-Yikes! What GHCI is telling us here is that <span class="fixed">"llama"</span> is not a number and so it doesn't know how to add it to 5. Even if it wasn't <span class="fixed">"llama"</span> but <span class="fixed">"four"</span> or <span class="fixed">"4"</span>, Haskell still wouldn't consider it to be a number. <span class="fixed">+</span> expects its left and right side to be numbers. If we tried to do <span class="fixed">True == 5</span>, GHCI would tell us that the types don't match. Whereas <span class="fixed">+</span> works only on things that are considered numbers, <span class="fixed">==</span> works on any two things that can be compared. But the catch is that they both have to be the same type of thing. You can't compare apples and oranges. We'll take a closer look at types a bit later. Note: you can do <span class="fixed">5 + 4.0</span> because <span class="fixed">5</span> is sneaky and can act like an integer or a floating-point number. <span class="fixed">4.0</span> can't act like an integer, so <span class="fixed">5</span> is the one that has to adapt.
+Eyvah! Burada GHCI bize <span class="fixed">"llama"</span>'nın bir sayı olmadığını ve 5'e nasıl ekleyeceğini bilmediğini söylüyor. Eğer <span class="fixed">"llama"</span> değil <span class="fixed">"four"</span> ya da <span class="fixed">"4"</span> olsaydı, Haskell hala onun sayı olduğunu anlayamazdı. <span class="fixed">+</span> sağ ve sol tarafının sayı olmasını bekler. Eğer <span class="fixed">True == 5</span> denersek, GHCI bize tiplerin uyuşmadığını söyler. Oysa <span class="fixed">+</span> sadece sayı kabul edilen şeyler üzerinde çalışırken, <span class="fixed">==</span> karşılaştırılabilen herhangi iki şey üzerinde çalışır. Ama önemli nokta her ikisinin de aynı tip materyalleri işleyebilmesi. Elma ile portakalı karşılaştıramazsın. İleride tiplere daha yakından bakacağız. Not: <span class="fixed">5 + 4.0</span> yazabilirsin çünkü <span class="fixed">5</span> sinsidir ve hem tam sayı hem de küsürlü sayı gibi davranabilir. <span class="fixed">4.0</span> tam sayı gibi davranamaz, bu yüzden <span class="fixed">5</span> de buna ayak uydurmak zorudadır.
 </p>
 <p>
-You may not have known it but we've been using functions now all along. For instance, <span class="fixed">*</span> is a function that takes two numbers and multiplies them. As you've seen, we call it by sandwiching it between them. This is what we call an <i>infix</i> function. Most functions that aren't used with numbers are <i>prefix</i> functions. Let's take a look at them. 
+Fark etmemiş olabilirsin ama başından beri hep fonksiyonları kullandık. Örneğin, <span class="fixed">*</span> iki sayı alan ve onları çarpan bir fonksiyon. Az önce gördüğün gibi, onu iki sayı arasında çağırmıştık. Biz böyle fonksiyonlara <i>infix</i> fonksiyon diyoruz. Sayılarla beraber kullanılmayan birçok fonksiyon <i>prefix</i> fonsiyondur. Haydi onlara bakalım. 
 </p>
 <p>
 <img src="http://s3.amazonaws.com/lyah/ringring.png" alt="phoen" class="right" width="160" height="161">
-Functions are usually prefix so from now on we won't explicitly state that a function is of the prefix form, we'll just assume it. In most imperative languages functions are called by writing the function name and then writing its parameters in parentheses, usually separated by commas. In Haskell, functions are called by writing the function name, a space and then the parameters, separated by spaces. For a start, we'll try calling one of the most boring functions in Haskell.
+Şimdiye kadar belitmemiştik ama kullandığımız fonksiyonlar çoğunlukla prefix yapıdaydı, biraz önce bundan bahsettik. Çoğu imperatif dilde fonksiyonlar, fonksiyon adı ile çağırılır ardından parantez içerisinde paramatreleri vardır, parametlerler de genellikle virgüllerle ayrılır. Haskell'de fonsiyonlar, fonksiyon adı sonra bir boşluk ardından parametlerleri yazılarak çağırılır. Parametreler de birbirlerinden birer boşlukla ayrılır. Başlangıç için, Haskell'deki en sıkıcı fonksiyonlardan birini çağırmayı deneyeceğiz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; succ 8
 9 </pre>
 <p>
-The <span class="fixed">succ</span> function takes anything that has a defined successor and returns that successor. As you can see, we just separate the function name from the parameter with a space. Calling a function with several parameters is also simple. The functions <span class="fixed">min</span> and <span class="fixed">max</span> take two things that can be put in an order (like numbers!). <span class="fixed">min</span> returns the one that's lesser and <span class="fixed">max</span> returns the one that's greater. See for yourself:
+<span class="fixed">succ</span> fonksiyonu ardılı olan herhangi bir şey alır ve onun ardılını döndürür. Gördüğün gibi, fonsiyon adını parametresinden bir boşlukla ayırdık. Bir fonksiyonu birkaç parametreyle çağırmak da kolay. <span class="fixed">min</span> ve <span class="fixed">max</span> fonksiyonları sıralanabilecek herhangi iki şey alır (sayı gibi!). <span class="fixed">min</span> küçük olanı döndürürken and <span class="fixed">max</span> büyük olanı döndürür. Kendin bak:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; min 9 10
@@ -132,7 +132,7 @@ ghci&gt; max 100 101
 101 </pre>
 
 <p>
-Function application (calling a function by putting a space after it and then typing out the parameters) has the highest precedence of them all. What that means for us is that these two statements are equivalent.
+Fonksiyon kullanımı (fonksiyon çağırma ardından birer boşlukla parametreleri yazmak) en yüksek önceliklidir. Bu aşağıdaki iki ifadenin eşit olduğu anlamına geliyor.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; succ 9 + max 5 4 + 1
@@ -141,10 +141,10 @@ ghci&gt; (succ 9) + (max 5 4) + 1
 16
 </pre>
 <p>
-However, if we wanted to get the successor of the product of numbers 9 and 10, we couldn't write <span class="fixed">succ 9 * 10</span> because that would get the successor of 9, which would then be multiplied by 10. So 100. We'd have to write <span class="fixed">succ (9 * 10)</span> to get 91.
+Eğer 9 ve 10'un sonucunun bir fazlasını istiyorsak, <span class="fixed">succ 9 * 10</span> yazmamalıyız çünkü bu 9'un bir fazlası ile 10'un çarpımıdır. Yani 100. 91 sonucunu almak için <span class="fixed">succ (9 * 10)</span> yazmalıyız.
 </p>
-<p>If a function takes two parameters, we can also call it as an infix function by surrounding it with backticks. For instance, the <span class="fixed">div</span> function takes two integers and does integral division between them. Doing <span class="fixed">div 92 10</span> results in a 9. But when we call it like that, there may be some confusion as to which number is doing the division and which one is being divided. So we can call it as an infix function by doing <span class="fixed">92 `div` 10</span> and suddenly it's much clearer. </p>
-<p>Lots of people who come from imperative languages tend to stick to the notion that parentheses should denote function application. For example, in C, you use parentheses to call functions like <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> or <span class="fixed">baz(3, "haha")</span>. Like we said, spaces are used for function application in Haskell. So those functions in Haskell would be <span class="fixed">foo</span>, <span class="fixed">bar 1</span> and <span class="fixed">baz 3 "haha"</span>. So if you see something like <span class="fixed">bar (bar 3)</span>, it doesn't mean that <span class="fixed">bar</span> is called with <span class="fixed">bar</span> and <span class="fixed">3</span> as parameters. It means that we first call the function <span class="fixed">bar</span> with <span class="fixed">3</span> as the parameter to get some number and then we call <span class="fixed">bar</span> again with that number. In C, that would be something like <span class="fixed">bar(bar(3))</span>.</p>
+<p>Eğer fonksiyon iki parametre alıyorsa, fonksiyonu backticklerin arasına alarak infix yapıda da çağırabiliriz. Örneğin, <span class="fixed">div</span> fonksiyonu iki tamsayı alır ve tam bölme yapar. <span class="fixed">div 92 10</span> işleminin sonucu 9'dur. Ama bu şekilde çağırmamız bölen ile bölüneni karıştırmamıza neden olabilir. İnfix fonksiyon olarak çağırdığımızda ise, <span class="fixed">92 `div` 10</span> aniden daha anlaşılır oldu. </p>
+<p>Lots of people who come from imperative languages tend to stick to the notion that parentheses should denote function application. Örneğin, C'de <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> ya da <span class="fixed">baz(3, "haha")</span> gibi fonksiyonları parantezlerle çağırırsın. Söylediğimiz gibi, Haskell'de fonksiyon kullanımında boşluklar kullanılır. Bu fonksiyonlar Haskell'de <span class="fixed">foo</span>, <span class="fixed">bar 1</span> ve <span class="fixed">baz 3 "haha"</span> şeklinde olmalıdır. <span class="fixed">bar (bar 3)</span> gibi bir şey görürsen; <span class="fixed">bar</span>, <span class="fixed">bar</span> ve <span class="fixed">3</span> parametreleriyle çağırılmış anlamına gelmez. Bu <span class="fixed">bar</span> fonksiyonunu <span class="fixed">3</span> parametresi ile çağırıp, bundan elde edilen sonuc ile yine <span class="fixed">bar</span> fonksiyonunu çağırdığımız anlamına gelir. C'de, bu şekilde olmalı <span class="fixed">bar(bar(3))</span>.</p>
 <a name="babys-first-functions"></a><h2>Baby's first functions</h2>
 <p>
 In the previous section we got a basic feel for calling functions. Now let's try making our own! Open up your favorite text editor and punch in this function that takes a number and multiplies it by two.
