@@ -42,7 +42,7 @@ GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude&gt;</pre>
 <p>
-Tebrikler, GHCI'desiniz! The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. If you want to have the same prompt, just type in <span class="fixed">:set prompt "ghci&gt; "</span>. 
+Tebrikler, GHCI'desiniz! ***The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. If you want to have the same prompt, just type in <span class="fixed">:set prompt "ghci&gt; "</span>. 
 </p>
 <p>
 İşte bazı basit aritmetikler.
@@ -144,15 +144,15 @@ ghci&gt; (succ 9) + (max 5 4) + 1
 Eğer 9 ve 10'un sonucunun bir fazlasını istiyorsak, <span class="fixed">succ 9 * 10</span> yazmamalıyız çünkü bu 9'un bir fazlası ile 10'un çarpımıdır. Yani 100. 91 sonucunu almak için <span class="fixed">succ (9 * 10)</span> yazmalıyız.
 </p>
 <p>Eğer fonksiyon iki parametre alıyorsa, fonksiyonu backticklerin arasına alarak infix yapıda da çağırabiliriz. Örneğin, <span class="fixed">div</span> fonksiyonu iki tamsayı alır ve tam bölme yapar. <span class="fixed">div 92 10</span> işleminin sonucu 9'dur. Ama bu şekilde çağırmamız bölen ile bölüneni karıştırmamıza neden olabilir. İnfix fonksiyon olarak çağırdığımızda ise, <span class="fixed">92 `div` 10</span> aniden daha anlaşılır oldu. </p>
-<p>Lots of people who come from imperative languages tend to stick to the notion that parentheses should denote function application. Örneğin, C'de <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> ya da <span class="fixed">baz(3, "haha")</span> gibi fonksiyonları parantezlerle çağırırsın. Söylediğimiz gibi, Haskell'de fonksiyon kullanımında boşluklar kullanılır. Bu fonksiyonlar Haskell'de <span class="fixed">foo</span>, <span class="fixed">bar 1</span> ve <span class="fixed">baz 3 "haha"</span> şeklinde olmalıdır. <span class="fixed">bar (bar 3)</span> gibi bir şey görürsen; <span class="fixed">bar</span>, <span class="fixed">bar</span> ve <span class="fixed">3</span> parametreleriyle çağırılmış anlamına gelmez. Bu <span class="fixed">bar</span> fonksiyonunu <span class="fixed">3</span> parametresi ile çağırıp, bundan elde edilen sonuc ile yine <span class="fixed">bar</span> fonksiyonunu çağırdığımız anlamına gelir. C'de, bu şekilde olmalı <span class="fixed">bar(bar(3))</span>.</p>
+<p>***Lots of people who come from imperative languages tend to stick to the notion that parentheses should denote function application. Örneğin, C'de <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> ya da <span class="fixed">baz(3, "haha")</span> gibi fonksiyonları parantezlerle çağırırsın. Söylediğimiz gibi, Haskell'de fonksiyon kullanımında boşluklar kullanılır. Bu fonksiyonlar Haskell'de <span class="fixed">foo</span>, <span class="fixed">bar 1</span> ve <span class="fixed">baz 3 "haha"</span> şeklinde olmalıdır. <span class="fixed">bar (bar 3)</span> gibi bir şey görürsen; <span class="fixed">bar</span>, <span class="fixed">bar</span> ve <span class="fixed">3</span> parametreleriyle çağırılmış anlamına gelmez. Bu <span class="fixed">bar</span> fonksiyonunu <span class="fixed">3</span> parametresi ile çağırıp, bundan elde edilen sonuc ile yine <span class="fixed">bar</span> fonksiyonunu çağırdığımız anlamına gelir. C'de, bu şekilde olmalı <span class="fixed">bar(bar(3))</span>.</p>
 <a name="babys-first-functions"></a><h2>Baby's first functions</h2>
 <p>
-In the previous section we got a basic feel for calling functions. Now let's try making our own! Open up your favorite text editor and punch in this function that takes a number and multiplies it by two.
+Önceki bölümde fonksiyon kullanımları ile ilgili temel fikir edindik. Haydi şimdi iyice anlayalım! En sevdiğin metin editörünü aç ve bir sayı alıp onu ikiyle çarpan bir fonksiyon yaz.
 </p>
 <pre name="code" class="haskell: hs">
 doubleMe x = x + x</pre>
 <p>
-Functions are defined in a similar way that they are called. The function name is followed by parameters seperated by spaces. But when defining functions, there's a <span class="fixed">=</span> and after that we define what the function does. Save this as <span class="fixed">baby.hs</span> or something. Now navigate to where it's saved and run <span class="fixed">ghci</span> from there. Once inside GHCI, do <span class="fixed">:l baby</span>. Now that our script is loaded, we can play with the function that we defined.
+Fonksiyonlar, çağırımlarına benzer şekilde tanımlanır. Önce fonksiyon adı yazılır ardından parametreleri de aralarında boşluk olacak şekilde yerleştirilir. ***Ama fonksiyon tanımlarken, <span class="fixed">=</span> kullanılır ardından da fonksiyonun ne yaptığı tanımlanır. Bunu <span class="fixed">baby.hs</span> olarak kaydedin. Kaydettiğiniz dizine gidin ve <span class="fixed">ghci</span>'yi orada çalıştırın. GHCI içinde bir kez <span class="fixed">:l baby</span> yapın. Şimdi scriptimiz yüklendi, artık tanımladığımız fonsiyonlarla oynayabiliriz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :l baby
@@ -163,12 +163,12 @@ ghci&gt; doubleMe 9
 ghci&gt; doubleMe 8.3
 16.6 </pre>
 <p>
-Because <span class="fixed">+</span> works on integers as well as on floating-point numbers (anything that can be considered a number, really), our function also works on any number. Let's make a function that takes two numbers and multiplies each by two and then adds them together.
+Çünkü <span class="fixed">+</span> tamsayılarla çalıştığı gibi gerçel sayılarla da çalışır (Herhangi birşey sayı olarak kabul edilebilir, gerçekten),fonksiyonumuz herhangi bir sayıyla da çalışır. Haydi bir fonksiyon yazalım. Bu fonksiyon iki sayı alsın, onları iki ile çarpıp birbiri ile toplasın.
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = x*2 + y*2 </pre>
 <p>
-Simple. We could have also defined it as <span class="fixed">doubleUs x y = x + x + y + y</span>. Testing it out produces pretty predictable results (remember to append this function to the <span class="fixed">baby.hs</span> file, save it and then do <span class="fixed">:l baby</span> inside GHCI).
+Basit. Şu şekilde de tanımlayabilirdik <span class="fixed">doubleUs x y = x + x + y + y</span>. Test edin, oldukça tahmin edilebilir sonuçlar veriyor (Unutma, bu fonksiyonu <span class="fixed">baby.hs</span> dosyasına ekleyip kaydettikten sonra GHCI içinde tekrar <span class="fixed">:l baby</span> yapmalısın).
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; doubleUs 4 9
@@ -179,7 +179,7 @@ ghci&gt; doubleUs 28 88 + doubleMe 123
 478
 </pre>
 <p>
-As expected, you can call your own functions from other functions that you made. With that in mind, we could redefine <span class="fixed">doubleUs</span> like this:
+Tahmin edeceğin gibi, kendi ürettiğin fonksiyonları yine kendi ürettiğin fonsiyonlarla çağırabilirsin. Yani, <span class="fixed">doubleUs</span> fonksiyonunu bu şekilde yeniden tanımlayabiliriz:
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = doubleMe x + doubleMe y </pre>
