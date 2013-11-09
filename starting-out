@@ -111,17 +111,17 @@ In the definition of `it': it = 5 + "llama" </pre>
 Eyvah! Burada GHCI bize <span class="fixed">"llama"</span>'nın bir sayı olmadığını ve 5'e nasıl ekleyeceğini bilmediğini söylüyor. Eğer <span class="fixed">"llama"</span> değil <span class="fixed">"four"</span> ya da <span class="fixed">"4"</span> olsaydı, Haskell hala onun sayı olduğunu anlayamazdı. <span class="fixed">+</span> sağ ve sol tarafının sayı olmasını bekler. Eğer <span class="fixed">True == 5</span> denersek, GHCI bize tiplerin uyuşmadığını söyler. Oysa <span class="fixed">+</span> sadece sayı kabul edilen şeyler üzerinde çalışırken, <span class="fixed">==</span> karşılaştırılabilen herhangi iki şey üzerinde çalışır. Ama önemli nokta her ikisinin de aynı tip materyalleri işleyebilmesi. Elma ile portakalı karşılaştıramazsın. İleride tiplere daha yakından bakacağız. Not: <span class="fixed">5 + 4.0</span> yazabilirsin çünkü <span class="fixed">5</span> sinsidir ve hem tam sayı hem de küsürlü sayı gibi davranabilir. <span class="fixed">4.0</span> tam sayı gibi davranamaz, bu yüzden <span class="fixed">5</span> de buna ayak uydurmak zorudadır.
 </p>
 <p>
-Fark etmemiş olabilirsin ama başından beri hep fonksiyonları kullandık. Örneğin, <span class="fixed">*</span> iki sayı alan ve onları çarpan bir fonksiyon. Az önce gördüğün gibi, onu iki sayı arasında çağırmıştık. Biz böyle fonksiyonlara <i>infix</i> fonksiyon diyoruz. Sayılarla beraber kullanılmayan birçok fonksiyon <i>prefix</i> fonsiyondur. Haydi onlara bakalım. 
+Fark etmemiş olabilirsin ama başından beri hep fonksiyonları kullandık. Örneğin, <span class="fixed">*</span> iki sayı alan ve onları çarpan bir fonksiyon. Az önce gördüğün gibi, onu iki sayı arasında çağırmıştık. Biz böyle fonksiyonlara <i>infix</i> fonksiyon diyoruz. Sayılarla beraber kullanılmayan birçok fonksiyon <i>prefix</i> fonksiyondur. Haydi onlara bakalım. 
 </p>
 <p>
 <img src="http://s3.amazonaws.com/lyah/ringring.png" alt="phoen" class="right" width="160" height="161">
-Şimdiye kadar belitmemiştik ama kullandığımız fonksiyonlar çoğunlukla prefix yapıdaydı, biraz önce bundan bahsettik. Çoğu imperatif dilde fonksiyonlar, fonksiyon adı ile çağırılır ardından parantez içerisinde paramatreleri vardır, parametlerler de genellikle virgüllerle ayrılır. Haskell'de fonsiyonlar, fonksiyon adı sonra bir boşluk ardından parametlerleri yazılarak çağırılır. Parametreler de birbirlerinden birer boşlukla ayrılır. Başlangıç için, Haskell'deki en sıkıcı fonksiyonlardan birini çağırmayı deneyeceğiz.
+Şimdiye kadar belitmemiştik ama kullandığımız fonksiyonlar çoğunlukla prefix yapıdaydı, biraz önce bundan bahsettik. Çoğu imperatif dilde fonksiyonlar, fonksiyon adı ile çağırılır ardından parantez içerisinde paramatreleri vardır, parametlerler de genellikle virgüllerle ayrılır. Haskell'de fonksiyonlar, fonksiyon adı sonra bir boşluk ardından parametlerleri yazılarak çağırılır. Parametreler de birbirlerinden birer boşlukla ayrılır. Başlangıç için, Haskell'deki en sıkıcı fonksiyonlardan birini çağırmayı deneyeceğiz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; succ 8
 9 </pre>
 <p>
-<span class="fixed">succ</span> fonksiyonu ardılı olan herhangi bir şey alır ve onun ardılını döndürür. Gördüğün gibi, fonsiyon adını parametresinden bir boşlukla ayırdık. Bir fonksiyonu birkaç parametreyle çağırmak da kolay. <span class="fixed">min</span> ve <span class="fixed">max</span> fonksiyonları sıralanabilecek herhangi iki şey alır (sayı gibi!). <span class="fixed">min</span> küçük olanı döndürürken and <span class="fixed">max</span> büyük olanı döndürür. Kendin bak:
+<span class="fixed">succ</span> fonksiyonu ardılı olan herhangi bir şey alır ve onun ardılını döndürür. Gördüğün gibi, fonksiyon adını parametresinden bir boşlukla ayırdık. Bir fonksiyonu birkaç parametreyle çağırmak da kolay. <span class="fixed">min</span> ve <span class="fixed">max</span> fonksiyonları sıralanabilecek herhangi iki şey alır (sayı gibi!). <span class="fixed">min</span> küçük olanı döndürürken and <span class="fixed">max</span> büyük olanı döndürür. Kendin bak:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; min 9 10
@@ -152,7 +152,7 @@ Eğer 9 ve 10'un sonucunun bir fazlasını istiyorsak, <span class="fixed">succ 
 <pre name="code" class="haskell: hs">
 doubleMe x = x + x</pre>
 <p>
-Fonksiyonlar, çağırımlarına benzer şekilde tanımlanır. Önce fonksiyon adı yazılır ardından parametreleri de aralarında boşluk olacak şekilde yerleştirilir. ***Ama fonksiyon tanımlarken, <span class="fixed">=</span> kullanılır ardından da fonksiyonun ne yaptığı tanımlanır. Bunu <span class="fixed">baby.hs</span> olarak kaydedin. Kaydettiğiniz dizine gidin ve <span class="fixed">ghci</span>'yi orada çalıştırın. GHCI içinde bir kez <span class="fixed">:l baby</span> yapın. Şimdi scriptimiz yüklendi, artık tanımladığımız fonsiyonlarla oynayabiliriz.
+Fonksiyonlar, çağırımlarına benzer şekilde tanımlanır. Önce fonksiyon adı yazılır ardından parametreleri de aralarında boşluk olacak şekilde yerleştirilir. ***Ama fonksiyon tanımlarken, <span class="fixed">=</span> kullanılır ardından da fonksiyonun ne yaptığı tanımlanır. Bunu <span class="fixed">baby.hs</span> olarak kaydedin. Kaydettiğiniz dizine gidin ve <span class="fixed">ghci</span>'yi orada çalıştırın. GHCI içinde bir kez <span class="fixed">:l baby</span> yapın. Şimdi scriptimiz yüklendi, artık tanımladığımız fonksiyonlarla oynayabiliriz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :l baby
@@ -179,7 +179,7 @@ ghci&gt; doubleUs 28 88 + doubleMe 123
 478
 </pre>
 <p>
-Tahmin edeceğin gibi, kendi ürettiğin fonksiyonları yine kendi ürettiğin fonsiyonlarla çağırabilirsin. Yani, <span class="fixed">doubleUs</span> fonksiyonunu bu şekilde yeniden tanımlayabiliriz:
+Tahmin edeceğin gibi, kendi ürettiğin fonksiyonları yine kendi ürettiğin fonksiyonlarla çağırabilirsin. Yani, <span class="fixed">doubleUs</span> fonksiyonunu bu şekilde yeniden tanımlayabiliriz:
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = doubleMe x + doubleMe y </pre>
@@ -201,20 +201,20 @@ Burada Haskell'deki if ile tanıştık. Muhtemelen if'e diğer dillerden alışk
 doubleSmallNumber' x = (if x &gt; 100 then x else x*2) + 1
 </pre>
 <p>
-Had we omitted the parentheses, it would have added one only if <span class="fixed">x</span> wasn't greater than 100. Note the <span class="fixed">'</span> at the end of the function name. That apostrophe doesn't have any special meaning in Haskell's syntax. It's a valid character to use in a function name. We usually use <span class="fixed">'</span> to either denote a strict version of a function (one that isn't lazy) or a slightly modified version of a function or a variable. Because <span class="fixed">'</span> is a valid character in functions, we can make a function like this.
+Eğer parantezleri ihmal etmiş olsaydık, sadece <span class="fixed">x</span> 100'den büyük olmadığı zaman 1 ekleyecekti. Fonksiyon adı sonundaki <span class="fixed">'</span> işaretine dikkat et. Kesme işareti Haskell'in sözdiziminde herhangi özel bir anlamı yoktur. Yani fonksiyon adlarında kullanılabilir. Genellikle, <span class="fixed">'</span> işaretini ya bir fonksiyonun son halini belirtmek için (burada tembel değil) ya da bir fonksiyon veya bir değişkenin ufak değişiklikler sonucunda son halini göstermek için kullanırız. Yani bu şekilde bir fonksiyon oluşturabiliriz.
 </p>
 <pre name="code" class="haskell: hs">
 conanO'Brien = "It's a-me, Conan O'Brien!" </pre>
 <p>
-There are two noteworthy things here. The first is that in the function name we didn't capitalize Conan's name. That's because functions can't begin with uppercase letters. We'll see why a bit later. The second thing is that this function doesn't take any parameters. When a function doesn't take any parameters, we usually say it's a <i>definition</i> (or a <i>name</i>). Because we can't change what names (and functions) mean once we've defined them, <span class="fixed">conanO'Brien</span> and the string <span class="fixed">"It's a-me, Conan O'Brien!"</span> can be used interchangeably.
+Burada kaydadeğer iki şey var. İlki fonksiyon başında yani Conan'ın adını yazarken büyük harfle başlamadık. Çünkü fonksiyon adları büyük harfle başlamaz. Neden olduğunu daha sonra göreceğiz. İkincisi bu fonksiyon hiç parametre almadı. Bir fonksiyon hiç parametre almadıysa, her zaman <i>tanımlama</i> olduğunu söyleriz (ya da <i>atama</i>). Çünkü bir kez tanımladıktan sonra ***isimlerin (ve fonksiyonların) anlamlarını değiştiremeyiz. <span class="fixed">conanO'Brien</span> ve <span class="fixed">"It's a-me, Conan O'Brien!"</span> dizgesi birbirinin yerine kullanılabilir.
 </p>
 <a name="an-intro-to-lists"></a><h2>An intro to lists</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/list.png" alt="BUY A DOG" class="left" width="150" height="103">
-Much like shopping lists in the real world, lists in Haskell are very useful. It's the most used data structure and it can be used in a multitude of different ways to model and solve a whole bunch of problems. Lists are SO awesome. In this section we'll look at the basics of lists, strings (which are lists) and list comprehensions.
+Haskell'deki listeler de gerçek hayattaki alışveriş listeleri gibi çok kullanışlıdır. En çok kullanılan veri yapısıdır. Birçok farklı yolla bir sürü problemi modelleyip çözmede kullanılabilir. Listeler ÇOK harikadır. Bu bölümde temel anlamda listelere, dizgelere (onlarda birer liste) ve liste kavramlarına göz atacağız.
 </p>
 <p>
-In Haskell, lists are a <em>homogenous</em> data structure. It stores several elements of the same type. That means that we can have a list of integers or a list of characters but we can't have a list that has a few integers and then a few characters. And now, a list!
+Haskell'de listeler <em>türdeş</em> veri yapılarıdır. Aynı tipte olan birkaç öğe saklarlar. Yani bir birkaç tamsayı ve ya birkaç karakter saklayan listeler oluşturabiliriz ama aynı anda hem tamsayı hem de karakter içeren bir liste oluşturamayız. Ve sonunda bir liste!
 </p>
 <div class="hintbox"><em>Note</em>: We can use the <span class="fixed">let</span> keyword to define a name right in GHCI. Doing <span class="fixed">let a = 1</span> inside GHCI is the equivalent of writing <span class="fixed">a = 1</span> in a script and then loading it. </div>
 <pre name="code" class="haskell: ghci">
