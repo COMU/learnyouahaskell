@@ -366,12 +366,12 @@ ghci&gt; 10 `elem` [3,4,5,6]
 False
 </pre>
 <p>Those were a few basic functions that operate on lists. We'll take a look at more list functions <a href="modules#data-list">later</a></p>
-<a name="texas-ranges"></a><h2>Texas ranges</h2>
+<a name="texas-ranges"></a><h2>Texas menzilleri</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/cowboy.png" alt="draw" class="right" width="200" height="258">
-What if we want a list of all numbers between 1 and 20? Sure, we could just type them all out but obviously that's not a solution for gentlemen who demand excellence from their programming languages. Instead, we'll use ranges. Ranges are a way of making lists that are arithmetic sequences of elements that can be enumerated. Numbers can be enumerated. One, two, three, four, etc. Characters can also be enumerated. The alphabet is an enumeration of characters from A to Z. Names can't be enumerated. What comes after "John"? I don't know.
+Peki,1 ile 20 arasındaki sayıları içeren bir liste yapmak isteseydik ne yapardık? Tabiki 1'den 20'ye kadar olan sayıları sırayla yazabiliriz,fakat kullandığı programlama dilinden mükemmel bir şekilde yararlanmak isteyen bir centilmen bunu yapmak istemez. Bunun yerine texas menzillerini kullanacağız. Menziller numaralandırılabilen aritmetik serileri içeren listeleri yapmanın yollarından biridir. Sayılar numaralandırılabilir. Bir,iki,üç vs. Karakterler de numaralandırılabilir. Alfabe A'dan Z'ye kadar olan karakterlerin numaralandırılmış halidir. İsimler numaralandırılamaz. "Ali" den sonra ne gelir? Bilmem.
 </p>
-<p>To make a list containing all the natural numbers from 1 to 20, you just write <span class="fixed">[1..20]</span>. That is the equivalent of writing <span class="fixed">[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]</span> and there's no difference between writing one or the other except that writing out long enumeration sequences manually is stupid.</p>
+<p>1'den 20'ye kadar olan tüm sayıları içeren bir liste yapmak için, sadece <span class="fixed">[1..20]</span> yazabilirsiniz. Bu <span class="fixed">[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]</span> yazmakla aynıdır ,bu ikisinin arasındaki tek fark birinin uzun olmasıdır ve bana sorarsanız uzun olanı seçmek dümdüz salaklıktır.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [1..20]
 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
@@ -380,38 +380,38 @@ ghci&gt; ['a'..'z']
 ghci&gt; ['K'..'Z']
 "KLMNOPQRSTUVWXYZ" </pre>
 <p>
-Ranges are cool because you can also specify a step. What if we want all even numbers between 1 and 20? Or every third number between 1 and 20?
+Menziller havalıdır çünkü bir atlamayı belirtebilirsiniz. 1 ile 20 arasındaki çift sayıları isteseydik nasıl isterdik? veya 1 ile 20 arasındaki 3'ün katlarını?
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [2,4..20]
 [2,4,6,8,10,12,14,16,18,20]
 ghci&gt; [3,6..20]
 [3,6,9,12,15,18] </pre>
-<p>It's simply a matter of separating the first two elements with a comma and then specifying what the upper limit is. While pretty smart, ranges with steps aren't as smart as some people expect them to be. You can't do <span class="fixed">[1,2,4,8,16..100]</span> and expect to get all the powers of 2. Firstly because you can only specify one step. And secondly because some sequences that aren't arithmetic are ambiguous if given only by a few of their first terms.
+<p>Bunu sadece ilk iki elementi virgülle ayırarak ve üst limitin ne olduğunu belirterek yapabilirsiniz. Haskell zekidir fakat bazı insanların olmasını istediği kadar değil. <span class="fixed">[1,2,4,8,16..100]</span> yazıp ikinin kuvvetlerini almayı bekleyemezsiniz. Bir;çünkü sadece bir atlama belirtebilirsiniz. İki;Eğer terimlerinden sadece birkaçı verildiyse aritmetik olmayan seriler belirsizdir.
 </p>
-<p>To make a list with all the numbers from 20 to 1, you can't just do <span class="fixed">[20..1]</span>, you have to do <span class="fixed">[20,19..1]</span>.</p>
-<p>Watch out when using floating point numbers in ranges! Because they are not completely precise (by definition), their use in ranges can yield some pretty funky results.</p>
+<p>20'den 1'e kadar olan sayıların listesini yapmak isterseniz, sadece <span class="fixed">[20..1]</span> yazamazsınız, <span class="fixed">[20,19..1]</span> yazmak zorundasınız.</p>
+<p>Menzillerde ondalıklı sayıları kullanırken dikkat edin! Çünkü tam değillerdir. Menzillerdeki kullanımları ilginç sonuçlara yol açabilir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [0.1, 0.3 .. 1]
 [0.1,0.3,0.5,0.7,0.8999999999999999,1.0999999999999999]
 </pre>
-<p>My advice is not to use them in list ranges.</p>
+<p>Benim tavsiyem onları menzillerde kullanmayın.</p>
 <p>
-You can also use ranges to make infinite lists by just not specifying an upper limit. Later we'll go into more detail on infinite lists. For now, let's examine how you would get the first 24 multiples of 13. Sure, you could do <span class="fixed">[13,26..24*13]</span>. But there's a better way: <span class="fixed">take 24 [13,26..]</span>. Because Haskell is lazy, it won't try to evaluate the infinite list immediately because it would never finish. It'll wait to see what you want to get out of that infinite lists. And here it sees you just want the first 24 elements and it gladly obliges.
+Menzilleri üst limit belirlemeyerek sınırsız listeler yaratmak için kullanabilirsiniz. Bunu sonra konuşacağız. Şimdi, 13'ün ilk 24 katını nasıl alabileceğinizi inceleyelim. Tabiki <span class="fixed">[13,26..24*13]</span> yazabilirsiniz. Fakat daha iyi bir yol var: <span class="fixed">take 24 [13,26..]</span>. Çünkü Haskell tembeldir, hemen sınırsız listeleri hesaplamaya çalışmayacaktır çünkü hiç bitiremez. Sizin bu listeden ne istediğinizi anlayana kadar bekleyecektir. Burda ilk 24 elementi istediğinizi gördüğü için memmuniyetle baş eğecektir.
 </p>
-<p>A handful of functions that produce infinite lists:</p>
-<p><span class="label function">cycle</span> takes a list and cycles it into an infinite list. If you just try to display the result, it will go on forever so you have to slice it off somewhere.</p>
+<p>Sınırsız listeler oluşturmak için kullanılan birkaç fonksiyon:</p>
+<p><span class="label function">cycle</span> bir liste alır ve onu sonsuz listeye devirler. Sonucu çıktı almaya çalışırsanız sonsuza kadar gidecektir yani bir yerde sizin bunu kesmeniz gerekir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; take 10 (cycle [1,2,3])
 [1,2,3,1,2,3,1,2,3,1]
 ghci&gt; take 12 (cycle "LOL ")
 "LOL LOL LOL " </pre>
-<p><span class="label function">repeat</span> takes an element and produces an infinite list of just that element. It's like cycling a list with only one element.</p>
+<p><span class="label function">repeat</span> bir element alır ve sadece o elementten sonsuz bir liste yaratır. Bu tek element ile listeyi devirlemeye benzer.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; take 10 (repeat 5)
 [5,5,5,5,5,5,5,5,5,5]
 </pre>
-<p>Although it's simpler to just use the <span class="label function">replicate</span> function if you want some number of the same element in a list. <span class="fixed">replicate 3 10</span> returns <span class="fixed">[10,10,10]</span>.</p>
+<p>Aynı elementten listede birkaç tane istiyorsanız <span class="label function">replicate</span> fonksiyonunu da kullanabilirsiniz. <span class="fixed">replicate 3 10</span> yazarsanız <span class="fixed">[10,10,10]</span> döndürür.</p>
 <a name="im-a-list-comprehension"></a><h2>I'm a list comprehension</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/kermit.png" alt="frog" class="left" width="180" height="156">
