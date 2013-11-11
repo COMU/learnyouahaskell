@@ -208,7 +208,7 @@ conanO'Brien = "It's a-me, Conan O'Brien!" </pre>
 <p>
 Burada kaydadeğer iki şey var. İlki fonksiyon başında yani Conan'ın adını yazarken büyük harfle başlamadık. Çünkü fonksiyon adları büyük harfle başlamaz. Neden olduğunu daha sonra göreceğiz. İkincisi bu fonksiyon hiç parametre almadı. Bir fonksiyon hiç parametre almadıysa, her zaman <i>tanımlama</i> olduğunu söyleriz (ya da <i>atama</i>). Çünkü bir kez tanımladıktan sonra ***isimlerin (ve fonksiyonların) anlamlarını değiştiremeyiz. <span class="fixed">conanO'Brien</span> ve <span class="fixed">"It's a-me, Conan O'Brien!"</span> dizgesi birbirinin yerine kullanılabilir.
 </p>
-<a name="an-intro-to-lists"></a><h2>An intro to lists</h2>
+<a name="an-intro-to-lists"></a><h2>Listelere giriş</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/list.png" alt="BUY A DOG" class="left" width="150" height="103">
 Haskell'deki listeler de gerçek hayattaki alışveriş listeleri gibi çok kullanışlıdır. En çok kullanılan veri yapısıdır. Birçok farklı yolla bir sürü problemi modelleyip çözmede kullanılabilir. Listeler ÇOK harikadır. Bu bölümde temel anlamda listelere, dizgelere (onlarda birer liste) ve liste kavramlarına göz atacağız.
@@ -216,16 +216,16 @@ Haskell'deki listeler de gerçek hayattaki alışveriş listeleri gibi çok kull
 <p>
 Haskell'de listeler <em>türdeş</em> veri yapılarıdır. Aynı tipte olan birkaç öğe saklarlar. Yani bir birkaç tamsayı ve ya birkaç karakter saklayan listeler oluşturabiliriz ama aynı anda hem tamsayı hem de karakter içeren bir liste oluşturamayız. Ve sonunda bir liste!
 </p>
-<div class="hintbox"><em>Note</em>: We can use the <span class="fixed">let</span> keyword to define a name right in GHCI. Doing <span class="fixed">let a = 1</span> inside GHCI is the equivalent of writing <span class="fixed">a = 1</span> in a script and then loading it. </div>
+<div class="hintbox"><em>Not</em>: GHCI'de <span class="fixed">let</span> anahtar kelimesini kullanarak bir ismi tanımlayabiliriz. GHCI'de <span class="fixed">let a = 1</span> yapmak ile bir komuta <span class="fixed">a = 1</span> yazıp, çalıştırmak aynı şeylerdir.</div>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let lostNumbers = [4,8,15,16,23,42]
 ghci&gt; lostNumbers
 [4,8,15,16,23,42]
 </pre>
 <p>
-As you can see, lists are denoted by square brackets and the values in the lists are separated by commas. If we tried a list like <span class="fixed">[1,2,'a',3,'b','c',4]</span>, Haskell would complain that characters (which are, by the way, denoted as a character between single quotes) are not numbers. Speaking of characters, strings are just lists of characters. <span class="fixed">"hello"</span> is just syntactic sugar for <span class="fixed">['h','e','l','l','o']</span>. Because strings are lists, we can use list functions on them, which is really handy. 
+Gördüğün gibi, listeler köşeli parantez ile belirtildi ve değerler virgüllerle birbirinden ayrıldı. Eğer <span class="fixed">[1,2,'a',3,'b','c',4]</span> şeklinde birşey denersek,  Haskell karakterlerin (Bu arada, kesme işareti arasına alınanlar karakter) sayı olamadığına yakınacaktır. Karakterlerden bahsetmişken, dizgeler de sadece karakterlerden oluşan listelerdir. <span class="fixed">"hello"</span> sadece <span class="fixed">['h','e','l','l','o']</span> dizisinin sadece sözdizimsel şekeridir. Dizgeler de birer liste olduğundan liste fonksiyonları onlar üzerinde de kullanabiliriz. Buda oldukça kullanışlı. 
 </p>
-<p>A common task is putting two lists together. This is done by using the <span class="fixed">++</span> operator. </p>
+<p>En çok yapılan iki listeyi birleştirme işlemi. Bunu <span class="fixed">++</span> işlecini ile yaparız. </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [1,2,3,4] ++ [9,10,11,12]
 [1,2,3,4,9,10,11,12]
@@ -235,7 +235,7 @@ ghci&gt; ['w','o'] ++ ['o','t']
 "woot"
 </pre>
 <p>
-Watch out when repeatedly using the <span class="fixed">++</span> operator on long strings. When you put together two lists (even if you append a singleton list to a list, for instance: <span class="fixed">[1,2,3] ++ [4]</span>), internally, Haskell has to walk through the whole list on the left side of <span class="fixed">++</span>. That's not a problem when dealing with lists that aren't too big. But putting something at the end of a list that's fifty million entries long is going to take a while. However, putting something at the beginning of a list using the <span class="fixed">:</span> operator (also called the cons operator) is instantaneous.
+Uzun dizgelerde <span class="fixed">++</span> işlecini art arda kullanırken dikkatli ol. İki listeyi bir araya getirirken (hatta tek eleman tutan bir listeyi diğer listeye eklesen bile, öreneğin: <span class="fixed">[1,2,3] ++ [4]</span>), Haskell'in <span class="fixed">++</span> işlecinin sol tarafındaki listenin tümünü okuması gerekir. Bu çok büyük olmayan listelerle uğraşırken sorun değil. Ama elli milyon girdisi bulunan büyük bir listeye eklemek epey zaman alır. Oysa, bir listenin başına <span class="fixed">:</span> işlecini kullanarak şipşak birşey eklenebilir.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 'A':" SMALL CAT"
@@ -244,9 +244,9 @@ ghci&gt; 5:[1,2,3,4,5]
 [5,1,2,3,4,5]
 </pre>
 <p>
-Notice how <span class="fixed">:</span> takes a number and a list of numbers or a character and a list of characters, whereas <span class="fixed">++</span> takes two lists. Even if you're adding an element to the end of a list with <span class="fixed">++</span>, you have to surround it with square brackets so it becomes a list. </p>
+Uyarı. <span class="fixed">:</span> işleci bir sayı ve sayılardan oluşan liste ve ya bir karakter ve karakterlerden oluşan liste alır ,ama <span class="fixed">++</span> işleci iki liste alır. <span class="fixed">++</span> işleciyle listenin sonuna öğe eklesen bile, öğeyi köşeli parantezlerin arasına almalısın ki liste haline gelsin.</p>
 <p>
-<span class="fixed">[1,2,3]</span> is actually just syntactic sugar for <span class="fixed">1:2:3:[]</span>. <span class="fixed">[]</span> is an empty list. If we prepend <span class="fixed">3</span> to it, it becomes <span class="fixed">[3]</span>. If we prepend <span class="fixed">2</span> to that, it becomes <span class="fixed">[2,3]</span>, and so on.
+<span class="fixed">[1,2,3]</span> de aslında sadece <span class="fixed">1:2:3:[]</span> ifadesinin sözdizimsel şekeridir. <span class="fixed">[]</span> bir boş listedir. Eğer başına <span class="fixed">3</span> eklersek, <span class="fixed">[3]</span> halini alır. Başına <span class="fixed">2</span> eklersek, <span class="fixed">[2,3]</span> olur, ve böyle devam eder.
 </p>
 <p class="hintbox"><em>Note:</em> <span class="fixed">[]</span>, <span class="fixed">[[]]</span> and<span class="fixed">[[],[],[]]</span> are all different things. The first one is an empty list, the seconds one is a list that contains one empty list, the third one is a list that contains three empty lists.</p>
 <p>If you want to get an element out of a list by index, use <span class="fixed">!!</span>. The indices start at 0.</p>
