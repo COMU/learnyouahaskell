@@ -412,34 +412,34 @@ ghci&gt; take 10 (repeat 5)
 [5,5,5,5,5,5,5,5,5,5]
 </pre>
 <p>Aynı elementten listede birkaç tane istiyorsanız <span class="label function">replicate</span> fonksiyonunu da kullanabilirsiniz. <span class="fixed">replicate 3 10</span> yazarsanız <span class="fixed">[10,10,10]</span> döndürür.</p>
-<a name="im-a-list-comprehension"></a><h2>I'm a list comprehension</h2>
+<a name="im-a-list-comprehension"></a><h2>Ben bir liste üreteciyim</h2>
 <p>
 <img src="http://s3.amazonaws.com/lyah/kermit.png" alt="frog" class="left" width="180" height="156">
-If you've ever taken a course in mathematics, you've probably run into <i>set comprehensions</i>. They're normally used for building more specific sets out of general sets. A basic comprehension for a set that contains the first ten even natural numbers is <img src="http://s3.amazonaws.com/lyah/setnotation.png" alt="set notation">. The part before the pipe is called the output function, <span class="fixed">x</span> is the variable, <span class="fixed">N</span> is the input set and <span class="fixed">x &lt;= 10</span> is the predicate. That means that the set contains the doubles of all natural numbers that satisfy the predicate.
+Eğer daha önce bir matematik dersi aldıysanız büyük ihtimalle <i>dizi üreteçleri</i> ne bakmışsınızdır. Normalde genel dizilerden özel diziler oluşturmak için kullanılırlar. İlk 10 çift tamsayıyı üreten temel bir üreteç <img src="http://s3.amazonaws.com/lyah/setnotation.png" alt="set notation"> halinde yazılabilir. Borudan önceki kısım çıktı fonksiyonudur. <span class="fixed">x</span> değişken, <span class="fixed">N</span> girdi kümesi, <span class="fixed">x &lt;= 10</span> ise koşuldur. Bu listede koşulun önerdiği gibi 1'den 10'a kadar sayıların yazıldığı ve sonrasında ise listedeki her sayının 2 ile çarpıldığı anlamına gelir.
 </p>
-<p>If we wanted to write that in Haskell, we could do something like <span class="fixed">take 10 [2,4..]</span>. But what if we didn't want doubles of the first 10 natural numbers but some kind of more complex function applied on them? We could use a list comprehension for that. List comprehensions are very similar to set comprehensions. We'll stick to getting the first 10 even numbers for now. The list comprehension we could use is <span class="fixed">[x*2 | x &lt;- [1..10]]</span>. <span class="fixed">x</span> is drawn from <span class="fixed">[1..10]</span> and for every element in <span class="fixed">[1..10]</span> (which we have bound to <span class="fixed">x</span>), we get that element, only doubled. Here's that comprehension in action. </p>
+<p>Eğer bunu Haskell'da yazmak isteseydik <span class="fixed">take 10 [2,4..]</span> gibi birşey yazabilirdik. Peki atlama yerine 1'den 10'a kadar olan sayıları bir fonksiyona sokmak isteseydik? Bunun için liste üreteçlerini kullanmamız gerekir. Şimdilik ilk 10 çift tamsayıyı yazmak olarak işe başlayacağız. Kullanacağımız liste üreteci <span class="fixed">[x*2 | x &lt;- [1..10]]</span> olacak. <span class="fixed">x</span> ise burda <span class="fixed">[1..10]</span> listesindeki her eleman olacak. Uygulaması alttaki gibidir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [x*2 | x <- [1..10]]
 [2,4,6,8,10,12,14,16,18,20]
 </pre>
-<p>As you can see, we get the desired results. Now let's add a condition (or a predicate) to that comprehension. Predicates go after the binding parts and are separated from them by a comma. Let's say we want only the elements which, doubled, are greater than or equal to 12.
+<p>Gördüğünüz üzere istediğimiz sonuçlara ulaştık. Şimdi fonksiyona bir koşul ekleyelim. Koşullar bağlayıcı bölümlerden sonra gelir ve virgül ile ayrılır. 12'ye eşit veya 12'den büyük olan çift sayıları istiyoruz diyelim.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [x*2 | x <- [1..10], x*2 >= 12]
 [12,14,16,18,20]
 </pre>
-<p>Cool, it works. How about if we wanted all numbers from 50 to 100 whose remainder when divided with the number 7 is 3? Easy.</p>
+<p>Güzel,çalışıyor. Peki 50'den 100'e kadar olan sayıların içinde 7'ye bölündüğünde 3 kalanını veren sayıları bulalım desek? O da kolay .</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [ x | x &lt;- [50..100], x `mod` 7 == 3]
 [52,59,66,73,80,87,94] </pre>
-<p>Success! Note that weeding out lists by predicates is also called <em>filtering</em>. We took a list of numbers and we filtered them by the predicate. Now for another example. Let's say we want a comprehension that replaces each odd number greater than 10 with <span class="fixed">"BANG!"</span> and each odd number that's less than 10 with <span class="fixed">"BOOM!"</span>. If a number isn't odd, we throw it out of our list. For convenience, we'll put that comprehension inside a function so we can easily reuse it.</p>
+<p>İşte bu! Listeleri koşullarla ayıklamaya aynı zamanda <em>süzme</em> denir. Bir dizi numara aldık ve onları koşullar ile süzdük. Şimdi başka bir örnek daha yapalım, 10'dan büyük her tek sayıyı <span class="fixed">"BANG!"</span>, 10'dan küçük olan her tek sayıyı <span class="fixed">"BOOM!"</span> ile değiştiren bir üreteç yapalım. Eğer sayı tek değilse listeden çıkartıyoruz. Kolaylık olsun diye bunu bir fonksiyonun içine koyacağız, sonrasında rahatça kullanalım diye.</p>
 <pre name="code" class="haskell: ghci">
 boomBangs xs = [ if x &lt; 10 then "BOOM!" else "BANG!" | x &lt;- xs, odd x] </pre>
-<p>The last part of the comprehension is the predicate. The function <span class="fixed">odd</span> returns <span class="fixed">True</span> on an odd number and <span class="fixed">False</span>  on an even one. The element is included in the list only if all the predicates evaluate to <span class="fixed">True</span>.
+<p>Üreteçin son kısmı koşuldur. <span class="fixed">odd</span> fonksiyonu tek sayılarda <span class="fixed">True</span> döndürürken çift sayılarda <span class="fixed">False</span> döndürür. Element listeye sadece koşullar sağlanıyorsa koyulur.
 <pre name="code" class="haskell: hs">
 ghci&gt; boomBangs [7..13]
 ["BOOM!","BOOM!","BANG!","BANG!"] </pre>
-<p>We can include several predicates. If we wanted all numbers from 10 to 20 that are not 13, 15 or 19, we'd do:</p> <pre name="code" class="haskell: ghci">
+<p>Birden fazla koşul yaratabiliriz. Eğer 10'dan 20'ye kadar 13,15,19 olmayan tüm sayıları isteseydik bunu yapardık:</p> <pre name="code" class="haskell: ghci">
 ghci&gt; [ x | x &lt;- [10..20], x /= 13, x /= 15, x /= 19]
 [10,11,12,14,16,17,18,20]</pre>
 <p>Not only can we have multiple predicates in list comprehensions (an element must satisfy all the predicates to be included in the resulting list), we can also draw from several lists. When drawing from several lists, comprehensions produce all combinations of the given lists and then join them by the output function we supply. A list produced by a comprehension that draws from two lists of length 4 will have a length of 16, provided we don't filter them. If we have two lists, <span class="fixed">[2,5,10]</span> and <span class="fixed">[8,10,11]</span> and we want to get the products of all the possible combinations between numbers in those lists, here's what we'd do.</p>
