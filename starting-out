@@ -442,22 +442,22 @@ ghci&gt; boomBangs [7..13]
 <p>Birden fazla koşul yaratabiliriz. Eğer 10'dan 20'ye kadar 13,15,19 olmayan tüm sayıları isteseydik bunu yapardık:</p> <pre name="code" class="haskell: ghci">
 ghci&gt; [ x | x &lt;- [10..20], x /= 13, x /= 15, x /= 19]
 [10,11,12,14,16,17,18,20]</pre>
-<p>Not only can we have multiple predicates in list comprehensions (an element must satisfy all the predicates to be included in the resulting list), we can also draw from several lists. When drawing from several lists, comprehensions produce all combinations of the given lists and then join them by the output function we supply. A list produced by a comprehension that draws from two lists of length 4 will have a length of 16, provided we don't filter them. If we have two lists, <span class="fixed">[2,5,10]</span> and <span class="fixed">[8,10,11]</span> and we want to get the products of all the possible combinations between numbers in those lists, here's what we'd do.</p>
+<p>Liste üreteçlerinde birden fazla koşul almanın yanısıra, koşulları diğer listelerden de çekebiliriz. Bunu yaparken üreteçler verilen tüm listelerin kombinasyonlarını oluşturur ve onları bizim tedarik ettiğimiz çıktı fonksiyonuyla birleştirir. Yani 4 elemanlı 2 listenin bu yolla birleştirilmesinden oluşan bir üreteç 16 elemana sahip olacaktır. İsterseniz <span class="fixed">[2,5,10]</span> ve <span class="fixed">[8,10,11]</span> listeleriyle az önce söylediklerimizin uygulamasını yapalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [ x*y | x &lt;- [2,5,10], y &lt;- [8,10,11]]
 [16,20,22,40,50,55,80,100,110] </pre>
-<p>As expected, the length of the new list is 9. What if we wanted all possible products that are more than 50?</p>
+<p>Beklediğimiz gibi yeni listenin uzunluğu 9 eleman oldu, peki 50'den büyük olan kombinasyonları görmek isteseydik?</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [ x*y | x &lt;- [2,5,10], y &lt;- [8,10,11], x*y &gt; 50]
 [55,80,100,110] </pre>
-<p>How about a list comprehension that combines a list of adjectives and a list of nouns &hellip; for epic hilarity.</p>
+<p>Bir dizi sıfat ve isimleri birleştiren bir üreteç yapsak &hellip; biraz şamata fena olmaz.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let nouns = ["hobo","frog","pope"]
 ghci&gt; let adjectives = ["lazy","grouchy","scheming"]
 ghci&gt; [adjective ++ " " ++ noun | adjective &lt;- adjectives, noun &lt;- nouns]
 ["lazy hobo","lazy frog","lazy pope","grouchy hobo","grouchy frog",
 "grouchy pope","scheming hobo","scheming frog","scheming pope"] </pre>
-<p>I know! Let's write our own version of <span class="fixed">length</span>! We'll call it <span class="fixed">length'</span>.</p>
+<p>Hadi <span class="fixed">length</span> 'in kendi versiyonumuzu yapalım! Ona da <span class="fixed">length'</span> diyelim.</p>
 <pre name="code" class="haskell: hs">
 length' xs = sum [1 | _ &lt;- xs] </pre>
 <p><span class="fixed">_</span> means that we don't care what we'll draw from the list anyway so instead of writing a variable name that we'll never use, we just write <span class="fixed">_</span>. This function replaces every element of a list with <span class="fixed">1</span> and then sums that up. This means that the resulting sum will be the length of our list.</p>
