@@ -460,19 +460,19 @@ ghci&gt; [adjective ++ " " ++ noun | adjective &lt;- adjectives, noun &lt;- noun
 <p>Hadi <span class="fixed">length</span> 'in kendi versiyonumuzu yapalım! Ona da <span class="fixed">length'</span> diyelim.</p>
 <pre name="code" class="haskell: hs">
 length' xs = sum [1 | _ &lt;- xs] </pre>
-<p><span class="fixed">_</span> means that we don't care what we'll draw from the list anyway so instead of writing a variable name that we'll never use, we just write <span class="fixed">_</span>. This function replaces every element of a list with <span class="fixed">1</span> and then sums that up. This means that the resulting sum will be the length of our list.</p>
-<p>Just a friendly reminder: because strings are lists, we can use list comprehensions to process and produce strings. Here's a function that takes a string and removes everything except uppercase letters from it.</p>
+<p><span class="fixed">_</span> işaretinin anlamı listeden çektiğimiz şeyin öneminin olmadığını gösterir,hiç kullanmayacağımız bir değişken almak yerine sadece <span class="fixed">_</span> yazmamız yeterlidir. Bu fonksiyon listenin her elemanını <span class="fixed">1</span> ile değiştirir ve sonrasında ise toplar. Bu toplamın listenin uzunluğu olacağı anlamına gelir.</p>
+<p>Bir hatırlatma: Stringler aynı zamanda liste oldukları için liste üreteçlerini string üretmek için kullanabiliriz. Bir string alıp büyük harfler dışında stringdeki herşeyi silen bir üreteç yazalım.</p>
 <pre name="code" class="haskell: hs">
 removeNonUppercase st = [ c | c &lt;- st, c `elem` ['A'..'Z']] </pre>
 <p>
-Testing it out:
+Testedelim:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; removeNonUppercase "Hahaha! Ahahaha!"
 "HA"
 ghci&gt; removeNonUppercase "IdontLIKEFROGS"
 "ILIKEFROGS" </pre>
-<p>The predicate here does all the work. It says that the character will be included in the new list only if it's an element of the list <span class="fixed">['A'..'Z']</span>. Nested list comprehensions are also possible if you're operating on lists that contain lists. A list contains several lists of numbers. Let's remove all odd numbers without flattening the list.</p>
+<p>Burdaki tüm işi yapan yüklemin kendisidir. Burda yüklem bir karakterin sadece <span class="fixed">['A'..'Z']</span> listesinin içinden ise kabulünü sağlar. Eğer listenin içinde listerle iş yapıyorsanız iç içe olan liste üreteçlerini de kullanmak mümkündür. İçinde birkaç tane numara olan bir listeden tek olan sayıları listeyi düzleştirmeden çıkartalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let xxs = [[1,3,5,2,3,1,2,4,5],[1,2,3,4,5,6,7,8,9],[1,2,4,2,1,6,3,1,3,2,3,6]]
 ghci&gt; [ [ x | x &lt;- xs, even x ] | xs &lt;- xxs]
