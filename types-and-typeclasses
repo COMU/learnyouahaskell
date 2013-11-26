@@ -31,13 +31,13 @@
                                             </li>
                 </ul>
             </div>
-        <h1>Types and Typeclasses</h1>
-<a name="believe-the-type"></a><h2>Believe the type</h2>
+        <h1>Tipler ve Tip-sınıfları</h1>
+<a name="believe-the-type"></a><h2>Tipe inanmak</h2>
 <img src="http://s3.amazonaws.com/lyah/cow.png" alt="moo" class="left" width="180" height="127">
-<p>Previously we mentioned that Haskell has a static type system. The type of every expression is known at compile time, which leads to safer code. If you write a program where you try to divide a boolean type with some number, it won't even compile. That's good because it's better to catch such errors at compile time instead of having your program crash. Everything in Haskell has a type, so the compiler can reason quite a lot about your program before compiling it.</p>
-<p>Unlike Java or Pascal, Haskell has type inference. If we write a number, we don't have to tell Haskell it's a number. It can <i>infer</i> that on its own, so we don't have to explicitly write out the types of our functions and expressions to get things done. We covered some of the basics of Haskell with only a very superficial glance at types. However, understanding the type system is a very important part of learning Haskell.</p>
-<p>A type is a kind of label that every expression has. It tells us in which category of things that expression fits. The expression <span class="fixed">True</span> is a boolean, <span class="fixed">"hello"</span> is a string, etc.</p>
-<p>Now we'll use GHCI to examine the types of some expressions. We'll do that by using the <span class="fixed">:t</span> command which, followed by any valid expression, tells us its type. Let's give it a whirl.</p>
+<p>Daha önce de Haskell'ın sabit bir tip sistemi kullandığını söylemiştik. Her ifadenin tipi derleme zamanında bilinir, bu da kodun daha güvenli olmasını sağlar. Eğer boolean bir sayı tipini normal bir sayı ile bölmeye çalışırsanız program derlenmez bile. Bu daha iyi çünkü program çalışırken birden bozulmasındansa buna sebep olan hatayı derlenmeden önce görebilirsiniz. Haskell'da herşeyin bir tipi vardır bu yüzden derleyici sizin söylemek istediğiniz şeyi düşünmek için bayağı zaman ayırabilir.</p>
+<p>Java ve Pascaldan farklı olmak üzere Haskell'ın bir tip belirleyicisi vardır. Eğer bir numara yazarsak Haskell'a bunun numara olduğunu söylememiz gerekmez, kendisi bu <i>çıkarımı</i> yapabilir, yani bu sayede bütün tipleri teker teker belirtmemiz gerekmez. Şu an Haskell'ın tip ile ilgili özelliklerini çok yüzeysel bir bakış ile inceledik. Tip sistemini iyi kavramamız ilerde bize çok yardımcı olacak.</p>
+<p>Tip her ifadenin sahip olduğu etiket gibi birşeydir. Bize ifadenin hangi kategoride olduğunu söyler. <span class="fixed">True</span> ifadesi boolean, <span class="fixed">"hello"</span> ifadesi ise stringdir, vs.</p>
+<p>Şimdi bazı ifadelerin tiplerini incelemek için GHCI kullanacağız. Bunu <span class="fixed">:t</span> komutunu kullanarak yapacağız, ki bu da ifade geçerliyse tipini öğrenmemizi sağlayacak. Hadi şunu bir döndürelim.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t 'a'
 'a' :: Char
