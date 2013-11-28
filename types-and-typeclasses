@@ -62,18 +62,18 @@ removeNonUppercase :: [Char] -&gt; [Char]
 removeNonUppercase st = [ c | c &lt;- st, c `elem` ['A'..'Z']] 
 </pre>
 <p>
-<span class="fixed">removeNonUppercase</span> has a type of <span class="fixed">[Char] -&gt; [Char]</span>, meaning that it maps from a string to a string. That's because it takes one string as a parameter and returns another as a result. The <span class="fixed">[Char]</span> type is synonymous with <span class="fixed">String</span> so it's clearer if we write <span class="fixed">removeNonUppercase :: String -&gt; String</span>. We didn't have to give this function a type declaration because the compiler can infer by itself that it's a function from a string to a string but we did anyway. But how do we write out the type of a function that takes several parameters? Here's a simple function that takes three integers and adds them together:
+<span class="fixed">removeNonUppercase</span> 'in tipi <span class="fixed">[Char] -&gt; [Char]</span> dır, bu stringten stringe olduğu anlamına gelir. Bunun sebebi parametre olarak string alması ve sonuç olarak da string döndürmesidir. <span class="fixed">[Char]</span> tipi <span class="fixed">String</span> ile eşanlamlıdır yani <span class="fixed">removeNonUppercase :: String -&gt; String</span> daha anlamlı olur. Bu fonksiyona tip deklarasyonu vermek istemedik çünkü derleyici bunun stringten stringe bir fonksiyon olduğunu kendi başına anlayabilir fakat yine yapalım dedik. Fakat birden fazla parametre alan bir fonksiyonun tipini nasıl yazabiliriz? İşte 3 integeri alıp toplayan basit bir fonksiyon örneği:
 </p>
 <pre name="code" class="haskell: hs">
 addThree :: Int -&gt; Int -&gt; Int -&gt; Int
 addThree x y z = x + y + z
 </pre>
-<p>The parameters are separated with <span class="fixed">-&gt;</span> and there's no special distinction between the parameters and the return type. The return type is the last item in the declaration and the parameters are the first three. Later on we'll see why they're all just separated with <span class="fixed">-&gt;</span> instead of having some more explicit distinction between the return types and the parameters like <span class="fixed">Int, Int, Int -&gt; Int</span> or something.
+<p>Parametreler <span class="fixed">-&gt;</span> ile ayrılmıştır ve parametreler ile dönüş tipi arasında bir ayrım yoktur. Döndürülen değerin tipi deklarasyondaki son belirtilen tiptir diğer belirtilen tipler ise parametrelerdir. İleride hepsinin <span class="fixed">Int, Int, Int -&gt; Int</span> gibi bir ifade ile açık bir şekilde ayrılmak yerine yerine <span class="fixed">-&gt;</span> ile ayrıldığını göreceğiz.
 </p>
-<p>If you want to give your function a type declaration but are unsure as to what it should be, you can always just write the function without it and then check it with <span class="fixed">:t</span>. Functions are expressions too, so <span class="fixed">:t</span> works on them without a problem.</p>
-<p>Here's an overview of some common types.</p>
+<p>Eğer fonksiyonunuza hangi tip deklarasyonu vereceğinize karar vermekte zorlanıyorsanız fonksiyonu o olmadan yazıp sonrasında <span class="fixed">:t</span> ile kontrol edebilirsiniz. Fonksiyonlar da birer ifadedir bu yüzden <span class="fixed">:t</span> komutu onlarda da sorunsuz çalışır.</p>
+<p>Yaygın bir şekilde kullanılan birkaç tip örneğine bakalım.</p>
 <p>
-<span class="label type">Int</span> stands for integer. It's used for whole numbers. <span class="fixed">7</span> can be an <span class="fixed">Int</span> but <span class="fixed">7.2</span> cannot. <span class="fixed">Int</span> is bounded, which means that it has a minimum and a maximum value. Usually on 32-bit machines the maximum possible <span class="fixed">Int</span> is 2147483647 and the minimum is -2147483648.
+<span class="label type">Int</span> 'in anlamı integerdir. Yani tamsayılar için kullanılır. <span class="fixed">7</span> bir <span class="fixed">Int</span> olabilir ama <span class="fixed">7.2</span> olamaz. <span class="fixed">Int</span> sınırlandırılmıştır, bu maximum ve minimum değeri olması gerektiği anlamına gelir. 32-bit makinelerde <span class="fixed">Int</span> 'in en yüksek değeri 2147483647 dir ve minimum değeri ise -2147483648 dir.
 </p>
 <p><span class="label type">Integer</span> stands for, er &hellip; also integer. The main difference is that it's not bounded so it can be used to represent really really big numbers. I mean like really big. <span class="fixed">Int</span>, however, is more efficient.
 </p>
