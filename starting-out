@@ -507,20 +507,20 @@ ghci&gt; snd (8,11)
 11
 ghci&gt; snd ("Wow", False)
 False</pre>
-<div class="hintbox"><em>Note:</em> these functions operate only on pairs. They won't work on triples, 4-tuples, 5-tuples, etc. We'll go over extracting data from tuples in different ways a bit later.</div>
-<p>A cool function that produces a list of pairs: <span class="label function">zip</span>. It takes two lists and then zips them together into one list by joining the matching elements into pairs. It's a really simple function but it has loads of uses. It's especially useful for when you want to combine two lists in a way or traverse two lists simultaneously. Here's a demonstration.</p>
+<div class="hintbox"><em>Not:</em> bu fonksiyonlar sadece iki boyutlu demetleri işleyebilir. Bunlar üzerinde işlem yapamaz: üçlüler, dörtlüler, beşliler, vs. Demetler üzerinden veri almanın farklı yollarını daha sonra göreceğiz.</div>
+<p>İki boyutlu demetler ile işlem yapan havalı bir fonksiyon da: <span class="label function">zip</span>. İki liste alır ve listelerin karşılıklı elemanlarını iki boyutlu demetler halinde bir listede birleştirir. Çok basit bir fonksiyon ama birçok yerde kullanılır. Özellikle iki listeyi bir bakıma birleştirirken ya da iki liste elemanlarını eşzamanlı incelemek için kullanılır. İşte bir örnek.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; zip [1,2,3,4,5] [5,5,5,5,5]
 [(1,5),(2,5),(3,5),(4,5),(5,5)]
 ghci&gt; zip [1 .. 5] ["one", "two", "three", "four", "five"]
 [(1,"one"),(2,"two"),(3,"three"),(4,"four"),(5,"five")]
 </pre>
-<p>It pairs up the elements and produces a new list. The first element goes with the first, the second with the second, etc. Notice that because pairs can have different types in them, <span class="fixed">zip</span> can take two lists that contain different types and zip them up. What happens if the lengths of the lists don't match?</p>
+<p>Elemanları ikili demetler haline getirir ve yeni listeye ekler. İlk eleman diğer listenin ilk elemanıyla eşleşir, ikinci eleman diğer listenin ikinci elemanıyla, vs. İkili demetlerin kendi içinde bir tip olduğunu unutma, <span class="fixed">zip</span> farklı tipte elaman içeren iki listeyi de birleştirebilir. Peki listelerin uzunlukları uyuşmazsa ne olur?</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; zip [5,3,2,6,2,7,2,5,4,6,6] ["im","a","turtle"]
 [(5,"im"),(3,"a"),(2,"turtle")]
 </pre>
-<p>The longer list simply gets cut off to match the length of the shorter one. Because Haskell is lazy, we can zip finite lists with infinite lists:</p>
+<p>Uzun olan listenin fazla olan kısmı atılır. Çünkü Haskell tembeldir, sonlu listeler ile sonsuz listeleri de zip ile birleştirebiliriz:</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; zip [1..] ["apple", "orange", "cherry", "mango"]
 [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]
