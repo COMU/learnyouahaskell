@@ -270,7 +270,7 @@ ghci&gt; [6,6,6]:b
 [[6,6,6],[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
 ghci&gt; b !! 2
 [1,2,2,3,4] </pre>
-<p>Liste içerisinde listeler farklı uzunlukta olabilir ama farklı tipte öğe içeremezler. Bir liste içerisinde hem karakter hem sayı tutamadığımız gibi, hem karakter içeren listeler hem de sayı içeren listeler tutamayız.</p>
+<p>Liste içerisinde listeler farklı uzunlukta olabilir ama farklı tipte öğe içeremezler. Bir liste içerisinde hem karakter hem sayı tutamadığımız gibi, hem karakter içeren listeler hem de sayı içeren listeler de tutamayız.</p>
 <p>Eğer liste içerikleri karşılaştırılabiliyorsa listeler de karşılaştırılabilir. <span class="fixed">&lt;</span>, <span class="fixed">&lt;=</span>, <span class="fixed">&gt;</span> ve <span class="fixed">&gt;=</span> kullanarak listeler ***lexicographical olarak karşılaştırılır. İlk önce baş eleman karşılaştırılır. Eğer onlar eşit ise ikinci elemanlar karşılaştırılır, vs.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [3,2,1] &gt; [2,1,0]
@@ -483,7 +483,7 @@ ghci&gt; [ [ x | x &lt;- xs, even x ] | xs &lt;- xxs]
 <img src="http://s3.amazonaws.com/lyah/tuple.png" alt="tuples" class="right" width="160" height="162">
 <p>Demetler bağzı yönleriyle listelere benzer &mdash; bu yapıların birden fazla değeri bir değerde saklaması benzer yanıdır. Ancak, aralarında birkaç temel farklılık vardır. Sayı listeleri sayı içeren listelerdir. Bu listenin tipidir ve içerisinde sadece bir ya da sonsuz miktarda sayı olması önemli değildir. Ancak, demetleri kullanırken tam olarak kaç tane değeri birleştirmek isteğinizi bilmelisiniz. Ve demetin tipi kaç tane bileşen içerdiği ve içerdiği bileşenlerin tipleri ile belirlenir. Demetler parantezler ile belirtilir ve bileşenleri virgüller ile birbirinde ayrılır.</p>
 <p>Bir başka önemli fark ise demetler türdeş değildir. Listelerden farklı olarak demetler farklı tiplerde öğeler tutabilir.</p>
-<p>Haskell'de iki boyutlu bir vektörü nasıl gösteririz bir düşün. Bir liste kullanmak çözüm olabilir. Peki bir listeye birden fazla vektör koyarak iki boyutlu düzlemde bir şeklin noktalarını belirtmek istersek? Buna benzer birşey yapabiliriz <span class="fixed">[[1,2],[8,11],[4,5]]</span>. Bu yöntemdeki sorun bunu şu şekilde de yapabilmemiz <span class="fixed">[[1,2],[8,11,5],[4,5]]</span>, Haskell burada sorun yaşamaz ama sayı listeleri içeren listeler olmasına rağmen anlamlı bir ifade olmaz. Ama iki boyutlu bir demet (bir başka deyişle çift) kendisi bir tiptir, Bu da bir liste hem birkaç çift ve bir üçlü(üç boyutlu demet) bulunduramaz, hadi diğeri yerine bunu kullanalım. Vektörleri çevreleyen köşeli parantezler yerine parantezler kullanalım: <span class="fixed">[(1,2),(8,11),(4,5)]</span>. Peki bu şekilde yapmayı denersek <span class="fixed">[(1,2),(8,11,5),(4,5)]</span>? Bu hatayı alırız:</p>
+<p>Haskell'de iki boyutlu bir vektörü nasıl gösteririz bir düşün. Bir liste kullanmak çözüm olabilir. Peki bir listeye birden fazla vektör koyarak iki boyutlu düzlemde bir şeklin noktalarını belirtmek istersek? Buna benzer birşey yapabiliriz <span class="fixed">[[1,2],[8,11],[4,5]]</span>. Bu yöntemdeki sorun bunu şu şekilde de yapabilmemiz <span class="fixed">[[1,2],[8,11,5],[4,5]]</span>, Haskell burada sorun yaşamaz ama sayı listeleri içeren listeler olmasına rağmen anlamlı bir ifade olmaz. Ama iki boyutlu bir demet (bir başka deyişle çift) kendisi bir tiptir, bu da bir listenin birkaç çift ve bir üçlü (üç boyutlu demet) bulunduramayacağı anlamına gelir. Hadi diğeri yerine bunu kullanalım. Vektörleri çevreleyen köşeli parantezler yerine parantezler kullanalım: <span class="fixed">[(1,2),(8,11),(4,5)]</span>. Peki bu şekilde yapmayı denersek <span class="fixed">[(1,2),(8,11,5),(4,5)]</span>? Bu hatayı alırız:</p>
 <pre name="code" class="haskell: ghci">
 Couldn't match expected type `(t, t1)'
 against inferred type `(t2, t3, t4)'
@@ -491,17 +491,17 @@ In the expression: (8, 11, 5)
 In the expression: [(1, 2), (8, 11, 5), (4, 5)]
 In the definition of `it': it = [(1, 2), (8, 11, 5), (4, 5)]
 </pre>
-<p>It's telling us that we tried to use a pair and a triple in the same list, which is not supposed to happen. You also couldn't make a list like <span class="fixed">[(1,2),("One",2)]</span> because the first element of the list is a pair of numbers and the second element is a pair consisting of a string and a number. Tuples can also be used to represent a wide variety of data. For instance, if we wanted to represent someone's name and age in Haskell, we could use a triple: <span class="fixed">("Christopher", "Walken", 55)</span>. As seen in this example, tuples can also contain lists.</p>
-<p>Use tuples when you know in advance how many components some piece of data should have. Tuples are much more rigid because each different size of tuple is its own type, so you can't write a general function to append an element to a tuple &mdash; you'd have to write a function for appending to a pair, one function for appending to a triple, one function for appending to a 4-tuple, etc.</p>
-<p>While there are singleton lists, there's no such thing as a singleton tuple. It doesn't really make much sense when you think about it. A singleton tuple would just be the value it contains and as such would have no benefit to us.</p>
-<p>Like lists, tuples can be compared with each other if their components can be compared. Only you can't compare two tuples of different sizes, whereas you can compare two lists of different sizes. Two useful functions that operate on pairs:</p>
-<p><span class="label function">fst</span> takes a pair and returns its first component.</p>
+<p>Bu hata bize iki boyulu bir demet ile üç boyutlu bir demeti aynı liste içerisinde kullandığımızı ve bunun mümkün olmadığını söylüyor. Ayrıca bu şekilde de liste oluşturamazsın <span class="fixed">[(1,2),("One",2)]</span> çünkü listenin ilk elemanı bir sayı çifti iken ikinci elemanı bir dizge ve bir sayı içeren çifttir. Ayrıca demetler geniş yelpazede veri çeşitliliği sunar. Örneğin, Haskell'de birinin adını ve yaşını belirtmek istiyorsak, üç boyutlu bir demet kullanırız: <span class="fixed">("Christopher", "Walken", 55)</span>. Örnekte görüldüğü gibi, demetler liste de içerebilir.</p>
+<p>Demetleri önceden ne kadar bileşeni olması gerektiğini bildiğin veriler için kullan. Demetler çok daha katıdır çünkü her boyutta demet ayrı bir tip ifade eder, bu yüzden demetlere eleman ekleyen genel bir fonksiyon yazamazsın &mdash; İki boyutlu dizilere eleman eklemek için ayrı, üç boyutlular için ayrı, dört boyutlular için ayrı, vs.</p>
+<p>Tek elemanlı listeler olmasına rağmen, tek bileşenli bir demet yoktur. Düşünürsek, zaten pek de mantıklı değil. Tek bileşenli demet bir tek değer tutar bunun da bize bir yararı yok.</p>
+<p>Aynı listeler gibi, demetler de eğer içerikleri karşılaştırılabiliyorsa birbirleriyle karşılaştırılabilir. Sadece farklı boyutta listeleri karşılaştıramadığımız gibi, farklı boyutta demetleri de karşılaştıramayız. İki boyutlu demetlerde işlem yapan iki kullanışlı fonksiyon:</p>
+<p><span class="label function">fst</span> iki boyutlu bir demet alır ve ilk bileşenini döndürür.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; fst (8,11)
 8
 ghci&gt; fst ("Wow", False)
 "Wow"</pre>
-<p><span class="label function">snd</span> takes a pair and returns its second component. Surprise!</p>
+<p><span class="label function">snd</span> iki boyutlu bir demet alır ve ikinci bileşenini dönürür. Sürpriz!</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; snd (8,11)
 11
