@@ -42,7 +42,7 @@ GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude&gt;</pre>
 <p>
-Tebrikler, GHCI'desiniz! ***The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. Sizde de aynı prompt olsun istiyorsanız, sadece <span class="fixed">:set prompt "ghci&gt; "</span> yazın. 
+Tebrikler, GHCI'desiniz! Burada karşılaştığımız prompt <span class="fixed">Prelude&gt;</span> ***but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. Sizde de aynı prompt olsun istiyorsanız, sadece <span class="fixed">:set prompt "ghci&gt; "</span> yazın. 
 </p>
 <p>
 İşte bazı basit aritmetikler.
@@ -152,7 +152,7 @@ Eğer 9 ve 10'un sonucunun bir fazlasını istiyorsak, <span class="fixed">succ 
 <pre name="code" class="haskell: hs">
 doubleMe x = x + x</pre>
 <p>
-Fonksiyonlar, çağırımlarına benzer şekilde tanımlanır. Önce fonksiyon adı yazılır ardından parametreleri de aralarında boşluk olacak şekilde yerleştirilir. ***Ama fonksiyon tanımlarken, <span class="fixed">=</span> kullanılır ardından da fonksiyonun ne yaptığı tanımlanır. Bunu <span class="fixed">baby.hs</span> olarak kaydedin. Kaydettiğiniz dizine gidin ve <span class="fixed">ghci</span>'yi orada çalıştırın. GHCI içinde bir kez <span class="fixed">:l baby</span> yapın. Şimdi scriptimiz yüklendi, artık tanımladığımız fonksiyonlarla oynayabiliriz.
+Fonksiyonlar, çağırımlarına benzer şekilde tanımlanır. Önce fonksiyon adı yazılır ardından parametreleri de aralarında boşluk olacak şekilde yerleştirilir. Ama fonksiyon tanımlarken, <span class="fixed">=</span> kullanılır ardından da fonksiyonun ne yaptığı tanımlanır. Bunu <span class="fixed">baby.hs</span> olarak kaydedin. Kaydettiğiniz dizine gidin ve <span class="fixed">ghci</span>'yi orada çalıştırın. GHCI içinde bir kez <span class="fixed">:l baby</span> yapın. Şimdi scriptimiz yüklendi, artık tanımladığımız fonksiyonlarla oynayabiliriz.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :l baby
@@ -187,7 +187,7 @@ doubleUs x y = doubleMe x + doubleMe y </pre>
 Bu da Haskell boyunca karşılaşacağın genel şablona çok basit bir örnek. Basit fonksiyonlar yazmak ve onları birleştirerek daha karmaşık fonksiyonlar elde etmek oldukça doğru olur. Aynı zamanda basit fonksiyon içeriğini tekrarlama gereği kalmaz. Ya bazı matematikçiler 2'nin aslında 3 olduğunu bulur, senin de programını değiştirmen gerekirse? Sadece <span class="fixed">doubleMe</span>'yi <span class="fixed">x + x + x</span> olarak yeniden tanımlarsın. Artık <span class="fixed">doubleUs</span> yeni <span class="fixed">doubleMe</span> fonksiyonunu çağıracak ve 2'nin 3 olduğu bu garip dünyada otomatik olarak çalışacaktır.
 </p>
 <p>Haskell'de fonksiyonlar tanımlanırken belirli bir sıraları yoktur, yani <span class="fixed">doubleMe</span>'yi önce tanımlayıp sonra <span class="fixed">doubleUs</span>'ı tanımlaman bir şey değiştirmez. Bu diğer türlü yaparsan da geçerli.</p>
-<p>Şimdi bir sayı alan ve onu 2 ile çarpan bir fonksiyon yazıcaz ama bu fonksiyon eğer sayı 100'den küçük ya da eşitse onu 2 ile çarpıcak. ***Çünkü 100'den büyük sayılar yeterince büyükler.
+<p>Şimdi bir sayı alan ve onu 2 ile çarpan bir fonksiyon yazacağız ama bu fonksiyon eğer sayı 100'den küçük ya da eşitse onu 2 ile çarpıcak. Çünkü 100'den büyük sayılar yeterince büyükler.
 </p>
 <pre name="code" class="haskell: hs">
 doubleSmallNumber x = if x &gt; 100
@@ -206,7 +206,7 @@ Eğer parantezleri ihmal etmiş olsaydık, sadece <span class="fixed">x</span> 1
 <pre name="code" class="haskell: hs">
 conanO'Brien = "It's a-me, Conan O'Brien!" </pre>
 <p>
-Burada kaydadeğer iki şey var. İlki fonksiyon başında yani Conan'ın adını yazarken büyük harfle başlamadık. Çünkü fonksiyon adları büyük harfle başlamaz. Neden olduğunu daha sonra göreceğiz. İkincisi bu fonksiyon hiç parametre almadı. Bir fonksiyon hiç parametre almadıysa, her zaman <i>tanımlama</i> olduğunu söyleriz (ya da <i>atama</i>). Çünkü bir kez tanımladıktan sonra ***isimlerin (ve fonksiyonların) anlamlarını değiştiremeyiz. <span class="fixed">conanO'Brien</span> ve <span class="fixed">"It's a-me, Conan O'Brien!"</span> dizgesi birbirinin yerine kullanılabilir.
+Burada kaydadeğer iki şey var. İlki fonksiyon başında yani Conan'ın adını yazarken büyük harfle başlamadık. Çünkü fonksiyon adları büyük harfle başlamaz. Neden olduğunu daha sonra göreceğiz. İkincisi bu fonksiyon hiç parametre almadı. Bir fonksiyon hiç parametre almadıysa, her zaman <i>tanımlama</i> olduğunu söyleriz (ya da <i>atama</i>). Çünkü bir kez tanımladıktan sonra isimlerin (ve fonksiyonların) anlamlarını değiştiremeyiz daha önce tanımladık zaten. <span class="fixed">conanO'Brien</span> ve <span class="fixed">"It's a-me, Conan O'Brien!"</span> dizgesi birbirinin yerine kullanılabilir.
 </p>
 <a name="an-intro-to-lists"></a><h2>Listelere giriş</h2>
 <p>
@@ -526,28 +526,28 @@ ghci&gt; zip [1..] ["apple", "orange", "cherry", "mango"]
 [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]
 </pre>
 <img src="http://s3.amazonaws.com/lyah/pythag.png" alt="look at meee" class="center" width="350" height="315">
-<p>Here's a problem that combines tuples and list comprehensions: which right triangle that has integers for all sides and all sides equal to or smaller than 10 has a perimeter of 24? First, let's try generating all triangles with sides equal to or smaller than 10:</p>
+<p>İşte burada demetler ve liste üreteçlerini kullanırken bir sorun var. Tüm kenarları 10'dan küçük ve ya 10'a eşit tam sayılardan oluşan ve çevresi 24 olan bir dik üçgeni nasıl oluşturacağız? İlk önce kenarları 10'dan küçük ya da 10'a eşit tüm üçgenleri oluşturmaya çalışalım:</p>
 <pre name="code" class="haskell: ghci">ghci&gt; let triangles = [ (a,b,c) | c &lt;- [1..10], b &lt;- [1..10], a &lt;- [1..10] ] </pre>
-<p>We're just drawing from three lists and our output function is combining them into a triple. If you evaluate that by typing out <span class="fixed">triangles</span> in GHCI, you'll get a list of all possible triangles with sides under or equal to 10. Next, we'll add a condition that they all have to be right triangles. We'll also modify this function by taking into consideration that side b isn't larger than the hypothenuse and that side a isn't larger than side b.</p>
+<p>Sadece üç tane liste oluşturduk ve oluşturduğumuz bu listeleri çıktı fonksiyonu ile üçlü demetler haline getirdik. Sonucu görmek için GHCI'de <span class="fixed">triangles</span> yaz, kenarları 10'dan küçük ya da 10'a eşit olası tüm üçgenlerin çıktısını alırsın. Sonra, hepsinin dik üçgen olması için bir koşul ekleyelim. Ayrıca b kenarının hipotenüsten büyük ve a kenarının b kenarından büyük olmaması gerektiğini de dikkate alarak, fonksiyona gerekli eklemeyi yapalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let rightTriangles = [ (a,b,c) | c &lt;- [1..10], b &lt;- [1..c], a &lt;- [1..b], a^2 + b^2 == c^2] </pre>
-<p>We're almost done. Now, we just modify the function by saying that we want the ones where the perimeter is 24.</p>
+<p>Neredeyse bitti. Şimdi, sadece çevresi 24 olanları istediğimiz için, fonksiyona bir ekleme daha yapalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let rightTriangles' = [ (a,b,c) | c &lt;- [1..10], b &lt;- [1..c], a &lt;- [1..b], a^2 + b^2 == c^2, a+b+c == 24]
 ghci&gt; rightTriangles'
 [(6,8,10)]
 </pre>
-<p>And there's our answer! This is a common pattern in functional programming. You take a starting set of solutions and then you apply transformations to those solutions and filter them until you get the right ones.</p>
+<p>Ve aradığımız cevabı bulduk. Bu fonksiyonel programlamada genel bir şablondur. Bir takım çözümler üretmeye başlarsınız ardından bu çözümlere gerekli değişikliklerde bulunup en sonunda da onları doğru sonuca ulaşana kadar süzgeçten geçirirsiniz.</p>
                 <div class="footdiv">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="introduction" class="prevlink">Introduction</a>
+                                                        <a href="introduction" class="prevlink">Tanıtım</a>
                                             </li>
                     <li style="text-align:center">
-                        <a href="chapters">Table of contents</a>
+                        <a href="chapters">İçindekiler</a>
                     </li>
                     <li style="text-align:right">
-                                                        <a href="types-and-typeclasses" class="nxtlink">Types and Typeclasses</a>
+                                                        <a href="types-and-typeclasses" class="nxtlink">Tipler ve Tip Sınıfları</a>
                                             </li>
                 </ul>
             </div>
