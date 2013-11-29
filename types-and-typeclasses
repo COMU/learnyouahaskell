@@ -75,7 +75,7 @@ addThree x y z = x + y + z
 <p>
 <span class="label type">Int</span> 'in anlamı integerdir. Yani tamsayılar için kullanılır. <span class="fixed">7</span> bir <span class="fixed">Int</span> olabilir ama <span class="fixed">7.2</span> olamaz. <span class="fixed">Int</span> sınırlandırılmıştır, bu maximum ve minimum değeri olması gerektiği anlamına gelir. 32-bit makinelerde <span class="fixed">Int</span> 'in en yüksek değeri 2147483647 dir ve minimum değeri ise -2147483648 dir.
 </p>
-<p><span class="label type">Integer</span> stands for, er &hellip; also integer. The main difference is that it's not bounded so it can be used to represent really really big numbers. I mean like really big. <span class="fixed">Int</span>, however, is more efficient.
+<p><span class="label type">Integer</span> eee &hellip; aynı zamanda integer anlamına gelir. Int ve integerin arasındaki fark integerin sınırı olmadığı için çok büyük rakamlarla uğraşırken kullanılabilmesidir. Büyük derken gerçekten büyük sayılardan bahsediyoruz. Fakat <span class="fixed">Int</span> daha verimlidir.
 </p>
 <pre name="code" class="haskell: hs">
 factorial :: Integer -&gt; Integer
@@ -85,7 +85,7 @@ factorial n = product [1..n]
 ghci&gt; factorial 50
 30414093201713378043612608166064768844377641568960512000000000000
 </pre>
-<p><span class="label type">Float</span> is a real floating point with single precision.</p>
+<p><span class="label type">Float</span> tek hassasiyetli gerçel sayıdır.</p>
 <pre name="code" class="haskell: hs">
 circumference :: Float -&gt; Float
 circumference r = 2 * pi * r
@@ -94,7 +94,7 @@ circumference r = 2 * pi * r
 ghci&gt; circumference 4.0
 25.132742
 </pre>
-<p><span class="label type">Double</span> is a real floating point with double the precision!</p>
+<p><span class="label type">Double</span> de gerçel sayıdır,hem de tam çift hassasiyetli!</p>
 <pre name="code" class="haskell: hs">
 circumference' :: Double -&gt; Double
 circumference' r = 2 * pi * r
@@ -104,15 +104,15 @@ ghci&gt; circumference' 4.0
 25.132741228718345
 </pre>
 <p>
-<span class="label type">Bool</span> is a boolean type. It can have only two values: <span class="fixed">True</span> and <span class="fixed">False</span>.
+<span class="label type">Bool</span> adından da anlaşıldığı gibi boolean tipidir. Yani sadece iki farklı değer alabilir: <span class="fixed">True</span> ve <span class="fixed">False</span>.
 </p>
 <p>
-<span class="label type">Char</span> represents a character. It's denoted by single quotes. A list of characters is a string.
+<span class="label type">Char</span> karakteri temsil eder ve çift tırnak ile ifade edilir. Bir karakter listesi string oluşturur.
 </p>
-<p>Tuples are types but they are dependent on their length as well as the types of their components, so there is theoretically an infinite number of tuple types, which is too many to cover in this tutorial. Note that the empty tuple <span class="label type">()</span> is also a type which can only have a single value: <span class="fixed">()</span></p>
-<a name="type-variables"></a><h2>Type variables</h2>
+<p>Demetler tiplerdir fakat uzunluklarına bağlı oldukları gibi bileşenlerin tiplerine de bağlıdırlar, yani teorik olarak sonsuz sayıda demet tipi vardır ki sonsuz da tutorialda kapsamak için biraz büyük bir sayıdır. Boş bir demetin <span class="label type">()</span> sahip olabildiği tek değer budur: <span class="fixed">()</span></p>
+<a name="type-variables"></a><h2>Tip değişkenleri</h2>
 <p>
-What do you think is the type of the <span class="fixed">head</span> function? Because <span class="fixed">head</span> takes a list of any type and returns the first element, so what could it be? Let's check!
+<span class="fixed">head</span> fonksiyonunun tipi nedir sizce? <span class="fixed">head</span> bir liste alır ve listedeki ilk elemanı döndürür, yani acaba tipi ne olabilir? Hadi bakalım!
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t head
