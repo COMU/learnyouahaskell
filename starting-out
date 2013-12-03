@@ -42,7 +42,7 @@ GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude&gt;</pre>
 <p>
-Tebrikler, GHCI'desiniz! Burada karşılaştığımız prompt <span class="fixed">Prelude&gt;</span> ***but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. Sizde de aynı prompt olsun istiyorsanız, sadece <span class="fixed">:set prompt "ghci&gt; "</span> yazın. 
+Tebrikler, GHCI'desiniz! Burada karşılaştığımız prompt <span class="fixed">Prelude&gt;</span> ama biz <span class="fixed">ghci&gt;</span> kullanacağız çünkü oturum içerisinde bir şeyler yapmak uzun zaman alabilir. Sizde de aynı prompt olsun istiyorsanız, sadece <span class="fixed">:set prompt "ghci&gt; "</span> yazın. Bu sadece nerede olduğumuzu bize hatırlatır.
 </p>
 <p>
 İşte bazı basit aritmetikler.
@@ -271,7 +271,7 @@ ghci&gt; [6,6,6]:b
 ghci&gt; b !! 2
 [1,2,2,3,4] </pre>
 <p>Liste içerisinde listeler farklı uzunlukta olabilir ama farklı tipte öğe içeremezler. Bir liste içerisinde hem karakter hem sayı tutamadığımız gibi, hem karakter içeren listeler hem de sayı içeren listeler de tutamayız.</p>
-<p>Eğer liste içerikleri karşılaştırılabiliyorsa listeler de karşılaştırılabilir. <span class="fixed">&lt;</span>, <span class="fixed">&lt;=</span>, <span class="fixed">&gt;</span> ve <span class="fixed">&gt;=</span> kullanarak listeler ***lexicographical olarak karşılaştırılır. İlk önce baş eleman karşılaştırılır. Eğer onlar eşit ise ikinci elemanlar karşılaştırılır, vs.</p>
+<p>Eğer liste içerikleri karşılaştırılabiliyorsa listeler de karşılaştırılabilir. Listeler <span class="fixed">&lt;</span>, <span class="fixed">&lt;=</span>, <span class="fixed">&gt;</span> ve <span class="fixed">&gt;=</span> kullanarak sözlük sırasına göre karşılaştırılır. İlk önce baş eleman karşılaştırılır. Eğer onlar eşit ise ikinci elemanlar karşılaştırılır, vs.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [3,2,1] &gt; [2,1,0]
 True
