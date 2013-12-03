@@ -34,13 +34,13 @@
         <h1 style="margin-left:-3px">Syntax in Functions</h1>
 <a name="pattern-matching"></a><h2>Pattern matching</h2>
 <img src="http://s3.amazonaws.com/lyah/pattern.png" alt="four!" class="right" width="162" height="250">
-<p>This chapter will cover some of Haskell's cool syntactic constructs and we'll start with pattern matching. Pattern matching consists of specifying patterns to which some data should conform and then checking to see if it does and deconstructing the data according to those patterns.</p>
-<p>When defining functions, you can define separate function bodies for different patterns. This leads to really neat code that's simple and readable. You can pattern match on any data type &mdash; numbers, characters, lists, tuples, etc. Let's make a really trivial function that checks if the number we supplied to it is a seven or not.</p>
+<p>Bu bölüm Haskell'in bazı havalı sözdizimsel yapılarını içeriyor. Bu bölüme örüntü eşleme ile giriş yapacağız. Örüntü eşleme, belirtilen örüntülerin bazı verilerinin uyumlu olup olmadığının kontrol edilmesi ve uygun ise bu örüntülere göre bileşenlerine ayrılmasına dayanmaktadır.</p>
+<p>Fonksiyonları tanımlarken, farklı her örüntü için ayrı fonksiyon gövdesi tanımlayabilirsin. Bu basit ve okunaklı olan düzenli bir kod yazmanı sağlar. Herhangi bir veri üzerinde örüntü eşleme yapabilirsiniz &mdash; sayılar, karakterler, listeler, demetler, vs. Hadi ona verdiğimiz sayının yedi olup olmadığını söyleyen son derece gereksiz bir fonksiyon üretelim.</p>
 <pre name="code" class="haskell: hs">
 lucky :: (Integral a) =&gt; a -&gt; String
 lucky 7 = "LUCKY NUMBER SEVEN!"
 lucky x = "Sorry, you're out of luck, pal!" </pre>
-<p>When you call <span class="fixed">lucky</span>, the patterns will be checked from top to bottom and when it conforms to a pattern, the corresponding function body will be used. The only way a number can conform to the first pattern here is if it is 7. If it's not, it falls through to the second pattern, which matches anything and binds it to <span class="fixed">x</span>. This function could have also been implemented by using an if statement. But what if we wanted a function that says the numbers from 1 to 5 and says <span class="fixed">"Not between 1 and 5"</span> for any other number? Without pattern matching, we'd have to make a pretty convoluted if then else tree. However, with it:</p>
+<p><span class="fixed">lucky</span> fonksiyonunu çağırdığın zaman, örüntü baştan sona kadar kontrol edilir. Örüntüye uygun eşleşme bulunduğunda ilişkili fonksiyon gövdesi kullanılır. Burada sadece gönderilen sayı 7 ise ilk örüntüye uyar. Eğer değilse, herhangi bir sayıyla eşleşen ikinci örüntü gerçekleşir ***binds it to <span class="fixed">x</span>. Bu fonksiyon if ifadesi ile de sağlanabilir. Ama 1 ile 5 arasındaki sayıları söyleyen ve diğer sayılar için <span class="fixed">"Not between 1 and 5"</span> çıktısını veren bir fonksiyon yazmak istersek? Bu fonksiyonu örüntü eşleme kullanmadan yapmaya çalışsaydık, oldukça anlaşılmaz bir if then else ağacı oluştururduk. Ama, örüntü eşleme ile:</p>
 <pre name="code" class="haskell: hs">
 sayMe :: (Integral a) =&gt; a -&gt; String
 sayMe 1 = "One!"
