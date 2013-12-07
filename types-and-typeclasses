@@ -142,10 +142,10 @@ ghci&gt; :t (==)
 </pre>
 <div class="hintbox"><em>Not</em>: eşitlik operatörü, <span class="fixed">==</span> bir fonksiyondur. Yani <span class="fixed">+</span>, <span class="fixed">*</span>, <span class="fixed">-</span>, <span class="fixed">/</span> de ve nerdeyse tüm operatörler de. Eğer bir fonksiyon sadece özel karakterlerden oluşuyorsa, infix fonksiyonu olarak varsayılır. Eğer tipini öğrenmek istiyorsak başka bir fonksiyona veririz veya prefix fonksiyonu olarak çağırırız, onu parantezlerle çevrelemez zorundayız.</div>
 <p>İlginç. Burda yeni birşey görüyoruz, <span class="fixed">=&gt;</span> sembolü. <span class="fixed">=&gt;</span> sembolünden önceki herşey <em>sınıf sınırlaması</em> olarak bilinir. Önceki deklarasyonu şu şekilde okuyabiliriz: eşitlik fonksiyonu tipi aynı olan herhangi iki değeri alır ve <span class="fixed">Bool</span> döndürür. O iki değerin tipi <span class="fixed">Eq</span> sınıfının bir üyesi olmak zorundadır (bu sınıf sınırlandırmasıdır).</p>
-<p><span class="fixed">Eq</span> tip-sınıfı eşitlik testi için bir arayüz sağlar. Any type where it makes sense to test for equality between two values of that type should be a member of the <span class="fixed">Eq</span> class. All standard Haskell types except for IO (the type for dealing with input and output) and functions are a part of the <span class="fixed">Eq</span> typeclass.</p>
-<p>The <span class="fixed">elem</span> function has a type of <span class="fixed">(Eq a) =&gt; a -&gt; [a] -&gt; Bool</span> because it uses <span class="fixed">==</span> over a list to check whether some value we're looking for is in it.</p>
-<p>Some basic typeclasses:</p>
-<p><span class="label class">Eq</span> is used for types that support equality testing. The functions its members implement are <span class="fixed">==</span> and <span class="fixed">/=</span>. So if there's an <span class="fixed">Eq</span> class constraint for a type variable in a function, it uses <span class="fixed">==</span> or <span class="fixed">/=</span> somewhere inside its definition. All the types we mentioned previously except for functions are part of <span class="fixed">Eq</span>, so they can be tested for equality.</p>
+<p><span class="fixed">Eq</span> tip-sınıfı eşitlik testi için bir arayüz sağlar. Kontrol edilen tipe ait olan iki değer de <span class="fixed">Eq</span> sınıfına üye olmalıdır. IO tipi (input ve output ile ilgilenen tipler) dışındaki tüm standart Haskell tipleri ve fonksiyonları <span class="fixed">Eq</span> tip-sınıfının üyesidir.</p>
+<p>The <span class="fixed">elem</span> fonksiyonunun tipi <span class="fixed">(Eq a) =&gt; a -&gt; [a] -&gt; Bool</span> 'dur çünkü bir listede istediğimiz değerin olup olmadığını bulmak için <span class="fixed">==</span> kullanır.</p>
+<p>Bazı temel tip-sınıfları:</p>
+<p><span class="label class">Eq</span> eşitlik testini destekleyen tipler için kullanılır. Eğer bir tip için <span class="fixed">Eq</span> sınıf sınırlandırması varsa, tanımlanma sürecinde <span class="fixed">==</span> veya <span class="fixed">/=</span> kullanır. Az önce fonksiyonlar dışında bahsettiğimiz tüm tipler <span class="fixed">Eq</span> 'nun bir parçasıdır, yani eşitlik testi için kullanılabilirler.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 5 == 5
 True
@@ -159,7 +159,7 @@ ghci&gt; 3.432 == 3.432
 True
 </pre>
 <p>
-<span class="label class">Ord</span> is for types that have an ordering.</p>
+<span class="label class">Ord</span> emir verme düzenine sahip tipler içindir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t (&gt;)
 (&gt;) :: (Ord a) =&gt; a -&gt; a -&gt; Bool
