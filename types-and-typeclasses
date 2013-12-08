@@ -159,14 +159,14 @@ ghci&gt; 3.432 == 3.432
 True
 </pre>
 <p>
-<span class="label class">Ord</span> emir verme düzenine sahip tipler içindir.</p>
+<span class="label class">Ord</span> sıralamaya sahip tipler içindir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t (&gt;)
 (&gt;) :: (Ord a) =&gt; a -&gt; a -&gt; Bool
 </pre>
 <p>
-All the types we covered so far except for functions are part of <span class="fixed">Ord</span>. <span class="fixed">Ord</span> covers all the standard comparing functions such as <span class="fixed">&gt;</span>, <span class="fixed">&lt;</span>, <span class="fixed">&gt;=</span> and <span class="fixed">&lt;=</span>. The <span class="fixed">compare</span> function takes two <span class="fixed">Ord</span> members of the same type and returns an ordering. <span class="label type">Ordering</span> is a type that can be <span class="fixed">GT</span>, <span class="fixed">LT</span> or <span class="fixed">EQ</span>, meaning <i>greater than</i>, <i>lesser than</i> and <i>equal</i>, respectively. 
-<p>To be a member of <span class="fixed">Ord</span>, a type must first have membership in the prestigious and exclusive <span class="fixed">Eq</span> club.</p>
+Fonksiyonlar dışında işlediğimiz tüm tipler <span class="fixed">Ord</span> 'un bir parçasıdır. <span class="fixed">Ord</span> fonksiyonu <span class="fixed">&gt;</span>, <span class="fixed">&lt;</span>, <span class="fixed">&gt;=</span> ve <span class="fixed">&lt;=</span> gibi standart karşılaştırma fonksiyonlarını kapsar. <span class="fixed">compare</span> fonksiyonu aynı tipte iki <span class="fixed">Ord</span> üyesi alır ve bir sıralama döndürür. <span class="label type">Ordering</span> tipi <span class="fixed">GT</span>, <span class="fixed">LT</span> veya <span class="fixed">EQ</span> olabilir, bunlar sırasıyla <i>'dan büyük</i>, <i>'dan küçük</i> ve <i>sşittir</i> anlamına gelir. 
+<p>Bir tipin <span class="fixed">Ord</span> üyesi olması için ilk önce prestijli ve özel <span class="fixed">Eq</span> klübünün üyesi olmalıdır.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; "Abrakadabra" &lt; "Zebra"
 True
@@ -177,7 +177,7 @@ True
 ghci&gt; 5 `compare` 3
 GT
 </pre>
-<p>Members of <span class="label class">Show</span> can be presented as strings. All types covered so far except for functions are a part of <span class="fixed">Show</span>. The most used function that deals with the <span class="fixed">Show</span> typeclass is <span class="fixed">show</span>. It takes a value whose type is a member of <span class="fixed">Show</span> and presents it to us as a string.</p>
+<p><span class="label class">Show</span> 'un üyeleri string olarak gösterilebilir. Fonksiyonlar dışında işlediğimiz tüm tipler<span class="fixed">Show</span> 'un bir üyesidir. <span class="fixed">Show</span> tip-sınıfı ile en çok uğraşan fonksiyon <span class="fixed">show</span> 'dur. <span class="fixed">Show</span> 'un üyesi olan bir değer alır ve onu string olarak gösterir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; show 3
 "3"
@@ -186,7 +186,7 @@ ghci&gt; show 5.334
 ghci&gt; show True
 "True"
 </pre>
-<p><span class="label class">Read</span> is sort of the opposite typeclass of <span class="fixed">Show</span>. The <span class="fixed">read</span> function takes a string and returns a type which is a member of <span class="fixed">Read</span>.</p>
+<p><span class="label class">Read</span> ise <span class="fixed">Show</span> 'un tersi sayılır. <span class="fixed">read</span> fonksiyonu <span class="fixed">Read</span> 'ın üyesi olan bir string alır ve onu sayıya dönüştürür.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "True" || False
 True
@@ -197,7 +197,7 @@ ghci&gt; read "5" - 2
 ghci&gt; read "[1,2,3,4]" ++ [3]
 [1,2,3,4,3]
 </pre>
-<p>So far so good. Again, all types covered so far are in this typeclass. But what happens if we try to do just <span class="fixed">read "4"</span>?</p>
+<p>İşlediğimiz tüm tipler aynı zamanda bu tip-sınıfının da içindedir. Peki sadece <span class="fixed">read "4"</span> yazarsak ne olur?</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "4"
 &lt;interactive&gt;:1:0:
@@ -205,13 +205,13 @@ ghci&gt; read "4"
       `Read a' arising from a use of `read' at &lt;interactive&gt;:1:0-7
     Probable fix: add a type signature that fixes these type variable(s)
 </pre>
-<p>What GHCI is telling us here is that it doesn't know what we want in return. Notice that in the previous uses of <span class="fixed">read</span> we did something with the result afterwards. That way, GHCI could infer what kind of result we wanted out of our <span class="fixed">read</span>. If we used it as a boolean, it knew it had to return a <span class="fixed">Bool</span>. But now, it knows we want some type that is part of the <span class="fixed">Read</span> class, it just doesn't know which one. Let's take a look at the type signature of <span class="fixed">read</span>.</p>
+<p>GHCI 'nin bize burda söylediği şey neyi geri döndürmek istediğimizi bilmediğidir. Önceki <span class="fixed">read</span> fonksiyonunu kullandığımız yerlerde sonuç verebilecek işlemler yaptık. Bu yolla GHCI, <span class="fixed">read</span> 'ı kullanarak ne istediğimizi anlamış oldu. Eğer onu boolean olarak kullansaydık, <span class="fixed">Bool</span> döndürmesi gerektiğini anlardı. Hadi <span class="fixed">read</span> 'ın tip simgesine bakalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t read
 read :: (Read a) =&gt; String -&gt; a
 </pre>
 <p>
-See? It returns a type that's part of <span class="fixed">Read</span> but if we don't try to use it in some way later, it has no way of knowing which type. That's why we can use explicit <em>type annotations</em>. Type annotations are a way of explicitly saying what the type of an expression should be. We do that by adding <span class="fixed">::</span> at the end of the expression and then specifying a type. Observe:
+Gördünüz mü? <span class="fixed">Read</span> 'ın parçası olan bir tip döndürdü fakat az önceki gibi kullanırsak hangi tip döndüreceğini bilemez. İşte bu yüzden <em>tip açıklamaları</em> nı kullanıyoruz. Tip açıklamalarını belirtilen ifadenin tipini açıklamak için kullanıyoruz. Bunu ifadenin sonuna <span class="fixed">::</span> ekledikten sonra bir tip yazarak yapabiliriz. İzleyin:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "5" :: Int
