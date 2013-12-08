@@ -50,17 +50,17 @@ sayMe 4 = "Four!"
 sayMe 5 = "Five!"
 sayMe x = "Not between 1 and 5"
 </pre>
-<p>Note that if we moved the last pattern (the catch-all one) to the top, it would always say <span class="fixed">"Not between 1 and 5"</span>, because it would catch all the numbers and they wouldn't have a chance to fall through and be checked for any other patterns.</p>
-<p>Remember the factorial function we implemented previously? We defined the factorial of a number <span class="fixed">n</span> as <span class="fixed">product [1..n]</span>. We can also define a factorial function <i>recursively</i>, the way it is usually defined in mathematics. We start by saying that the factorial of 0 is 1. Then we state that the factorial of any positive integer is that integer multiplied by the factorial of its predecessor. Here's how that looks like translated in Haskell terms.</p>
+<p>Eğer son örüntüyü (birçok şeyi kapsayan) en üste taşırsak, her zaman <span class="fixed">"Not between 1 and 5"</span> çıktısını vereceğini unutma. Çünkü bu örüntü bütün sayılarla eşleşir ve sonraki örüntülere geçme şansı yoktur. Aynı zamanda sonraki örüntüler için konrol de edilemezlerdi.</p>
+<p>Bundan önce yaptığımız faktöryel fonksiyonunu hatırladın mı? Bir sayının <span class="fixed">n</span faktöryelini <span class="fixed">product [1..n]</span> olarak tanımladık. Ayrıca faktöryel fonksiyonunu <i>özyinelemeli</i> olarak da tanımlayabilirdik, matematikte de genellikle böyle tanımlanır. 0'ın faktöriyelinin 1 olduğunu belirterek başlarız. Sonra pozitif herhangi bir sayının faktöryelinin o sayıdan bir önceki sayının faktöryeliyle çarpımı olduğunu belirtiriz. Bakalım Haskell şartlarında nasıl gözüküyor.</p>
 <pre name="code" class="haskell: hs">
 factorial :: (Integral a) =&gt; a -&gt; a
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
 </pre>
 <p>
-This is the first time we've defined a function recursively. Recursion is important in Haskell and we'll take a closer look at it later. But in a nutshell, this is what happens if we try to get the factorial of, say, 3. It tries to compute <span class="fixed">3 * factorial 2</span>. The factorial of 2 is <span class="fixed">2 * factorial 1</span>, so for now we have <span class="fixed">3 * (2 * factorial 1)</span>. <span class="fixed">factorial 1</span> is <span class="fixed">1 * factorial 0</span>, so we have <span class="fixed">3 * (2 * (1 * factorial 0))</span>. Now here comes the trick &mdash; we've defined the factorial of 0 to be just 1 and because it encounters that pattern before the catch-all one, it just returns 1. So the final result is equivalent to <span class="fixed">3 * (2 * (1 * 1))</span>. Had we written the second pattern on top of the first one, it would catch all numbers, including 0 and our calculation would never terminate. That's why order is important when specifying patterns and it's always best to specify the most specific ones first and then the more general ones later.</p>
+Burada ilk kez bir fonksiyonu özyinelemli olarak tanımladık. Özyineleme Haskell içerisinde önemlidir ve bu konuya ileride daha yakından bakacağız. Kısaca ne olduğunu belirtmek gerekirse, eğer 3 sayısının faktöryelini istersek, Haskell <span class="fixed">3 * factorial 2</span> ifadesini hesaplamaya çalışır. 2'nin faktöryeli <span class="fixed">2 * factorial 1</span> olduğundan şimdi karşımızda <span class="fixed">3 * (2 * factorial 1)</span> ifadesi var. <span class="fixed">factorial 1</span> de <span class="fixed">1 * factorial 0</span> ifadesine eşit olduğundan elimizde <span class="fixed">3 * (2 * (1 * factorial 0))</span> var. Şimdi püf noktasına geldik &mdash; faktöryel 0 ifadesini 1 olarak tanımlamıştık çünkü bu örüntü herhangibir şey ile eşleşebilen örüntüden hemen önce karşılar ve 1 döndürür. Sonuç olarak elimizdeki ifade bu hale geldi <span class="fixed">3 * (2 * (1 * 1))</span>. Eğer ikinci örüntüyü ilk örüntünün üstüne yazsaydık, 0 da dahil olmak üzere tüm sayılarla eşleşirdi ve hesaplamamız sona ermezdi. Bu  nedenle örüntü belirlerken sıralama önemlidir. Ve her zaman daha özgün olanı ilk daha genel olanı ise sonrasında belirtmek en iyisidir.</p>
 <p>
-Pattern matching can also fail. If we define a function like this:
+Örüntü eşleme de eğer böyle bir fonksiyon tanımlarsak başarısız olabilir:
 </p>
 <pre name="code" class="haskell: hs">
 charName :: Char -&gt; String
