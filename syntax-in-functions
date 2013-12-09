@@ -50,7 +50,7 @@ sayMe 4 = "Four!"
 sayMe 5 = "Five!"
 sayMe x = "Not between 1 and 5"
 </pre>
-<p>Eğer son örüntüyü (birçok şeyi kapsayan) en üste taşırsak, her zaman <span class="fixed">"Not between 1 and 5"</span> çıktısını vereceğini unutma. Çünkü bu örüntü bütün sayılarla eşleşir ve sonraki örüntülere geçme şansı yoktur. Aynı zamanda sonraki örüntüler için konrol de edilemezlerdi.</p>
+<p>Eğer son örüntüyü (birçok şeyi kapsayan) en üste taşırsak, her zaman <span class="fixed">"Not between 1 and 5"</span> çıktısını vereceğini unutma. Çünkü bu örüntü bütün sayılarla eşleşir ve sonraki örüntülere geçme şansı olmaz. Böylece girdi sonraki örüntülerle kontrol de edilemez.</p>
 <p>Bundan önce yaptığımız faktöryel fonksiyonunu hatırladın mı? Bir sayının <span class="fixed">n</span faktöryelini <span class="fixed">product [1..n]</span> olarak tanımladık. Ayrıca faktöryel fonksiyonunu <i>özyinelemeli</i> olarak da tanımlayabilirdik, matematikte de genellikle böyle tanımlanır. 0'ın faktöriyelinin 1 olduğunu belirterek başlarız. Sonra pozitif herhangi bir sayının faktöryelinin o sayıdan bir önceki sayının faktöryeliyle çarpımı olduğunu belirtiriz. Bakalım Haskell şartlarında nasıl gözüküyor.</p>
 <pre name="code" class="haskell: hs">
 factorial :: (Integral a) =&gt; a -&gt; a
@@ -68,7 +68,7 @@ charName 'a' = "Albert"
 charName 'b' = "Broseph"
 charName 'c' = "Cecil"
 </pre>
-<p>and then try to call it with an input that we didn't expect, this is what happens:</p>
+<p>ve sonra bizim tahmin etmediğimiz bir girdi ile çağırırsak, işte böyle olur:</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; charName 'a'
 "Albert"
@@ -78,20 +78,20 @@ ghci&gt; charName 'h'
 "*** Exception: tut.hs:(53,0)-(55,21): Non-exhaustive patterns in function charName
 </pre>
 <p>
-It complains that we have non-exhaustive patterns, and rightfully so. When making patterns, we should always include a catch-all pattern so that our program doesn't crash if we get some unexpected input.
+Haklı olarak örüntümüzün yetersiz olduğunu belirtiyor. Her zaman örüntü oluştururken tüm ihtimalleri içine alan bir örüntü eklemeliyiz. Böylece tahmin etmediğimiz bir girdi aldığımızda programımız çökmez.
 </p>
-<p>Pattern matching can also be used on tuples. What if we wanted to make a function that takes two vectors in a 2D space (that are in the form of pairs) and adds them together? To add together two vectors, we add their x components separately and then their y components separately. Here's how we would have done it if we didn't know about pattern matching:</p>
+<p>Örüntü eşleme aynı zamanda demetler için de kullanılabilir. Peki 2 boyutlu uzayda bulunan iki vektörü (bunlar ikili yapıdadır) alıp onları toplayan bir fonksiyon yapmak isteseydik ne olurdu? İki vektörü toplarken onların x ve y bileşenlerini kendi aralarında toplarız. Eğer örüntü eşleme bilmiyorsak bunu şu şekilde yaparız:</p>
 <pre name="code" class="haskell: hs">
 addVectors :: (Num a) =&gt; (a, a) -&gt; (a, a) -&gt; (a, a)
 addVectors a b = (fst a + fst b, snd a + snd b)
 </pre>
-<p>Well, that works, but there's a better way to do it. Let's modify the function so that it uses pattern matching.</p>
+<p>Güzel, işe yaradı, ama bunu yapmak için daha iyi bir yol var. Hadi fonksiyonu örüntü eşleme kullancak şekilde düzenleyelim.</p>
 <pre name="code" class="haskell: hs">
 addVectors :: (Num a) =&gt; (a, a) -&gt; (a, a) -&gt; (a, a)
 addVectors (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
 </pre>
-<p>There we go! Much better. Note that this is already a catch-all pattern. The type of <span class="fixed">addVectors</span> (in both cases) is <span class="fixed">addVectors :: (Num a) =&gt; (a, a) -&gt; (a, a) - &gt; (a, a)</span>, so we are guaranteed to get two pairs as parameters.</p>
-<p><span class="fixed">fst</span> and <span class="fixed">snd</span> extract the components of pairs. But what about triples? Well, there are no provided functions that do that but we can make our own.</p>
+<p>İşte bu kadar! Bu çok daha iyi. Dikkat ettiysen bu zaten hepsini kapsayan bir örüntü. <span class="fixed">addVectors</span> fonksiyonunun tipi (her iki durumda da) <span class="fixed">addVectors :: (Num a) =&gt; (a, a) -&gt; (a, a) - &gt; (a, a)</span>'dır, sonuç olarak fonksiyonun iki tane ikiliyi parametre almasını sağladık.</p>
+<p><span class="fixed">fst</span> ve <span class="fixed">snd</span> demetlerin belli içeriklerini döndürüler. Peki ya üçlüler? Bunun için önceden sağlanmış fonksiyonlar yok ama kendi fonksiyonlarımızı yapabiliriz.</p>
 <pre name="code" class="haskell: hs">
 first :: (a, b, c) -&gt; a
 first (x, _, _) = x
@@ -102,16 +102,16 @@ second (_, y, _) = y
 third :: (a, b, c) -&gt; c
 third (_, _, z) = z
 </pre>
-<p>The <span class="fixed">_</span> means the same thing as it does in list comprehensions. It means that we really don't care what that part is, so we just write a <span class="fixed">_</span>.</p>
-<p>Which reminds me, you can also pattern match in list comprehensions. Check this out:</p>
+<p><span class="fixed">_</span> işareti liste üreteçlerinde nasıl kullanıldıysa öyle kullanılır ve aynı şeyi ifade eder. Bu kısmın ne olduğunu önemsemediğimiz anlamına gelir, böylece biz de sadece <span class="fixed">_</span> yazarız.</p>
+<p>Bu bana liste üreteçlerinde de örüntü eşleyebileceğini hatırlattı. Şuna bir bak:</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; let xs = [(1,3), (4,3), (2,4), (5,3), (5,6), (3,1)]
 ghci&gt; [a+b | (a,b) <- xs]
 [4,7,6,8,11,4] </pre>
 <p>
-Should a pattern match fail, it will just move on to the next element.
+Bir örüntü eşleme başarısız olursa, sadece bir sonraki eleman ile devam eder.
 </p>
-<p>Lists themselves can also be used in pattern matching. You can match with the empty list <span class="fixed">[]</span> or any pattern that involves <span class="fixed">:</span> and the empty list. But since <span class="fixed">[1,2,3]</span> is just syntactic sugar for <span class="fixed">1:2:3:[]</span>, you can also use the former pattern. A pattern like <span class="fixed">x:xs</span> will bind the head of the list to <span class="fixed">x</span> and the rest of it to <span class="fixed">xs</span>, even if there's only one element so <span class="fixed">xs</span> ends up being an empty list. </p>
+<p>Ayrıca listelerin kendisi de örüntü eşlemede kullanılabilir. You can match with the empty list <span class="fixed">[]</span> or any pattern that involves <span class="fixed">:</span> and the empty list. But since <span class="fixed">[1,2,3]</span> is just syntactic sugar for <span class="fixed">1:2:3:[]</span>, you can also use the former pattern. A pattern like <span class="fixed">x:xs</span> will bind the head of the list to <span class="fixed">x</span> and the rest of it to <span class="fixed">xs</span>, even if there's only one element so <span class="fixed">xs</span> ends up being an empty list. </p>
 <div class="hintbox"><em>Note</em>: The <span class="fixed">x:xs</span> pattern is used a lot, especially with recursive functions. But patterns that have <span class="fixed">:</span> in them only match against lists of length 1 or more.</div>
 <p>If you want to bind, say, the first three elements to variables and the rest of the list to another variable, you can use something like <span class="fixed">x:y:z:zs</span>. It will only match against lists that have three elements or more.</p>
 <p>Now that we know how to pattern match against list, let's make our own implementation of the <span class="fixed">head</span> function.</p>
