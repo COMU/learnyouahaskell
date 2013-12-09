@@ -225,8 +225,8 @@ ghci&gt; read "[1,2,3,4]" :: [Int]
 ghci&gt; read "(3, 'a')" :: (Int, Char)
 (3, 'a')
 </pre>
-<p>Most expressions are such that the compiler can infer what their type is by itself. But sometimes, the compiler doesn't know whether to return a value of type <span class="fixed">Int</span> or <span class="fixed">Float</span> for an expression like <span class="fixed">read "5"</span>. To see what the type is, Haskell would have to actually evaluate <span class="fixed">read "5"</span>. But since Haskell is a statically typed language, it has to know all the types before the code is compiled (or in the case of GHCI, evaluated). So we have to tell Haskell: "Hey, this expression should have this type, in case you don't know!".</p>
-<p><span class="label class">Enum</span> members are sequentially ordered types &mdash; they can be enumerated. The main advantage of the <span class="fixed">Enum</span> typeclass is that we can use its types in list ranges. They also have defined successors and predecesors, which you can get with the <span class="fixed">succ</span> and <span class="fixed">pred</span> functions. Types in this class: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
+<p>Derleyici çoğu ifadenin tipini tahmin ederek tanımlayabilir. Fakat bazen, derleyici <span class="fixed">read "5"</span> gibi bir ifade okuduğunda <span class="fixed">Int</span> veya <span class="fixed">Float</span> 'tan hangisini döndüreceğini bilemez. Hangi tipi döndüreceğini anlaması için Haskell'ın <span class="fixed">read "5"</span> ifadesini hesaplaması gerekir. Fakat Haskell'ın statik yazılan bir dil olduğunu düşünürsek kod derlenmeden önce bütün tiplerin ne olduğunu bilmelidir. Yani Haskell'a şunu söylemeliyiz: "Bu ifade şu tipe sahip olmalıdır, hani bilmiyorsan söyleyeyim!".</p>
+<p><span class="label class">Enum</span> 'un üyeleri ardışık olarak sıralandırılabilir &mdash; ve numaralandırılabilir. <span class="fixed">Enum</span> tip-sınıfının ana avantajı liste menzilleriyle kullanılabilmesidir. Bunun içinde aynı zamanda ardıl ve öncel işlemleri için fonksiyonlar tanımlanmıştır, ardıl işlemi <span class="fixed">succ</span> fonksiyonu ile, öncel işlemi ise <span class="fixed">pred</span> fonksiyonu yapılabilir. Bu sınıfın içindeki tipler şunlardır: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> ve <span class="fixed">Double</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; ['a'..'e']
 "abcde"
@@ -237,7 +237,7 @@ ghci&gt; [3 .. 5]
 ghci&gt; succ 'B'
 'C'
 </pre>
-<p><span class="label class">Bounded</span> members have an upper and a lower bound.</p>
+<p><span class="label class">Bounded</span> 'ın üyelerinin üst ve alt sınırları vardır.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; minBound :: Int
 -2147483648
@@ -248,18 +248,18 @@ True
 ghci&gt; minBound :: Bool
 False
 </pre>
-<p><span class="fixed">minBound</span> and <span class="fixed">maxBound</span> are interesting because they have a type of <span class="fixed">(Bounded a) =&gt; a</span>. In a sense they are polymorphic constants.</p>
-<p>All tuples are also part of <span class="fixed">Bounded</span> if the components are also in it.</p>
+<p><span class="fixed">minBound</span> ve <span class="fixed">maxBound</span> ilginçtir çünkü tipleri <span class="fixed">(Bounded a) =&gt; a</span> 'dır. Aslında baktığımız zaman onlar polimorfik sabitlerdir.</p>
+<p>Tüm demetler de aslında <span class="fixed">Bounded</span> 'ın bir parçasıdır, eğer bileşenler de içindeyse tabii.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; maxBound :: (Bool, Int, Char)
 (True,2147483647,'\1114111')
 </pre>
-<p><span class="label class">Num</span> is a numeric typeclass. Its members have the property of being able to act like numbers. Let's examine the type of a number.</p>
+<p><span class="label class">Num</span> sayısal bir tip-sınıfıdır. Bu sınıfın üyelerinin sayılar gibi davranma özelliği vardır. Hadi bir numaranın tipine bakalım.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t 20
 20 :: (Num t) =&gt; t
 </pre>
-<p>It appears that whole numbers are also polymorphic constants. They can act like any type that's a member of the <span class="fixed">Num</span> typeclass.</p>
+<p>Bu aslında bütün numaraların polimorfik sabit olduğunu gösteriyor. Onlar <span class="fixed">Num</span> tip-sınıfının üyesi olan herhangi bir tip gibi davranabilirler.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 20 :: Int
 20
@@ -270,15 +270,15 @@ ghci&gt; 20 :: Float
 ghci&gt; 20 :: Double
 20.0
 </pre>
-<p>Those are types that are in the <span class="fixed">Num</span> typeclass. If we examine the type of <span class="fixed">*</span>, we'll see that it accepts all numbers.</p>
+<p>Bu tipler <span class="fixed">Num</span> tip-sınıfının içinde olan tiplerdir. Eğer <span class="fixed">*</span> 'ın tipine bakarsak tüm sayıları kabul ettiğini görürüz.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t (*)
 (*) :: (Num a) =&gt; a -&gt; a -&gt; a
 </pre>
 <p>
-It takes two numbers of the same type and returns a number of that type. That's why <span class="fixed">(5 :: Int) * (6 :: Integer)</span> will result in a type error whereas <span class="fixed">5 * (6 :: Integer)</span> will work just fine and produce an <span class="fixed">Integer</span> because <span class="fixed">5</span> can act like an <span class="fixed">Integer</span> or an <span class="fixed">Int</span>.
+Aynı tipten iki numara alır ve o tipe sahip bir numara döndürür. İşte bu yüzden <span class="fixed">5 * (6 :: Integer)</span> ifadesi düzgün çalışıp <span class="fixed">Integer</span> döndürmesine rağmen <span class="fixed">(5 :: Int) * (6 :: Integer)</span> işlemi bir tip hatasına sebep olur çünkü <span class="fixed">5</span> hem <span class="fixed">Integer</span> hem de <span class="fixed">Int</span> gibi davranabilir.
 </p>
-<p>To join <span class="fixed">Num</span>, a type must already be friends with <span class="fixed">Show</span> and <span class="fixed">Eq</span>.</p>
+<p>Bir tipin <span class="fixed">Num</span> 'un üyesi olması için o tipin <span class="fixed">Show</span> ve <span class="fixed">Eq</span> tip-sınıflarının da üyesi olması gerekir.</p>
 <p><span class="class label">Integral</span> is also a numeric typeclass. <span class="fixed">Num</span> includes all numbers, including real numbers and integral numbers, <span class="fixed">Integral</span> includes only integral (whole) numbers. In this typeclass are <span class="fixed">Int</span> and <span class="fixed">Integer</span>.</p>
 <p><span class="class label">Floating</span> includes only floating point numbers, so <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
 <p>A very useful function for dealing with numbers is <span class="label function">fromIntegral</span>. It has a type declaration of <span class="fixed">fromIntegral :: (Num b, Integral a) =&gt; a -&gt; b</span>. From its type signature we see that it takes an integral number and turns it into a more general number. That's useful when you want integral and floating point types to work together nicely. For instance, the <span class="fixed">length</span> function has a type declaration of <span class="fixed">length :: [a] -&gt; Int</span> instead of having a more general type of <span class="fixed">(Num b) =&gt; length :: [a] -&gt; b</span>. I think that's there for historical reasons or something, although in my opinion, it's pretty stupid. Anyway, if we try to get a length of a list and then add it to <span class="fixed">3.2</span>, we'll get an error because we tried to add together an <span class="fixed">Int</span> and a floating point number. So to get around this, we do <span class="fixed">fromIntegral (length [1,2,3,4]) + 3.2</span> and it all works out.</p>
