@@ -40,7 +40,7 @@
 lucky :: (Integral a) =&gt; a -&gt; String
 lucky 7 = "LUCKY NUMBER SEVEN!"
 lucky x = "Sorry, you're out of luck, pal!" </pre>
-<p><span class="fixed">lucky</span> fonksiyonunu çağırdığın zaman, örüntü baştan sona kadar kontrol edilir. Örüntüye uygun eşleşme bulunduğunda ilişkili fonksiyon gövdesi kullanılır. Burada sadece gönderilen sayı 7 ise ilk örüntüye uyar. Eğer değilse, herhangi bir sayıyla eşleşen ikinci örüntü gerçekleşir ***binds it to <span class="fixed">x</span>. Bu fonksiyon if ifadesi ile de sağlanabilir. Ama 1 ile 5 arasındaki sayıları söyleyen ve diğer sayılar için <span class="fixed">"Not between 1 and 5"</span> çıktısını veren bir fonksiyon yazmak istersek? Bu fonksiyonu örüntü eşleme kullanmadan yapmaya çalışsaydık, oldukça anlaşılmaz bir if then else ağacı oluştururduk. Ama, örüntü eşleme ile:</p>
+<p><span class="fixed">lucky</span> fonksiyonunu çağırdığın zaman, örüntü baştan sona kadar kontrol edilir. Örüntüye uygun eşleşme bulunduğunda ilişkili fonksiyon gövdesi kullanılır. Burada sadece gönderilen sayı 7 ise ilk örüntüye uyar. Eğer değilse, herhangi bir sayıyla eşleşen ve <span class="fixed">x</span>'e bağlı olan ikinci örüntü gerçekleşir. Bu fonksiyon if ifadesi ile de sağlanabilir. Ama 1 ile 5 arasındaki sayıları söyleyen ve diğer sayılar için <span class="fixed">"Not between 1 and 5"</span> çıktısını veren bir fonksiyon yazmak istersek? Bu fonksiyonu örüntü eşleme kullanmadan yapmaya çalışsaydık, oldukça anlaşılmaz bir if then else ağacı oluştururduk. Ama, örüntü eşleme ile:</p>
 <pre name="code" class="haskell: hs">
 sayMe :: (Integral a) =&gt; a -&gt; String
 sayMe 1 = "One!"
@@ -111,16 +111,16 @@ ghci&gt; [a+b | (a,b) <- xs]
 <p>
 Bir örüntü eşleme başarısız olursa, sadece bir sonraki eleman ile devam eder.
 </p>
-<p>Ayrıca listelerin kendisi de örüntü eşlemede kullanılabilir. You can match with the empty list <span class="fixed">[]</span> or any pattern that involves <span class="fixed">:</span> and the empty list. But since <span class="fixed">[1,2,3]</span> is just syntactic sugar for <span class="fixed">1:2:3:[]</span>, you can also use the former pattern. A pattern like <span class="fixed">x:xs</span> will bind the head of the list to <span class="fixed">x</span> and the rest of it to <span class="fixed">xs</span>, even if there's only one element so <span class="fixed">xs</span> ends up being an empty list. </p>
-<div class="hintbox"><em>Note</em>: The <span class="fixed">x:xs</span> pattern is used a lot, especially with recursive functions. But patterns that have <span class="fixed">:</span> in them only match against lists of length 1 or more.</div>
-<p>If you want to bind, say, the first three elements to variables and the rest of the list to another variable, you can use something like <span class="fixed">x:y:z:zs</span>. It will only match against lists that have three elements or more.</p>
-<p>Now that we know how to pattern match against list, let's make our own implementation of the <span class="fixed">head</span> function.</p>
+<p>Ayrıca listelerin kendisi de örüntü eşlemede kullanılabilir. Boş liste ile <span class="fixed">[]</span> ifadesini ya da <span class="fixed">:</span> ve boş liste ile başlayan ifadeleri eşleyebilirsin. Ama <span class="fixed">[1,2,3]</span> ifadesi <span class="fixed">1:2:3:[]</span> ifadesinin sözdizimsel şekeri olduğunu bildiğin için önceki örüntüyü de kullanabilirsin. <span class="fixed">x:xs</span> gibi bir örüntü listenin başını <span class="fixed">x</span>'e bağlar ve listenin geri kalanı <span class="fixed">xs</span>'ye bağlanır. Bu işlem liste tek elemanlı olsa dahi gerçekleşir. Listenin ilk elemanı <span class="fixed">x</span>'e geriye kalan boş liste de <span class="fixed">xs</span>'ye bağlanır. </p>
+<div class="hintbox"><em>Not</em>: <span class="fixed">x:xs</span> örüntüsü çok kullanılır, özellikle özyinelemeli fonksiyonlar ile. Ama <span class="fixed">:</span> içeren örüntüler sadece 1 ya da daha çok elemanlı listeler ile karşı eşlenebilir.</div>
+<p>Eğer listenin ilk üç elemanını farklı değişkenlere ve geri kalanını da farklı bir değişkene bağlamak istersen, şunun gibi bir şey kullanabilirsin <span class="fixed">x:y:z:zs</span>. Sadece üç ve ya daha fazla elamanlı listeler ile karşı eşlenecektir.</p>
+<p>Şimdi listeler nasıl karşı eşlemede kullanılır biliyoruz. Hadi <span class="fixed">head</span> fonksiyonunu kendi istediğiz şekilde yeniden yazalım.</p>
 <pre name="code" class="haskell: hs">
 head' :: [a] -&gt; a
 head' [] = error "Can't call head on an empty list, dummy!"
 head' (x:_) = x
 </pre>
-<p>Checking if it works:</p>
+<p>İşe yarıyor mu, kontrol edelim:</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; head' [4,5,6]
 4
