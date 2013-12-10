@@ -163,7 +163,7 @@ ghci&gt; doubleMe 9
 ghci&gt; doubleMe 8.3
 16.6 </pre>
 <p>
-Çünkü <span class="fixed">+</span> tamsayılarla çalıştığı gibi gerçel sayılarla da çalışır (Herhangi birşey sayı olarak kabul edilebilir, gerçekten),fonksiyonumuz herhangi bir sayıyla da çalışır. Haydi bir fonksiyon yazalım. Bu fonksiyon iki sayı alsın, onları iki ile çarpıp birbiri ile toplasın.
+Çünkü <span class="fixed">+</span> tamsayılarla çalıştığı gibi gerçel sayılarla da çalışır (Herhangi bir şey sayı olarak kabul edilebilir, gerçekten),fonksiyonumuz herhangi bir sayıyla da çalışır. Haydi bir fonksiyon yazalım. Bu fonksiyon iki sayı alsın, onları iki ile çarpıp birbiri ile toplasın.
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = x*2 + y*2 </pre>
@@ -223,7 +223,7 @@ ghci&gt; lostNumbers
 [4,8,15,16,23,42]
 </pre>
 <p>
-Gördüğün gibi, listeler köşeli parantez ile belirtildi ve değerler virgüllerle birbirinden ayrıldı. Eğer <span class="fixed">[1,2,'a',3,'b','c',4]</span> şeklinde birşey denersek,  Haskell karakterlerin (Bu arada, kesme işareti arasına alınanlar karakter) sayı olamadığına yakınacaktır. Karakterlerden bahsetmişken, dizgeler de sadece karakterlerden oluşan listelerdir. <span class="fixed">"hello"</span> sadece <span class="fixed">['h','e','l','l','o']</span> dizisinin sadece sözdizimsel şekeridir. Dizgeler de birer liste olduğundan liste fonksiyonları onlar üzerinde de kullanabiliriz. Buda oldukça kullanışlı. 
+Gördüğün gibi, listeler köşeli parantez ile belirtildi ve değerler virgüllerle birbirinden ayrıldı. Eğer <span class="fixed">[1,2,'a',3,'b','c',4]</span> şeklinde bir şey denersek,  Haskell karakterlerin (Bu arada, kesme işareti arasına alınanlar karakter) sayı olamadığına yakınacaktır. Karakterlerden bahsetmişken, dizgeler de sadece karakterlerden oluşan listelerdir. <span class="fixed">"hello"</span> sadece <span class="fixed">['h','e','l','l','o']</span> dizisinin sadece sözdizimsel şekeridir. Dizgeler de birer liste olduğundan liste fonksiyonları onlar üzerinde de kullanabiliriz. Buda oldukça kullanışlı. 
 </p>
 <p>En çok yapılan iki listeyi birleştirme işlemi. Bunu <span class="fixed">++</span> işlecini ile yaparız. </p>
 <pre name="code" class="haskell: ghci">
@@ -235,7 +235,7 @@ ghci&gt; ['w','o'] ++ ['o','t']
 "woot"
 </pre>
 <p>
-Uzun dizgelerde <span class="fixed">++</span> işlecini art arda kullanırken dikkatli ol. İki listeyi bir araya getirirken (hatta tek eleman tutan bir listeyi diğer listeye eklesen bile, öreneğin: <span class="fixed">[1,2,3] ++ [4]</span>), Haskell'in <span class="fixed">++</span> işlecinin sol tarafındaki listenin tümünü okuması gerekir. Bu çok büyük olmayan listelerle uğraşırken sorun değil. Ama elli milyon girdisi bulunan büyük bir listeye eklemek epey zaman alır. Oysa, bir listenin başına <span class="fixed">:</span> işlecini kullanarak şipşak birşey eklenebilir.
+Uzun dizgelerde <span class="fixed">++</span> işlecini art arda kullanırken dikkatli ol. İki listeyi bir araya getirirken (hatta tek eleman tutan bir listeyi diğer listeye eklesen bile, öreneğin: <span class="fixed">[1,2,3] ++ [4]</span>), Haskell'in <span class="fixed">++</span> işlecinin sol tarafındaki listenin tümünü okuması gerekir. Bu çok büyük olmayan listelerle uğraşırken sorun değil. Ama elli milyon girdisi bulunan büyük bir listeye eklemek epey zaman alır. Oysa, bir listenin başına <span class="fixed">:</span> işlecini kullanarak şipşak bir şey eklenebilir.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 'A':" SMALL CAT"
@@ -417,7 +417,7 @@ ghci&gt; take 10 (repeat 5)
 <img src="http://s3.amazonaws.com/lyah/kermit.png" alt="frog" class="left" width="180" height="156">
 Eğer daha önce bir matematik dersi aldıysanız büyük ihtimalle <i>dizi üreteçleri</i> ne bakmışsınızdır. Normalde genel dizilerden özel diziler oluşturmak için kullanılırlar. İlk 10 çift tamsayıyı üreten temel bir üreteç <img src="http://s3.amazonaws.com/lyah/setnotation.png" alt="set notation"> halinde yazılabilir. Borudan önceki kısım çıktı fonksiyonudur. <span class="fixed">x</span> değişken, <span class="fixed">N</span> girdi kümesi, <span class="fixed">x &lt;= 10</span> ise koşuldur. Bu listede koşulun önerdiği gibi 1'den 10'a kadar sayıların yazıldığı ve sonrasında ise listedeki her sayının 2 ile çarpıldığı anlamına gelir.
 </p>
-<p>Eğer bunu Haskell'da yazmak isteseydik <span class="fixed">take 10 [2,4..]</span> gibi birşey yazabilirdik. Peki atlama yerine 1'den 10'a kadar olan sayıları bir fonksiyona sokmak isteseydik? Bunun için liste üreteçlerini kullanmamız gerekir. Şimdilik ilk 10 çift tamsayıyı yazmak olarak işe başlayacağız. Kullanacağımız liste üreteci <span class="fixed">[x*2 | x &lt;- [1..10]]</span> olacak. <span class="fixed">x</span> ise burda <span class="fixed">[1..10]</span> listesindeki her eleman olacak. Uygulaması alttaki gibidir.</p>
+<p>Eğer bunu Haskell'da yazmak isteseydik <span class="fixed">take 10 [2,4..]</span> gibi bir şey yazabilirdik. Peki atlama yerine 1'den 10'a kadar olan sayıları bir fonksiyona sokmak isteseydik? Bunun için liste üreteçlerini kullanmamız gerekir. Şimdilik ilk 10 çift tamsayıyı yazmak olarak işe başlayacağız. Kullanacağımız liste üreteci <span class="fixed">[x*2 | x &lt;- [1..10]]</span> olacak. <span class="fixed">x</span> ise burda <span class="fixed">[1..10]</span> listesindeki her eleman olacak. Uygulaması alttaki gibidir.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; [x*2 | x <- [1..10]]
 [2,4,6,8,10,12,14,16,18,20]
@@ -483,7 +483,7 @@ ghci&gt; [ [ x | x &lt;- xs, even x ] | xs &lt;- xxs]
 <img src="http://s3.amazonaws.com/lyah/tuple.png" alt="tuples" class="right" width="160" height="162">
 <p>Demetler bağzı yönleriyle listelere benzer &mdash; bu yapıların birden fazla değeri bir değerde saklaması benzer yanıdır. Ancak, aralarında birkaç temel farklılık vardır. Sayı listeleri sayı içeren listelerdir. Bu listenin tipidir ve içerisinde sadece bir ya da sonsuz miktarda sayı olması önemli değildir. Ancak, demetleri kullanırken tam olarak kaç tane değeri birleştirmek isteğinizi bilmelisiniz. Ve demetin tipi kaç tane bileşen içerdiği ve içerdiği bileşenlerin tipleri ile belirlenir. Demetler parantezler ile belirtilir ve bileşenleri virgüller ile birbirinde ayrılır.</p>
 <p>Bir başka önemli fark ise demetler türdeş değildir. Listelerden farklı olarak demetler farklı tiplerde öğeler tutabilir.</p>
-<p>Haskell'de iki boyutlu bir vektörü nasıl gösteririz bir düşün. Bir liste kullanmak çözüm olabilir. Peki bir listeye birden fazla vektör koyarak iki boyutlu düzlemde bir şeklin noktalarını belirtmek istersek? Buna benzer birşey yapabiliriz <span class="fixed">[[1,2],[8,11],[4,5]]</span>. Bu yöntemdeki sorun bunu şu şekilde de yapabilmemiz <span class="fixed">[[1,2],[8,11,5],[4,5]]</span>, Haskell burada sorun yaşamaz ama sayı listeleri içeren listeler olmasına rağmen anlamlı bir ifade olmaz. Ama iki boyutlu bir demet (bir başka deyişle çift) kendisi bir tiptir, bu da bir listenin birkaç çift ve bir üçlü (üç boyutlu demet) bulunduramayacağı anlamına gelir. Hadi diğeri yerine bunu kullanalım. Vektörleri çevreleyen köşeli parantezler yerine parantezler kullanalım: <span class="fixed">[(1,2),(8,11),(4,5)]</span>. Peki bu şekilde yapmayı denersek <span class="fixed">[(1,2),(8,11,5),(4,5)]</span>? Bu hatayı alırız:</p>
+<p>Haskell'de iki boyutlu bir vektörü nasıl gösteririz bir düşün. Bir liste kullanmak çözüm olabilir. Peki bir listeye birden fazla vektör koyarak iki boyutlu düzlemde bir şeklin noktalarını belirtmek istersek? Buna benzer bir şey yapabiliriz <span class="fixed">[[1,2],[8,11],[4,5]]</span>. Bu yöntemdeki sorun bunu şu şekilde de yapabilmemiz <span class="fixed">[[1,2],[8,11,5],[4,5]]</span>, Haskell burada sorun yaşamaz ama sayı listeleri içeren listeler olmasına rağmen anlamlı bir ifade olmaz. Ama iki boyutlu bir demet (bir başka deyişle çift) kendisi bir tiptir, bu da bir listenin birkaç çift ve bir üçlü (üç boyutlu demet) bulunduramayacağı anlamına gelir. Hadi diğeri yerine bunu kullanalım. Vektörleri çevreleyen köşeli parantezler yerine parantezler kullanalım: <span class="fixed">[(1,2),(8,11),(4,5)]</span>. Peki bu şekilde yapmayı denersek <span class="fixed">[(1,2),(8,11,5),(4,5)]</span>? Bu hatayı alırız:</p>
 <pre name="code" class="haskell: ghci">
 Couldn't match expected type `(t, t1)'
 against inferred type `(t2, t3, t4)'
