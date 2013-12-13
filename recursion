@@ -81,28 +81,28 @@ take' n (x:xs) = x : take' (n-1) xs
 </pre>
 <img src="http://s3.amazonaws.com/lyah/painter.png" alt="painter" class="right" width="350" height="276">
 <p>İlk pattern listeden 0 veya daha az eleman almaya çalışırsak boş bir liste alacağımızı belirtir. Burda <span class="fixed">_</span> kullandığımıza dikkat edin, bunu şu anlık listenin ne olduğunu gerçekten önemsemediğimiz için yapıyoruz. Ayrıca <span class="fixed">otherwise</span> kısmı olmadan guard kullandığımıza da dikkat edin. Bu eğer <span class="fixed">n</span> 0'dan büyük olursa eşlendirme başarısız olacak anlamına gelir. İkinci pattern boş bir listeden birşeyler almaya çalışırsak boş bir liste elde edeceğimizi belirtir. Üçüncü pattern listeyi baş ve kuyruk olarak ikiye böler. Sonra söylüyoruz ki bir listeden <span class="fixed">n</span> tane eleman alırsak, baş olarak <span class="fixed">x</span> 'i alan bir liste ve kuyruk olarak kuyruktan <span class="fixed">n-1</span> tane eleman alan başka bir liste olmak üzere toplamda iki liste elde etmiş oluruz. Elinize bir kağıt kalem alın ve <span class="fixed">[4,3,2,1]</span> listesinden 3 tane eleman alan mekanizmanın gidişâtı gösteren işlemlerini yazın.</p>
-<p><span class="fixed">reverse</span> simply reverses a list. Think about the edge condition. What is it? Come on ... it's the empty list! An empty list reversed equals the empty list itself. O-kay. What about the rest of it? Well, you could say that if we split a list to a head and a tail, the reversed list is equal to the reversed tail and then the head at the end.</p>
+<p><span class="fixed">reverse</span> bir listeyi tersine çevirir. Sınır koşulunu düşünün, ne olabilir? Hadi ama... boş bir liste tabii ki! Boş bir listenin tersi kendisine eşittir. Peki devamında ne yapmalıyız? Listeyi baş ve kuyruk olarak iki parçaya bölebiliriz. Ters çevirilen liste, ters çevirilen kuyruk ve başa eşit olur.</p>
 <pre name="code" class="haskell:hs">
 reverse' :: [a] -&gt; [a]
 reverse' [] = []
 reverse' (x:xs) = reverse' xs ++ [x]
 </pre>
-<p>There we go!</p>
-<p>Because Haskell supports infinite lists, our recursion doesn't really have to have an edge condition. But if it doesn't have it, it will either keep churning at something infinitely or produce an infinite data structure, like an infinite list. The good thing about infinite lists though is that we can cut them where we want. <span class="fixed">repeat</span> takes an element and returns an infinite list that just has that element. A recursive implementation of that is really easy, watch.</p>
+<p>İşte gidiyoruz!</p>
+<p>Haskell sonsuz listeleri desteklediği için özyinelememizin herhangi bir sınır koşuluna sahip olma zorunluluğu yok. Fakat sahip olmazsa ya biryerde sonsuza kadar çalkalanmaya başlar ya da sınırsız liste gibi sonsuz veri yapıları oluşturur. Sonsuz listelerin iyi tarafı ise onları istediğimiz yerde kesebilmemizdir. <span class="fixed">repeat</span> fonksiyonu bir eleman alır ve sadece o elemandan oluşan sonsuz bir liste oluşturur. Bunun özyinelemeli uygulaması çok kolaydır, izleyin.</p>
 <pre name="code" class="haskell:hs">
 repeat' :: a -&gt; [a]
 repeat' x = x:repeat' x
 </pre>
-<p>Calling <span class="fixed">repeat 3</span> will give us a list that starts with <span class="fixed">3</span> and then has an infinite amount of 3's as a tail. So calling <span class="fixed">repeat 3</span> would evaluate like <span class="fixed">3:repeat 3</span>, which is <span class="fixed">3:(3:repeat 3)</span>, which is <span class="fixed">3:(3:(3:repeat 3))</span>, etc. <span class="fixed">repeat 3</span> will never finish evaluating, whereas <span class="fixed">take 5 (repeat 3)</span> will give us a list of five 3's. So essentially it's like doing <span class="fixed">replicate 5 3</span>.</p>
-<p><span class="fixed">zip</span> takes two lists and zips them together. <span class="fixed">zip [1,2,3] [2,3]</span> returns <span class="fixed">[(1,2),(2,3)]</span>, because it truncates the longer list to match the length of the shorter one. How about if we zip something with an empty list? Well, we get an empty list back then. So there's our edge condition. However, <span class="fixed">zip</span> takes two lists as parameters, so there are actually two edge conditions.</p>
+<p><span class="fixed">repeat 3</span> fonksiyonunu çağırmak bize <span class="fixed">3</span> ile başlayan ve sonsuz tane 3'e sahip bir kuyruğa sahip bir liste verir. Yani <span class="fixed">repeat 3</span> 'ü çağırmak aynı zamanda <span class="fixed">3:repeat 3</span> 'ü çağırmak anlamına gelir, ki o da <span class="fixed">3:(3:repeat 3)</span> 'ü çağırmakla aynıdır ve bu böyle gider. <span class="fixed">repeat 3</span> bu yüzden evrilmeyi hiçbir zaman bitirmeyecektir, oysa ki <span class="fixed">take 5 (repeat 3)</span> bize 5 tane 3 verir. Yani aslında bu <span class="fixed">replicate 5 3</span> yapmakla aynıdır.</p>
+<p><span class="fixed">zip</span> iki liste alır ve onları sıkıştırır. <span class="fixed">zip [1,2,3] [2,3]</span> işlemi <span class="fixed">[(1,2),(2,3)]</span> döndürür, çünkü uzun liste ile kısanın boyunu eşitlemek için uzun olanı yuvarlar. Peki birşeyi boş bir liste ile sıkıştırmaya çalışırsak ne olur? O zaman boş bir liste geri alırız. O halde bu bizim sınır koşulumuzdur. Ancak, <span class="fixed">zip</span> parametre olarak iki liste aldığı için iki tane sınır koşulu olmalıdır.</p>
 <pre name="code" class="haskell:hs">
 zip' :: [a] -&gt; [b] -&gt; [(a,b)]
 zip' _ [] = []
 zip' [] _ = []
 zip' (x:xs) (y:ys) = (x,y):zip' xs ys
 </pre>
-<p>First two patterns say that if the first list or second list is empty, we get an empty list. The third one says that two lists zipped are equal to pairing up their heads and then tacking on the zipped tails. Zipping <span class="fixed">[1,2,3]</span> and <span class="fixed">['a','b']</span> will eventually try to zip <span class="fixed">[3]</span> with <span class="fixed">[]</span>. The edge condition patterns kick in and so the result is <span class="fixed">(1,'a'):(2,'b'):[]</span>, which is exactly the same as <span class="fixed">[(1,'a'),(2,'b')]</span>.</p>
-<p>Let's implement one more standard library function &mdash; <span class="fixed">elem</span>. It takes an element and a list and sees if that element is in the list. The edge condition, as is most of the times with lists, is the empty list. We know that an empty list contains no elements, so it certainly doesn't have the droids we're looking for.</p>
+<p>İlk iki pattern der ki eğer iki listeden birisi boş ise geri döndürülecek liste de boş olmalıdır. Üçüncü pattern ise iki listenin sıkıştırılmış halinin iki listenin kafası eşleştirildikten sonra sıkıştırılmış kuyruklarının da tutturulmuş haline eşit olduğunu söylemektedir. <span class="fixed">[1,2,3]</span> ile <span class="fixed">['a','b']</span> 'yi sıkıştırmak sonunda <span class="fixed">[3]</span> ile <span class="fixed">[]</span> ifadelerini de sıkıştırmak anlamına gelir. İşte burda sınır koşulu uçan tekme atarak gelir sonucun <span class="fixed">(1,'a'):(2,'b'):[]</span> olmasını sağlar, ki bu da <span class="fixed">[(1,'a'),(2,'b')]</span> 'ye eşittir.</p>
+<p>Hadi başka bir standart kütüphane fonksiyonunu daha uygulayalım &mdash; <span class="fixed">elem</span>. Bu fonksiyon bir liste ve bir eleman alır ve sonrasında elemanın listede olup olmadığını gösterir. Burda sınır koşulu çoğu listede olduğu gibi boş bir listedir. Biliyoruz ki boş bir liste hiçbir eleman içermez, o zaman bu liste kesinlikle aradığımız droidlere sahip değil.</p>
 <pre name="code" class="haskell:hs">
 elem' :: (Eq a) =&gt; a -&gt; [a] -&gt; Bool
 elem' a [] = False
@@ -110,7 +110,7 @@ elem' a (x:xs)
     | a == x    = True
     | otherwise = a `elem'` xs 
 </pre>
-<p>Pretty simple and expected. If the head isn't the element then we check the tail. If we reach an empty list, the result is <span class="fixed">False</span>.</p>
+<p>Beklenildiği kadar sade ve güzel. Eğer baş aradığımız eleman değilse kuyruğa bakıyoruz. Eğer boş bir listeye ulaşırsak <span class="fixed">False</span> döndürüyoruz.</p>
 <a name="quick-sort"></a><h2>Quick, sort!</h2>
 <p>We have a list of items that can be sorted. Their type is an instance of the <span class="fixed">Ord</span> typeclass. And now, we want to sort them! There's a very cool algoritm for sorting called quicksort. It's a very clever way of sorting items. While it takes upwards of 10 lines to implement quicksort in imperative languages, the implementation is much shorter and elegant in Haskell. Quicksort has become a sort of poster child for Haskell. Therefore, let's implement it here, even though implementing quicksort in Haskell is considered really cheesy because everyone does it to showcase how elegant Haskell is.</p>
 <img src="http://s3.amazonaws.com/lyah/quickman.png" alt="quickman" class="left" width="180" height="235">
