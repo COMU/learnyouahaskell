@@ -167,7 +167,7 @@ ghci&gt; capital "Dracula"
 <a name="guards-guards"></a><h2>Nöbetçiler, nöbetçiler!</h2>
 <img src="http://s3.amazonaws.com/lyah/guards.png" alt="guards" class="left" width="83" height="180">
 <p>Örüntüler bir değerin bir kalıba uygun olduğuna emin olmanın ve onu (***deconstructing)işlemenin bir yoludur. Nöbetçiler ise bir değerin bazı (ya da birçok) niteliklerinin doğru mu yanlış mı olduğunu test etmek için kullanılırlar. Bu sana if ifadesi gibi gelebilir, zaten çok benzerler. Ama güzel yanı nöbetçiler çok fazla koşul kullandığında daha okunaklıdır ve örüntülerle de kolayca kullanılabilirler.</p>
-<p>Sözdizimini anlatmak yerine, hemen nöbetçileri kullanarak bir fonksiyon yazalım. Seni <a href="http://en.wikipedia.org/wiki/Body_mass_index">BMI</a> (vücut kitle indeksi) değerine göre farklı şekillerde azarlayan basit bir fonksiyon yazalım. BMI değerin külonun, boyunun karesine bölünmesi ile elde edilir. Eğer BMI değerin 18.5'ten küçükse zayıf, 18.5 ve 25 arasındaysa normal, 25 ve 30 arasında kilolu, 30'dan fazlaysa obez olarak kabul edilirsin. İşte fonksiyonumuz (şimdi BMI değerinin hesaplamayacağız, sadece fonksiyon bu değeri alıyor ve seni azarlıyor)</p>
+<p>Sözdizimini anlatmak yerine, hemen nöbetçileri kullanarak bir fonksiyon yazalım. Seni <a href="http://en.wikipedia.org/wiki/Body_mass_index">BMI</a> (vücut kitle indeksi) değerine göre farklı şekillerde azarlayan basit bir fonksiyon yazalım. BMI değerin vücut ağırlığının, boy uzunluğunun karesine bölünmesi ile elde edilir. Eğer BMI değerin 18.5'ten küçükse zayıf, 18.5 ve 25 arasındaysa normal, 25 ve 30 arasında kilolu, 30'dan fazlaysa obez olarak kabul edilirsin. İşte fonksiyonumuz (şimdi BMI değerini hesaplamayacağız, sadece fonksiyon bu değeri alıyor ve seni azarlıyor)</p>
 <pre name="code" class="haskell:hs">
 bmiTell :: (RealFloat a) =&gt; a -&gt; String
 bmiTell bmi
@@ -176,10 +176,10 @@ bmiTell bmi
     | bmi &lt;= 30.0 = "You're fat! Lose some weight, fatty!"
     | otherwise   = "You're a whale, congratulations!"
 </pre>
-<p>Guards are indicated by pipes that follow a function's name and its parameters. Usually, they're indented a bit to the right and lined up. A guard is basically a boolean expression. If it evaluates to <span class="fixed">True</span>, then the corresponding function body is used. If it evaluates to <span class="fixed">False</span>, checking drops through to the next guard and so on. If we call this function with <span class="fixed">24.3</span>, it will first check if that's smaller than or equal to <span class="fixed">18.5</span>. Because it isn't, it falls through to the next guard. The check is carried out with the second guard and because 24.3 is less than 25.0, the second string is returned.</p>
-<p>This is very reminiscent of a big if else tree in imperative languages, only this is far better and more readable. While big if else trees are usually frowned upon, sometimes a problem is defined in such a discrete way that you can't get around them. Guards are a very nice alternative for this.</p>
-<p>Many times, the last guard is <span class="fixed">otherwise</span>. <span class="fixed">otherwise</span> is defined simply as <span class="fixed">otherwise = True</span> and catches everything. This is very similar to patterns, only they check if the input satisfies a pattern but guards check for boolean conditions. If all the guards of a function evaluate to <span class="fixed">False</span> (and we haven't provided an <span class="fixed">otherwise</span> catch-all guard), evaluation falls through to the next <em>pattern</em>. That's how patterns and guards play nicely together. If no suitable guards or patterns are found, an error is thrown.</p>
-<p>Of course we can use guards with functions that take as many parameters as we want. Instead of having the user calculate his own BMI before calling the function, let's modify this function so that it takes a height and weight and calculates it for us.</p>
+<p>Nöbetçiler borularla gösterilirler. Boruları fonksiyon adları ve onların parametreleri izler. Genellikle, sağa doğru biraz girintili yazılır ve sıralanırlar. Bir nöbetçi temelde mantıksal bir ifadedir. Girdi <span class="fixed">True</span> olarak değerlendirilirse, bu kısma ilişkin fonksiyon gövdesi kullanılır. Eğer <span class="fixed">False</span> olarak değerlendirilirse, bir sonraki nöbetçi ile kontrol edilir ve böyle devam eder. Bu fonksiyonu <span class="fixed">24.3</span> ile çağırırsak, ilk olarak <span class="fixed">18.5</span>'ten küçük ya da ona eşit olup olmadığına bakılır. Eğer değilse, bir sonraki nöbetçiye geçilir. Bu örnekte kontrol süreci ikinci nöbetçi ile sonlanır ve ikinci dizgi döndürülür çünkü 24.3 25.0'dan küçüktür.</p>
+<p>Bu, imperatif dillerde bulunan büyük if else ağaçlarını andırıyor. Sadece çok daha iyi ve okunaklı. Bazen bir problem böylesine soyut ve üstesinden gelemeyeceğin bir yolla tanımlanır ve sen de genellikle kaşlarını çatarsın. Nöbetçiler bunun için güzel bir alternatiftir.</p>
+<p>Çoğu zaman, son nöbetçi <span class="fixed">otherwise</span> ifadesi ile tanımlanır. <span class="fixed">otherwise</span>, <span class="fixed">otherwise = True</span> şeklinde kolayca tanımlanır ve tüm girdileri yakalar. Bu örüntüler ile çok benzerdir, sadece örüntülerde girdi örüntü ile uyumlu olmalıdır ama nöbetçiler mantıksal olarak değerlendirir. Eğer bir fonksiyonun tüm nöbetçileri girdiyi <span class="fixed">False</span> olarak değerlendirirse (ve tüm değerleri sağlayan <span class="fixed">otherwise</span> nöbetçisini sunmadıysak), değerlendirme bir sonraki <em>örüntü</em>ye geçer. İşte nöbetçiler örüntüler ile böyle uyumlu bir şekilde kullanılırlar. Eğer uygun bir nöbetçi ve ya örüntü bulunamazsa, bir hata fırlatılır.</p>
+<p>Tabi ki nöbetçileri fonksiyonlar ile kullanabiliriz. Bu fonksiyonlar isteğimiz çoklukta parametre alabilirler. Azarlayan fonksiyonun kullanıcıların kendi hesapladığı BMI değeri ile çağrılması yerine, bunun hesabını yapan fonksiyonu yazalım. Bu fonksiyon boy uzunluğu ve vücut ağırlığı parametrelerini alsın ve bizim için hesaplasın.</p>
 <pre name="code" class="haskell:hs">
 bmiTell :: (RealFloat a) =&gt; a -&gt; a -&gt; String
 bmiTell weight height
@@ -188,27 +188,27 @@ bmiTell weight height
     | weight / height ^ 2 &lt;= 30.0 = "You're fat! Lose some weight, fatty!"
     | otherwise                 = "You're a whale, congratulations!"
 </pre>
-<p>Let's see if I'm fat ...</p>
+<p>Bakalım şişman mıyım ...</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; bmiTell 85 1.90
 "You're supposedly normal. Pffft, I bet you're ugly!"
 </pre>
-<p>Yay! I'm not fat! But Haskell just called me ugly. Whatever!</p>
-<p>Note that there's no <span class="fixed">=</span> right after the function name and its parameters, before the first guard. Many newbies get syntax errors because they sometimes put it there.</p>
-<p>Another very simple example: let's implement our own <span class="fixed">max</span> function. If you remember, it takes two things that can be compared and returns the larger of them.</p>
+<p>Yaşasın! Şişman değilim! Ama Haskell bana az önce çirkin dedi. Neyse!</p>
+<p>Fonksiyon adından ve parametrelerinden hemen sonra <span class="fixed">=</span> bulunmadığını aklından çıkarma. Burada çoğu acemi bu kullanımdan dolayı sözdizim hataları alır.</p>
+<p>Bir başka kolay örnek de kendi yazacağımız <span class="fixed">max</span> fonksiyonudur. Hatırlarsan, birbiri ile karşılaştırılabilir iki girdi alır ve büyük olanı döndürür.</p>
 <pre name="code" class="haskell:hs">
 max' :: (Ord a) =&gt; a -&gt; a -&gt; a
 max' a b 
     | a &gt; b     = a
     | otherwise = b
 </pre>
-<p>Guards can also be written inline, although I'd advise against that because it's less readable, even for very short functions. But to demonstrate, we could write <span class="fixed">max'</span> like this:</p>
+<p>Nöbetçiler inline olarak da yazılabilirler. Ama ben bunu pek önermem çünkü çok kısa fonksiyonlarda bile okunaklılığı azaltır. Ama bir örnekle açıklamak gerekirse <span class="fixed">max'</span> fonksiyonunu şu şekilde yazabiliriz:</p>
 <pre name="code" class="haskell:hs">
 max' :: (Ord a) =&gt; a -&gt; a -&gt; a
 max' a b | a &gt; b = a | otherwise = b
 </pre>
 
-<p>Ugh! Not very readable at all! Moving on: let's implement our own <span class="fixed">compare</span> by using guards.</p>
+<p>Öf! Artık pek de okunaklı değil! Devam edelim ve kendi <span class="fixed">compare</span> fonksiyonumuzu nöbetçileri kullanarak yazalım.
 <pre name="code" class="haskell:hs">
 myCompare :: (Ord a) =&gt; a -&gt; a -&gt; Ordering
 a `myCompare` b
@@ -220,7 +220,7 @@ a `myCompare` b
 ghci&gt; 3 `myCompare` 2
 GT
 </pre>
-<div class="hintbox"><em>Note:</em> Not only can we call functions as infix with backticks, we can also define them using backticks. Sometimes it's easier to read that way.</div>
+<div class="hintbox"><em>Not:</em> Fonksiyonları sadece ters tırnak işareti ile infix olarak çağırırken kullanmayız. Ayrıca tanımlarken de ters tırnak kullanabiliriz. Bazen bu şekilde daha okunaklıdır.</div>
 <a name="where"></a><h2>Where!?</h2>
 <p>In the previous section, we defined a BMI calculator function and berator like this:</p>
 <pre name="code" class="haskell:hs">
