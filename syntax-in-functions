@@ -222,7 +222,7 @@ GT
 </pre>
 <div class="hintbox"><em>Not:</em> Fonksiyonları sadece ters tırnak işareti ile infix olarak çağırırken kullanmayız. Ayrıca tanımlarken de ters tırnak kullanabiliriz. Bazen bu şekilde daha okunaklıdır.</div>
 <a name="where"></a><h2>Where!?</h2>
-<p>In the previous section, we defined a BMI calculator function and berator like this:</p>
+<p>Bir önceki bölümde, BMI hesaplayan fonksiyonu tanımlamıştık ve işte şu şekilde azarlıyordu:</p>
 <pre name="code" class="haskell:hs">
 bmiTell :: (RealFloat a) =&gt; a -&gt; a -&gt; String
 bmiTell weight height
@@ -231,7 +231,7 @@ bmiTell weight height
     | weight / height ^ 2 &lt;= 30.0 = "You're fat! Lose some weight, fatty!"
     | otherwise                   = "You're a whale, congratulations!"
 </pre>
-<p>Notice that we repeat ourselves here three times. We repeat ourselves three times. Repeating yourself (three times) while programming is about as desirable as getting kicked inna head. Since we repeat the same expression three times, it would be ideal if we could calculate it once, bind it to a name and then use that name instead of the expression. Well, we can modify our function like this:</p>
+<p>Dikkat ettiysen burada kendimizi üç defa tekrarladık. Kendimizi üç defa tekrarladık. Programlama yaparken kendimizi tekrarlamak (üç defa) demek about ***as desirable as getting kicked inna head. Aynı ifadeyi üç defa yeniden yazmak yerine, bir defa hesaplamamız, bunu bir isme bağlamamız ve bu ifade yerine bağladığımız ismi kullanmamız ideal olacaktır. Artık fonksiyonumuzu şu şekilde değiştirebiliriz:</p>
 <pre name="code" class="haskell:hs">
 bmiTell :: (RealFloat a) =&gt; a -&gt; a -&gt; String
 bmiTell weight height
@@ -241,7 +241,7 @@ bmiTell weight height
     | otherwise   = "You're a whale, congratulations!"
     where bmi = weight / height ^ 2
 </pre>
-<p>We put the keyword <span class="fixed">where</span> after the guards (usually it's best to indent it as much as the pipes are indented) and then we define several names or functions. These names are visible across the guards and give us the advantage of not having to repeat ourselves. If we decide that we want to calculate BMI a bit differently, we only have to change it once. It also improves readability by giving names to things and can make our programs faster since stuff like our <span class="fixed">bmi</span> variable here is calculated only once. We could go a bit overboard and present our function like this:</p>
+<p>Nöbetçilerden sonra <span class="fixed">where</span> anahtar kelimesini koyduk (genellikle borular kadar içeriden yazmak en iyisidir) ve sonra birkaç isim ve fonksiyon tanımladık. Bu isimler nöbetçiler tarafından görülür ve kendimizi tekrarlamamak avantajını bize kazandırır. Eğer BMI değerini bir nebze farklı hesaplamak istersek, fonksiyonu bir kez değiştirmemiz yeterli olur. Ayrıca bir şeylere isimler vererek okunabilirliği artırır  <span class="fixed">bmi</span> değişkenimiz gibi sadece bir kez hesaplatarak programımızı hızlandırır. Biraz bağımlı olup fonksiyonumuzu şu şekilde oluşturabiliriz:</p>
 <pre name="code" class="haskell:hs">
 bmiTell :: (RealFloat a) =&gt; a -&gt; a -&gt; String
 bmiTell weight height
@@ -254,23 +254,23 @@ bmiTell weight height
           normal = 25.0
           fat = 30.0
 </pre>
-<p>The names we define in the where section of a function are only visible to that function, so we don't have to worry about them polluting the namespace of other functions. Notice that all the names are aligned at a single column. If we don't align them nice and proper, Haskell gets confused because then it doesn't know they're all part of the same block.</p>
-<p><i>where</i> bindings aren't shared across function bodies of different patterns. If you want several patterns of one function to access some shared name, you have to define it globally.</p>
-<p>You can also use where bindings to <em>pattern match</em>! We could have rewritten the where section of our previous function as:</p>
+<p>Bir fonksiyonun where kısmında tanımladığımız isimler sadece o fonksiyonda gözükürler, yani endişelenmemize gerek yok diğer fonksiyonların isim uzaylarında kirliliğe neden olmaz. Dikkat et, tüm isimler bir sütunda hizlanmış. Eğer uygun ve güzel bir şekilde hizalamazsak, Haskell tüm bu isimlerin aynı bloğa ait olup olmadığını anlayamaz ve kafası karışır.</p>
+<p><i>where</i> bağlayıcıları farklı örüntülerin fonksiyon gövdeleri aralarında paylaşılmaz. Bir fonksiyonun birkaç örüntüsünün paylaşılan bir isme ulaşmasını istiyorsan, ismi global olarak tanımlamalısın.</p>
+<p>Ayrıca where bağlayıcısını <em>örüntü eşlemesinde</em> de kullanabilirisin! Bir önceki fonksiyonumuzun where kısmını şu şekilde yeniden yazabiliridik:</p>
 <pre name="code" class="haskell:hs">
     ...
     where bmi = weight / height ^ 2
           (skinny, normal, fat) = (18.5, 25.0, 30.0)
 </pre>
-<p>Let's make another fairly trivial function where we get a first and a last name and give someone back their initials.</p>
+<p>Hadi bir başka önemsiz where fonksiyonu yazalım. Bu fonksiyon bir ad ve bir soyad alsın ve baş harflerini geri döndürsün.</p>
 <pre name="code" class="haskell:hs">
 initials :: String -&gt; String -&gt; String
 initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
     where (f:_) = firstname
           (l:_) = lastname  
 </pre>
-<p>We could have done this pattern matching directly in the function's parameters (it would have been shorter and clearer actually) but this just goes to show that it's possible to do it in where bindings as well.</p>
-<p>Just like we've defined constants in where blocks, you can also define functions. Staying true to our healthy programming theme, let's make a function that takes a list of weight-height pairs and returns a list of BMIs.</p>
+<p>Bu örüntü eşlemeyi doğrudan fonksiyon parametresinde de yazabiliridik (bu daha kısa ve anlaşılır olur) ama bu sadece bu işlemin where baylayıcısı içerisinde de yapılabildiğini göstermektedir.</p>
+<p>Where blokları içerisinde sabitler tanımlayabildiğimiz gibi fonksiyonlar da tanımlayabilriz. Sağlıklı programlama temamıza sağdık kalalım ve ağırlık-boy ikililerinden oluşan bir liste alıp BMI değerleri listesini döndüren bir fonksiyon oluşturalım.</p>
 <pre name="code" class="haskell:hs">
 calcBmis :: (RealFloat a) =&gt; [(a, a)] -&gt; [a]
 calcBmis xs = [bmi w h | (w, h) &lt;- xs]
