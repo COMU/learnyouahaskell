@@ -276,8 +276,8 @@ calcBmis :: (RealFloat a) =&gt; [(a, a)] -&gt; [a]
 calcBmis xs = [bmi w h | (w, h) &lt;- xs]
     where bmi weight height = weight / height ^ 2
 </pre>
-<p>And that's all there is to it! The reason we had to introduce <span class="fixed">bmi</span> as a function in this example is because we can't just calculate one BMI from the function's parameters. We have to examine the list passed to the function and there's a different BMI for every pair in there.</p>
-<p><i>where</i> bindings can also be nested. It's a common idiom to make a function and define some helper function in its <i>where</i> clause and then to give those functions helper functions as well, each with its own <i>where</i> clause.</p>
+<p>İşte hepsi bu kadar! Bu örnekte <span class="fixed">bmi</span>'yi fonksiyon olarak tanıttık çünkü fonksiyonların parametrelerinden sadece bir kez BMI hesabı yapamayız. Bu şekilde tanıtmasaydık, listelerin fonksiyonlara aktarılmasını incelemek zorunda kalırdık ve her ikili için ayrı ayrı BMI'ler hesaplanırdı.</p>
+<p><i>where</i> bağlayıcıları iç içe de olabilir. Bu fonksiyon yapımında kullanılan yaygın bir deyimdir. Yapılan bu fonksiyonlarda kullanılan <i>where</i> ifadesi içerisinde bazı yardımcı fonksiyonlar tanımlanır ve daha sonra bu fonksiyonlar içerisinde de yardımcı fonksiyonlar tanımlanır. Bu fonksiyonların da kendine ait <i>where</i> ifadeleri bulunur.</p>
 <a name="let-it-be"></a><h2>Let it be</h2>
 <p>
 Very similar to where bindings are let bindings. Where bindings are a syntactic construct that let you bind to variables at the end of a function and the whole function can see them, including all the guards. Let bindings let you bind to variables anywhere and are expressions themselves, but are very local, so they don't span across guards. Just like any construct in Haskell that is used to bind values to names, let bindings can be used for pattern matching. Let's see them in action! This is how we could define a function that gives us a cylinder's surface area based on its height and radius:
