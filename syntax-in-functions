@@ -280,7 +280,7 @@ calcBmis xs = [bmi w h | (w, h) &lt;- xs]
 <p><i>where</i> bağlayıcıları iç içe de olabilir. Bu fonksiyon yapımında kullanılan yaygın bir deyimdir. Yapılan bu fonksiyonlarda kullanılan <i>where</i> ifadesi içerisinde bazı yardımcı fonksiyonlar tanımlanır ve daha sonra bu fonksiyonlar içerisinde de yardımcı fonksiyonlar tanımlanır. Bu fonksiyonların da kendine ait <i>where</i> ifadeleri bulunur.</p>
 <a name="let-it-be"></a><h2>Let it be</h2>
 <p>
-Very similar to where bindings are let bindings. Where bindings are a syntactic construct that let you bind to variables at the end of a function and the whole function can see them, including all the guards. Let bindings let you bind to variables anywhere and are expressions themselves, but are very local, so they don't span across guards. Just like any construct in Haskell that is used to bind values to names, let bindings can be used for pattern matching. Let's see them in action! This is how we could define a function that gives us a cylinder's surface area based on its height and radius:
+Haskell'de where bağlayıcılarına çok benzer olan let bağlayıcıları bulunuyor. Where bağlayıcıları değişkenleri bir fonksiyonun sonuna bağlamanıza imkan veren sözdizimsel yapılardır ve fonksiyonun tüm basamakları ve hatta nöbetçiler bile bu değişkenlere ulaşır. Let bağlayıcıları değişkenleri herhangi bir yere bağlamanıza imkan verir ve kendileri de birer ifadedir ama fazlaca yereller yani nöbetçileri kapsamazlar. Haskell'deki çoğu yapı gibi değişkenleri isimlere bağlamakta kullanılır, ayrıca örüntü eşlemek için de kullanılabilir. Hadi onları iş başında görelim! Bir silindirin yüzey alanını o silindirin yüksekliği ve yarıçapı yardımıyla hesaplayıp bize döndüren fonksiyonu şu şekilde tanımlayabiliriz:
 </p>
 <pre name="code" class="haskell:hs">
 cylinder :: (RealFloat a) =&gt; a -&gt; a -&gt; a
@@ -290,35 +290,35 @@ cylinder r h =
     in  sideArea + 2 * topArea
 </pre>
 <img src="http://s3.amazonaws.com/lyah/letitbe.png" alt="let it be" class="right" width="215" height="240">
-<p>The form is <span class="fixed">let &lt;bindings&gt; in &lt;expression&gt;</span>. The names that you define in the <i>let</i> part are accessible to the expression after the <i>in</i> part. As you can see, we could have also defined this with a <i>where</i> binding. Notice that the names are also aligned in a single column. So what's the difference between the two? For now it just seems that <i>let</i> puts the bindings first and the expression that uses them later whereas <i>where</i> is the other way around.</p>
-<p>The difference is that <i>let</i> bindings are expressions themselves. <i>where</i> bindings are just syntactic constructs. Remember when we did the if statement and it was explained that an if else statement is an expression and you can cram it in almost anywhere?</p>
+<p>Bağlayıcımız bu şekilde kullanılır <span class="fixed">let &lt;bindings&gt; in &lt;expression&gt;</span>. <i>let</i> kısmında tanımladığımız isimler <i>in</i> kısmındaki ifadeler tarafından ulaşılabilir. Gördüğün gibi, bunu bir <i>where</i> bağlayıcısı ile de tanımlayabilirdik. İsimlerin de bir sütunda hizalandığını unutma. Pekala, bu ikisi arasındaki fark ne? Şimdilik sadece şöyle gibi gözüküyor. <i>let</i>, bağlayıcıları önce koyuyor ve sonrasında bunları kullanan ifadeler yer alıyor <i>where</i> ise tam tersi.</p>
+<p>İkisi arasındaki fark şu, <i>let</i> bağlayıcıları ifadenin kendisi iken <i>where</i> bağlayıcıları sadece sözdizimsel yapılardır. ***Remember when we did the if statement and it was explained that an if else statement is an expression and you can cram it in almost anywhere?</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; [if 5 &gt; 3 then "Woo" else "Boo", if 'a' &gt; 'b' then "Foo" else "Bar"]
 ["Woo", "Bar"]
 ghci&gt; 4 * (if 10 &gt; 5 then 10 else 0) + 2
 42
 </pre>
-<p>You can also do that with let bindings.</p>
+<p>Bunu let bağlayıcısıyla da yapabilirsin.</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; 4 * (let a = 9 in a + 1) + 2
 42
 </pre>
-<p>They can also be used to introduce functions in a local scope:</p>
+<p>Ayrıca yerel bir kapsamda fonksiyonları tanıtırken de kullanılabilir:</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; [let square x = x * x in (square 5, square 3, square 2)]
 [(25,9,4)]
 </pre>
-<p>If we want to bind to several variables inline, we obviously can't align them at columns. That's why we can separate them with semicolons.</p>
+<p>Birçok değişkeni inline olarak bağlamak istersek, şüphesiz bunları sütunlarda hizalayamayız. Bundan dolayı onları noktalı virgül ile ayırdık.</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; (let a = 100; b = 200; c = 300 in a*b*c, let foo="Hey "; bar = "there!" in foo ++ bar)
 (6000000,"Hey there!")
 </pre>
-<p>You don't have to put a semicolon after the last binding but you can if you want. Like we said before, you can pattern match with <i>let</i> bindings. They're very useful for quickly dismantling a tuple into components and binding them to names and such.</p>
+<p>Son bağlayıcıdan sonra noktalı virgül koymayabilirsin ama istersen koyabilirsin. Daha önce de söylediğimiz gibi, <i>let</i> bağlayıcıları ile örüntü eşleyebilirsin. Bir demeti hızlıca bileşenlerine ayırmak ve onları isimlere ve onun gibi şeylere bağlamak için çok kullanışlıdır.</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; (let (a,b,c) = (1,2,3) in a+b+c) * 100
 600
 </pre>
-<p>You can also put <i>let</i> bindings inside list comprehensions. Let's rewrite our previous example of calculating lists of weight-height pairs to use a <i>let</i> inside a list comprehension instead of defining an auxiliary function with a <i>where</i>.</p>
+<p><i>let</i> bağlayıcılarını liste üreteçleri içerisine de yerleştirebilirsin. Let's rewrite our previous example of calculating lists of weight-height pairs to use a <i>let</i> inside a list comprehension instead of defining an auxiliary function with a <i>where</i>.</p>
 <pre name="code" class="haskell:hs">
 calcBmis :: (RealFloat a) =&gt; [(a, a)] -&gt; [a]
 calcBmis xs = [bmi | (w, h) &lt;- xs, let bmi = w / h ^ 2]
