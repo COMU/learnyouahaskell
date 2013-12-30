@@ -70,18 +70,18 @@ compareWithHundred :: (Num a, Ord a) =&gt; a -&gt; Ordering
 compareWithHundred = compare 100
 </pre>
 <p>Tip deklarasyonu yine aynı kalır, çünkü <span class="fixed">compare 100</span> bir fonksiyon döndürür. Compare'in tipi <span class="fixed">(Ord a) =&gt; a -&gt; (a -&gt; Ordering)</span> 'dir ve onu <span class="fixed">100</span> ile çağırmak <span class="fixed">(Num a, Ord a) =&gt; a -&gt; Ordering</span> döndürür. Burda araya ek bir sınıf sınırlayıcısı sızar çünkü <span class="fixed">100</span> sayısı aynı zamanda <span class="fixed">Num</span> tip-sınıfının da bir üyesidir.</p>
-<div class="hintbox"><em>Yo!</em> Buraya kadar currylenmiş fonksiyonların ve kısmi uygulamanın nasıl çalıştığını anladığınızdan emin olun çünkü bunlar gerçekten önemli!</div> <p>Infix functions can also be partially applied by using sections. To section an infix function, simply surround it with parentheses and only supply a parameter on one side. That creates a function that takes one parameter and then applies it to the side that's missing an operand. An insultingly trivial function:</p>
+<div class="hintbox"><em>Yo!</em> Buraya kadar currylenmiş fonksiyonların ve kısmi uygulamanın nasıl çalıştığını anladığınızdan emin olun çünkü bunlar gerçekten önemli!</div> <p>Infix fonksiyonlar kesitler kullanılarak kısmi olarak uygulanabilir. Bir infix fonksiyonunu bölmek için, basitçe onu parantezlerle çevreleyin ve herhangi bir tarafını parametre ile destekleyin. Bu, bir parametre alan ve o parametreyi operatörü eksik olan tarafa uygulayan bir fonksiyon yaratır. Hakaret derecesinde önemsiz olan şu fonksiyona bakalım:</p>
 <pre name="code" class="haskell:hs">
 divideByTen :: (Floating a) =&gt; a -&gt; a
 divideByTen = (/10)
 </pre>
-<p>Calling, say, <span class="fixed">divideByTen 200</span> is equivalent to doing <span class="fixed">200 / 10</span>, as is doing <span class="fixed">(/10) 200</span>. A function that checks if a character supplied to it is an uppercase letter:</p>
+<p><span class="fixed">divideByTen 200</span> 'ü çağırmak <span class="fixed">200 / 10</span> işlemiyle eşdeğerdir, <span class="fixed">(/10) 200</span> ifadesinde olduğu gibi. Desteklenen karakterin büyük harf olup olmadığına bakan fonksiyon:</p>
 <pre name="code" class="haskell:hs">
 isUpperAlphanum :: Char -&gt; Bool
 isUpperAlphanum = (`elem` ['A'..'Z'])
 </pre>
-<p>The only special thing about sections is using <span class="fixed">-</span>. From the definition of sections, <span class="fixed">(-4)</span> would result in a function that takes a number and subtracts 4 from it. However, for convenience, <span class="fixed">(-4)</span> means minus four. So if you want to make a function that subtracts 4 from the number it gets as a parameter, partially apply the <span class="fixed">subtract</span> function like so: <span class="fixed">(subtract 4)</span>.</p>
-<p>What happens if we try to just do <span class="fixed">multThree 3 4</span> in GHCI instead of binding it to a name with a <i>let</i> or passing it to another function?</p>
+<p>Kesitler ile ilgili tek özgün özellik <span class="fixed">-</span> işaretidir. Kesitlerin tanımlanma ifadesine göre, <span class="fixed">(-4)</span> bir fonksiyonun bir sayı aldıktan sonra ondan 4 çıkarmasına sebep olur. Parametre olarak aldığı sayıdan 4 çıkartan bir fonksiyon yapmak istiyorsanız, <span class="fixed">subtract</span> fonksiyonunu şunun gibi kısmi uygulayın: <span class="fixed">(subtract 4)</span>.</p>
+<p>Peki <i>let</i> kullanarak bir isme bağlamadan veya başka bir fonksiyona aktarmadan GHCI'nin içinde sadece <span class="fixed">multThree 3 4</span> işlemini yapsak ne olur?</p>
 <pre name="code" class="haskell:hs">
 ghci&gt; multThree 3 4
 &lt;interactive&gt;:1:0:
@@ -91,7 +91,7 @@ ghci&gt; multThree 3 4
     In the expression: print it
     In a 'do' expression: print it
 </pre>
-<p>GHCI is telling us that the expression produced a function of type <span class="fixed">a -&gt; a</span> but it doesn't know how to print it to the screen. Functions aren't instances of the <span class="fixed">Show</span> typeclass, so we can't get a neat string representation of a function. When we do, say, <span class="fixed">1 + 1</span> at the GHCI prompt, it first calculates that to <span class="fixed">2</span> and then calls <span class="fixed">show</span> on <span class="fixed">2</span> to get a textual representation of that number. And the textual representation of <span class="fixed">2</span> is just the string <span class="fixed">"2"</span>, which then gets printed to our screen.</p>
+<p>GHCI burda bize ifadenin <span class="fixed">a -&gt; a</span> tipinde bir fonksiyon yarattığını fakat ekrana nasıl yazdıracağını bilmediğini söylüyor. Fonksiyonlar <span class="fixed">Show</span> tip-sınıfının üyesi değillerdir, yani bir fonksiyonun açık string gösterimini alamayız. <span class="fixed">1 + 1</span> işlemini yaptığımızda derleyici bunu <span class="fixed">2</span> olarak hesaplar ve sonra metin gösterimini almak için <span class="fixed">show</span> 'u çağırır. Ve <span class="fixed">2</span> 'nin metin gösterimi sadece <span class="fixed">"2"</span> stringidir, ki bu da ekrana yazdırılan sayıdır.</p>
 <a name="higher-orderism"></a><h2>Some higher-orderism is in order</h2>
 <p>Functions can take functions as parameters and also return functions. To illustrate this, we're going to make a function that takes a function and then applies it twice to something!</p>
 <pre name="code" class="haskell:hs">
