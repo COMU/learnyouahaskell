@@ -157,14 +157,14 @@ ghci&gt; flip' zip [1,2,3,4,5] "hello"
 ghci&gt; zipWith (flip' div) [2,2..] [10,8,6,4,2]
 [5,4,3,2,1]
 </pre>
-<a name="maps-and-filters"></a><h2>Maps and filters</h2>
-<p><span class="function label">map</span> takes a function and a list and applies that function to every element in the list, producing a new list. Let's see what its type signature is and how it's defined.</p>
+<a name="maps-and-filters"></a><h2>Haritalar ve süzgeçler</h2>
+<p><span class="function label">map</span> bir fonksiyon ve bir liste alarak, aldığı fonksiyonu listedeki tüm elemanlara uygular ve yeni bir liste yaratır. Hadi fonksiyonun neye benzediğine bakalım.</p>
 <pre name="code" class="haskell:hs">
 map :: (a -&gt; b) -&gt; [a] -&gt; [b]
 map _ [] = []
 map f (x:xs) = f x : map f xs
 </pre>
-<p>The type signature says that it takes a function that takes an <span class="fixed">a</span> and returns a <span class="fixed">b</span>, a list of <span class="fixed">a</span>'s and returns a list of <span class="fixed">b</span>'s. It's interesting that just by looking at a function's type signature, you can sometimes tell what it does. <span class="fixed">map</span> is one of those really versatile higher-order functions that can be used in millions of different ways. Here it is in action:</p>
+<p>Tip imzası bize bunun bir <span class="fixed">a</span> alan ve bir <span class="fixed">b</span> döndüren bir fonksiyonu parametre olarak alan bir fonksiyon olduğunu söylüyor, <span class="fixed">a</span>'lardan oluşan bir liste alıyor ve <span class="fixed">b</span>'lerden oluşan bir liste döndürüyor. İlginçtir ki bazen sadece fonksiyonun tip imzasına bakarak o fonksiyonun ne yaptığını söyleyebilirsiniz. <span class="fixed">map</span> fonksiyonu milyon tane işte kullanılabilen gerçekten çok yönlü yüksek mertebeli fonksiyonlardan biridir. Fonksiyona bir göz atalım:</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; map (+3) [1,5,3,1,6]
 [4,8,6,4,9]
@@ -177,8 +177,8 @@ ghci&gt; map (map (^2)) [[1,2],[3,4,5,6],[7,8]]
 ghci&gt; map fst [(1,2),(3,5),(6,3),(2,6),(2,5)]
 [1,3,6,2,2]
 </pre>
-<p>You've probably noticed that each of these could be achieved with a list comprehension. <span class="fixed">map (+3) [1,5,3,1,6]</span> is the same as writing <span class="fixed">[x+3 | x &lt;- [1,5,3,1,6]]</span>. However, using <span class="fixed">map</span> is much more readable for cases where you only apply some function to the elements of a list, especially once you're dealing with maps of maps and then the whole thing with a lot of brackets can get a bit messy.</p>
-<p><span class="label function">filter</span> is a function that takes a predicate (a predicate is a function that tells whether something is true or not, so in our case, a function that returns a boolean value) and a list and then returns the list of elements that satisfy the predicate. The type signature and implementation go like this:</p> 
+<p>Muhtemelen bu işlemlerin bir liste üreteci ile yapılabileceğini de farketmişsinizdir. <span class="fixed">map (+3) [1,5,3,1,6]</span> ifadesi <span class="fixed">[x+3 | x &lt;- [1,5,3,1,6]]</span> ile aynıdır. Fakat, bir fonksiyonu bir listenin elemanlarına uygularken <span class="fixed">map</span> fonksiyonunu kullanmak okunabilirlik için çok daha iyidir, özellikle haritaların haritaları ile uğraşırken bütün iş biraz karışabilir.</p>
+<p><span class="label function">filter</span> bir  doğrulayıcı (doğrulayıcı bir şeyin doğru veya yanlış olduğunu söyleyen bir fonksiyondur, yani bizim örneğimizde boolean tipi veri döndüren bir fonksiyondur) ve bir liste alır ve sonra doğrulayıcıyı tatmin eden elemanların listesini döndürür. Tip imzası ve uygulaması şuna benzer:</p> 
 <pre name="code" class="haskell:hs">
 filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
 filter _ [] = []
@@ -186,7 +186,7 @@ filter p (x:xs)
     | p x       = x : filter p xs
     | otherwise = filter p xs
 </pre>
-<p>Pretty simple stuff. If <span class="fixed">p x</span> evaluates to <span class="fixed">True</span>, the element gets included in the new list. If it doesn't, it stays out. Some usage examples:</p>
+<p>Gayet kolay değil mi? Eğer <span class="fixed">p x</span> ifadesi <span class="fixed">True</span> olarak hesaplanıyorsa, eleman yeni listeye aktarılır. Eğer öyle hesaplanmıyorsa listenin dışında kalır. İşte birkaç örnek:</p>
 <pre name="code" class="haskell:hs">
 ghci&gt; filter (&gt;3) [1,5,3,2,1,6,4,3,2,1]
 [5,6,4]
