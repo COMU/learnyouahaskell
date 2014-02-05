@@ -240,7 +240,7 @@ chain n
     | even n =  n:chain (n `div` 2)
     | odd n  =  n:chain (n*3 + 1)
 </pre>
-<p>Because the chains end at 1, that's the edge case. This is a pretty standard recursive function.</p>
+<p>Zincirler 1'de bittiği için sınır koşulu budur. Bayağı standart bir özyinelemeli fonksiyon değil mi?</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; chain 10
 [10,5,16,8,4,2,1]
@@ -249,21 +249,21 @@ ghci&gt; chain 1
 ghci&gt; chain 30
 [30,15,46,23,70,35,106,53,160,80,40,20,10,5,16,8,4,2,1]
 </pre>
-<p>Yay! It seems to be working correctly. And now, the function that tells us the answer to our question:</p>
+<p>Olley! Doğru çalışıyor gibi gözüküyor. Ve şimdi sıra sorumuza cevap veren fonksiyona geldi:</p>
 <pre name="code" class="haskell:hs">
 numLongChains :: Int
 numLongChains = length (filter isLong (map chain [1..100]))
     where isLong xs = length xs &gt; 15
 </pre>
-<p>We map the <span class="fixed">chain</span> function to <span class="fixed">[1..100]</span> to get a list of chains, which are themselves represented as lists. Then, we filter them by a predicate that just checks whether a list's length is longer than 15. Once we've done the filtering, we see how many chains are left in the resulting list.</p>
-<div class="hintbox"><em>Note:</em> This function has a type of <span class="fixed">numLongChains :: Int</span> because <span class="fixed">length</span> returns an <span class="fixed">Int</span> instead of a <span class="fixed">Num a</span> for historical reasons. If we wanted to return a more general <span class="fixed">Num a</span>, we could have used <span class="fixed">fromIntegral</span> on the resulting length.</div>
-<p>Using <span class="fixed">map</span>, we can also do stuff like <span class="fixed">map (*) [0..]</span>, if not for any other reason than to illustrate how currying works and how (partially applied) functions are real values that you can pass around to other functions or put into lists (you just can't turn them to strings). So far, we've only mapped functions that take one parameter over lists, like <span class="fixed">map (*2) [0..]</span> to get a list of type <span class="fixed">(Num a) =&gt; [a]</span>, but we can also do <span class="fixed">map (*) [0..]</span> without a problem. What happens here is that the number in the list is applied to the function <span class="fixed">*</span>, which has a type of <span class="fixed">(Num a) =&gt; a -&gt; a -&gt; a</span>. Applying only one parameter to a function that takes two parameters returns a function that takes one parameter. If we map <span class="fixed">*</span> over the list <span class="fixed">[0..]</span>, we get back a list of functions that only take one parameter, so <span class="fixed">(Num a) =&gt; [a -&gt; a]</span>. <span class="fixed">map (*) [0..]</span> produces a list like the one we'd get by writing <span class="fixed">[(0*),(1*),(2*),(3*),(4*),(5*)..</span>.</p>
+<p>Zincirlerin listesini almak için <span class="fixed">chain</span> fonksiyonunu <span class="fixed">[1..100]</span> 'e haritalıyoruz, ki aslında bunlar da liste olarak gösterilir. Sonra ise listenin uzunluğunun 15'ten büyük olup olmadığına bakan bir koşul ile süzgeçliyoruz. Süzgeçlemeyi bitirdiğimiz zaman, sonuç listesinde kaç tane zincir kaldığını görürüz.</p>
+<div class="hintbox"><em>Not:</em> Bu fonksiyonun tipi <span class="fixed">numLongChains :: Int</span> 'tir çünkü <span class="fixed">length</span> fonksiyonu <span class="fixed">Num a</span> yerine <span class="fixed">Int</span> döndürür. Eğer daha genel bir <span class="fixed">Num a</span> döndürmek isteseydik, sonuç listesinin uzunluğu için <span class="fixed">fromIntegral</span> kullanabilirdik.</div>
+<p>Eğer currylemenin nasıl çalıştığını veya kısmı uygulanmış fonksiyonların listelerin içine koyabileceğiniz, diğer fonksiyonlara aktarabileceğiniz gerçel değerler olduğunu göstermekten başka bir nedeniniz yoksa <span class="fixed">map</span> 'i kullanarak <span class="fixed">map (*) [0..]</span> gibi şeyler yapabilirsiniz. Buraya kadar sadece, listeler üzerinden bir parametre alan fonksiyonları haritaladık, mesela <span class="fixed">(Num a) =&gt; [a]</span> tipinde liste almak için haritaladığımız <span class="fixed">map (*2) [0..]</span> gibi, fakat aynı zamanda problemsiz bir şekilde <span class="fixed">map (*) [0..]</span> da yapabiliriz. Burda olan şey, listedeki sayılar <span class="fixed">(Num a) =&gt; a -&gt; a -&gt; a</span> tipindeki <span class="fixed">*</span> fonksiyonuna uygulanmasıdır. İki parametre alan bir fonksiyona sadece bir parametre uygulamak, sadece bir parametre alan bir fonksiyon döndürülmesine yol açar. Eğer <span class="fixed">*</span> 'ı <span class="fixed">[0..]</span> listesinin üzerinden haritalarsak, sadece bir parametre alan fonksiyonların listesini alırız, ki bu da <span class="fixed">(Num a) =&gt; [a -&gt; a]</span> 'dır. <span class="fixed">map (*) [0..]</span> ifadesi <span class="fixed">[(0*),(1*),(2*),(3*),(4*),(5*)..</span> gibi bir liste üretir.</p>
 <pre name="code" class="haskell:hs">
 ghci&gt; let listOfFuns = map (*) [0..]
 ghci&gt; (listOfFuns !! 4) 5
 20
 </pre>
-<p>Getting the element with the index <span class="fixed">4</span> from our list returns a function that's equivalent to <span class="fixed">(4*)</span>. And then, we just apply <span class="fixed">5</span> to that function. So that's like writing <span class="fixed">(4*) 5</span> or just <span class="fixed">4 * 5</span>.</p>
+<p>Listemizden <span class="fixed">4</span> index'ine sahip olan bir elemanı almak <span class="fixed">(4*)</span> 'a eşit olan bir fonksiyonu döndürür. Ve sonra ise, sadece <span class="fixed">5</span> 'i o fonksiyona uygularız. Yani bu <span class="fixed">(4*) 5</span> veya sadece <span class="fixed">4 * 5</span> yazmak gibidir.</p>
 <a name="lambdas"></a><h2>Lambdas</h2>
 <img src="http://s3.amazonaws.com/lyah/lambda.png" alt="lambda" class="right" width="203" height="230">
 <p>Lambdas are basically anonymous functions that are used because we need some functions only once. Normally, we make a lambda with the sole purpose of passing it to a higher-order function. To make a lambda, we write a <span class="fixed">\</span> (because it kind of looks like the greek letter lambda if you squint hard enough) and then we write the parameters, separated by spaces. After that comes a <span class="fixed">-&gt;</span> and then the function body. We usually surround them by parentheses, because otherwise they extend all the way to the right.</p>
