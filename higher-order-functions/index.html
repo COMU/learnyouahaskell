@@ -304,14 +304,14 @@ flip' f = \x y -&gt; f y x
 <a name="folds"></a><h2>Katlama sanatı</h2>
 <img src="http://s3.amazonaws.com/lyah/origami.png" alt="folded bird" class="right" width="220" height="221">
 <p>Özyineleme ile uğraşırken, listelerde kullanılan özyinelemeli fonksiyonların belli başlı temalara sahip olduğunu farketmiştik. Genellikle, boş listeler için bir sınır koşulu alırdık. <span class="fixed">x:xs</span> patternini tanıtırdık ve sonra listedeki bir eleman ve listenin geri kalan elemanlarını kapsayan bir işlem yapardık. Zamanla bunun çok genel bir pattern olduğu ortaya çıktı, yani bu yöntemi içeren çok yararlı birkaç fonksiyon yazıldı. Bu fonksiyonlara katlama fonksiyonları denir. <span class="fixed">map</span> fonksiyonu gibidirler, fakat bir listeyi tek bir değere dönüşecek şekilde kısarlar. </p>
-<p>A fold takes a binary function, a starting value (I like to call it the accumulator) and a list to fold up. The binary function itself takes two parameters. The binary function is called with the accumulator and the first (or last) element and produces a new accumulator. Then, the binary function is called again with the new accumulator and the now new first (or last) element, and so on. Once we've walked over the whole list, only the accumulator remains, which is what we've reduced the list to.</p>
-<p>First let's take a look at the <span class="label function">foldl</span> function, also called the left fold. It folds the list up from the left side. The binary function is applied between the starting value and the head of the list. That produces a new accumulator value and the binary function is called with that value and the next element, etc.</p>
-<p>Let's implement <span class="fixed">sum</span> again, only this time, we'll use a fold instead of explicit recursion.</p>
+<p>Bir katlama fonksiyonu parametre olarak iki değişkenli bir fonksiyon, bir başlangıç değeri (buna akümülatör demeyi seviyorum) ve katlamak için bir liste alır. İki değişkenli fonksiyon bir akümülatör ve listenin ilk (veya son) elemanı ile çağırılır ve yeni bir akümülatör üretir. Sonra, iki değişkenli fonksiyon yeni akümülatör ve yeni ilk (veya yeni son) eleman ile çağırılır ve yeni bir akümülatör üretir ve bu böyle gider. Listenin üzerinden geçtiğimizde sadece bir tane akümülatör kalır, bu da aslında listeyi katladığımız şeydir.</p>
+<p>Haydi <span class="label function">foldl</span> fonksiyonuna bakalım, bu aynı zamanda sol katlama olarak da adlandırılır (left fold). Bu fonksiyon listeyi sol tarafından katlar. İki değişkenli fonksiyon listenin başı ile başlangıç değeri arasında uygulanır. Bu yeni bir akümülatör değeri üretir ve iki değişkenli fonksiyon bu değer ve bir sonraki eleman ile çağrılır, vs.</p>
+<p><span class="fixed">sum</span> 'u tekrar uygulayalım, fakat bu sefer açık özyineleme yerine bir katlama fonksiyonu kullanacağız.</p>
 <pre name="code" class="haskell:hs">
 sum' :: (Num a) =&gt; [a] -&gt; a
 sum' xs = foldl (\acc x -&gt; acc + x) 0 xs
 </pre>
-<p>Testing, one two three:</p>
+<p>Test edelim:</p>
 <pre name="code" class="haskell:ghci">
 ghci&gt; sum' [3,5,2,1]
 11
